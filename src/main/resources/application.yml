@@ -1,17 +1,32 @@
-spring.datasource.driver-class-name: org.h2.Driver
-spring.datasource.url: jdbc:h2:tcp://localhost/~/.h2/lby-test;DB_CLOSE_DELAY=-1;
-spring.datasource.username: sa
-spring.datasource.password: 
-spring.jpa.show-sql: true
-spring.jpa.hibernate.ddl-auto: none
-
-activiti:
+ spring:
+  application:
+    name: activiti-spring-boot
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:tcp://localhost/~/.h2/lby-test;DB_CLOSE_DELAY=-1;
+    username: sa
+    password: 
+    druid:
+      validationQuery: SELECT 1
+      initialSize: 10
+      minIdle: 10
+      maxActive: 200
+      minEvictableIdleTimeMillis: 180000
+      testOnBorrow: false
+      testWhileIdle: true
+      removeAbandoned: true
+      removeAbandonedTimeout: 1800
+      logAbandoned: true
+      poolPreparedStatements: true
+      maxOpenPreparedStatements: 100
+  activiti:
     check-process-definitions: false
-mvc:
+  mvc:
     static-path-pattern: /**
-  
-security:
+    
+ security:
   basic:
     enabled: false
-server:
+    
+ server:
   port: 6000

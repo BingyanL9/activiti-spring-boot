@@ -29,25 +29,13 @@
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-spring-boot-starter-basic</artifactId>
-			<version>5.21.0</version>
+			<version>6.0.0</version>
 		</dependency>
-		
-		<dependency>
-           <groupId>org.activiti</groupId>
-           <artifactId>activiti-modeler</artifactId>
-           <version>5.21.0</version>
-        </dependency>
-
-        <dependency>
-          <groupId>org.activiti</groupId>
-          <artifactId>activiti-diagram-rest</artifactId>
-          <version>5.21.0</version>
-        </dependency>
         
         <dependency>
           <groupId>org.activiti</groupId>
           <artifactId>activiti-engine</artifactId>
-          <version>5.21.0</version>
+          <version>6.0.0</version>
        </dependency>
  
 		<!-- spring boot -->
@@ -113,6 +101,12 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
+		
+		<dependency>
+           <groupId>com.github.drtrang</groupId>
+           <artifactId>druid-spring-boot-starter</artifactId>
+           <version>1.0.2</version>
+       </dependency>
 		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
