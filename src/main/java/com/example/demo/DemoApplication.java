@@ -7,12 +7,15 @@ import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import com.alibaba.druid.pool.DruidDataSource;
 
 @SpringBootApplication
+@ComponentScan("com.testing")
 public class DemoApplication {
   
    @Autowired
@@ -20,6 +23,10 @@ public class DemoApplication {
    
    @Autowired
    DruidDataSource druidDataSource;
+
+   protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+     return application.sources(DemoApplication.class);
+   }
 
 	public static void main(String[] args) {
 	    startH2Server();
