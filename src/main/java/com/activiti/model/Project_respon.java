@@ -1,21 +1,43 @@
 package com.activiti.model;
 
+
+import java.io.Serializable;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.IdClass;
+import javax.persistence.ManyToOne;
 
 @Entity
-public class Project_respon {
+@IdClass(Project_respon_id.class)
+public class Project_respon implements Serializable{
   
+
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   @Id
+  @ManyToOne(fetch = FetchType.LAZY, targetEntity = Project.class, cascade = CascadeType.REMOVE)
   private long pno;
   
   @Id
-  @OneToMany
-  private long charge;
+  @ManyToOne(fetch = FetchType.LAZY, targetEntity = Teacher.class)
+  private String charge;
   
   @Id
   private int level;
+
+  
+  public Project_respon(long pno, String charge, int level) {
+    super();
+    this.pno = pno;
+    this.charge = charge;
+    this.level = level;
+  }
 
   public long getPno() {
     return pno;
@@ -25,11 +47,11 @@ public class Project_respon {
     this.pno = pno;
   }
 
-  public long getCharge() {
+  public String getCharge() {
     return charge;
   }
 
-  public void setCharge(long charge) {
+  public void setCharge(String charge) {
     this.charge = charge;
   }
 

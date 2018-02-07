@@ -23,9 +23,6 @@
   activiti:
     check-process-definitions: false
     
-  profiles:
-       active: test
-    
   mvc:
     static-path-pattern: /**
     

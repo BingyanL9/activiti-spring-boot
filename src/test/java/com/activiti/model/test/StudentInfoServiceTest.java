@@ -11,9 +11,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.activiti.DemoApplication;
+import com.activiti.model.Role;
 import com.activiti.model.StudentInfo;
 import com.activiti.repository.StudentInfoRepository;
-import com.example.demo.DemoApplication;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = DemoApplication.class)
@@ -28,13 +29,13 @@ public class StudentInfoServiceTest {
   
   @Before
   public void setUp() {
-    studentInfo = new StudentInfo((long) 001, "Echo", "123456", "bingyanl@126.com");
+    studentInfo = new StudentInfo("201810311100", "Echo", "123456", "bingyanl@126.com",Role.ordinary);
     studentInfoRepository.save(studentInfo);
   }
   
   @Test
   public void find() {
-    String eamil = studentInfoRepository.findStudentEmail((long) 001);
+    String eamil = studentInfoRepository.findStudentEmail("001");
     assertNotNull(eamil);
   }
 

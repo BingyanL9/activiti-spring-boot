@@ -1,16 +1,27 @@
 package com.activiti.model;
 
+import java.io.Serializable;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Dedicated_budget {
-  
+@IdClass(Dedicated_budget_id.class)
+public class Dedicated_budget implements Serializable{
+
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   @Id
-  @ManyToOne
-  private Long tno;
+  @ManyToOne(fetch = FetchType.LAZY, targetEntity = Teacher.class, cascade = CascadeType.REMOVE)
+  private String tno;
   
   @Id
   private String item_name;
@@ -18,11 +29,18 @@ public class Dedicated_budget {
   @Column(name = "budget", nullable = false)
   private long budget;
 
-  public Long getTno() {
+  public Dedicated_budget(String tno, String item_name, long budget) {
+    super();
+    this.tno = tno;
+    this.item_name = item_name;
+    this.budget = budget;
+  }
+
+  public String getTno() {
     return tno;
   }
 
-  public void setTno(Long tno) {
+  public void setTno(String tno) {
     this.tno = tno;
   }
 

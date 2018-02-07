@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.activiti;
 
 import java.sql.SQLException;
 
@@ -12,10 +12,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import com.activiti.model.Role;
+import com.activiti.model.StudentInfo;
+import com.activiti.repository.StudentInfoRepository;
 import com.alibaba.druid.pool.DruidDataSource;
 
 @SpringBootApplication
-@ComponentScan("com.testing")
+@ComponentScan("com.activiti")
 public class DemoApplication {
   
    @Autowired

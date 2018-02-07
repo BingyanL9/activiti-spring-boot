@@ -4,8 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
@@ -13,8 +12,7 @@ import javax.persistence.ManyToOne;
 public class Teacher {
   
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long tno;
+  private String tno;
   
   @Column(name = "teacher_name", nullable = false, length = 100)
   private String teacher_name;
@@ -31,18 +29,31 @@ public class Teacher {
   @Column(name = "title", length =32) 
   private String title;
   
-  @Column(name = "role", nullable = true, length = 10)
+  @Column(name = "role", nullable = false)
   @Enumerated(EnumType.STRING)
-  private String role;
+  private Role role;
   
-  @ManyToOne
-  private long leader_tno;
+  @ManyToOne(fetch = FetchType.LAZY, targetEntity = Teacher.class)
+  private String leader_tno;
 
-  public Long getTno() {
+  public Teacher(String tno, String teacher_name, String password, String email, String college,
+      String title, Role role, String leader_tno) {
+    super();
+    this.tno = tno;
+    this.teacher_name = teacher_name;
+    this.password = password;
+    this.email = email;
+    this.college = college;
+    this.title = title;
+    this.role = role;
+    this.leader_tno = leader_tno;
+  }
+
+  public String getTno() {
     return tno;
   }
 
-  public void setTno(Long tno) {
+  public void setTno(String tno) {
     this.tno = tno;
   }
 
@@ -86,21 +97,20 @@ public class Teacher {
     this.title = title;
   }
 
-  public String getRole() {
+  public Role getRole() {
     return role;
   }
 
-  public void setRole(String role) {
+  public void setRole(Role role) {
     this.role = role;
   }
 
-  public long getLeader_tno() {
+  public String getLeader_tno() {
     return leader_tno;
   }
 
-  public void setLeader_tno(long leader_tno) {
+  public void setLeader_tno(String leader_tno) {
     this.leader_tno = leader_tno;
   }
-  
-   
+
 }

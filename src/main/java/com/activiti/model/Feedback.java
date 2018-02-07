@@ -4,14 +4,16 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Feedback {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private long fno;
   
   @Column(name = "feedback_time", nullable = false)
@@ -24,8 +26,17 @@ public class Feedback {
   @Column(name = "suggest", length = 1024)
   private String suggest;
   
-  @OneToOne
+  @Column(name = "apno", nullable = false, length = 20)
   private long apno;
+
+  public Feedback(long fno, Date feedback_time, byte isCorrect, String suggest, long apno) {
+    super();
+    this.fno = fno;
+    this.feedback_time = feedback_time;
+    this.isCorrect = isCorrect;
+    this.suggest = suggest;
+    this.apno = apno;
+  }
 
   public long getFno() {
     return fno;

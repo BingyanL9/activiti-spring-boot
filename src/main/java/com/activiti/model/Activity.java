@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,8 +29,8 @@ public class Activity {
   @Column(name = "end_time")
   private Date end_time;
   
-  @ManyToOne
-  private long charge_cno;
+  @ManyToOne(fetch = FetchType.LAZY,optional = false,targetEntity = Club.class)
+  private String charge_cno;
 
   public Long getAno() {
     return ano;
@@ -71,11 +72,22 @@ public class Activity {
     this.end_time = end_time;
   }
 
-  public long getCharge_cno() {
+  public String getCharge_cno() {
     return charge_cno;
   }
 
-  public void setCharge_cno(long charge_cno) {
+  public void setCharge_cno(String charge_cno) {
+    this.charge_cno = charge_cno;
+  }
+
+  public Activity(Long ano, String activity_name, long budget, Date starting_date, Date end_time,
+      String charge_cno) {
+    super();
+    this.ano = ano;
+    this.activity_name = activity_name;
+    this.budget = budget;
+    this.starting_date = starting_date;
+    this.end_time = end_time;
     this.charge_cno = charge_cno;
   }
 }

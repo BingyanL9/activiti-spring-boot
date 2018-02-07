@@ -27,6 +27,15 @@ public class Project {
   @Column(name = "end_time")
   private Date end_time;
 
+  public Project(Long pno, String project_name, long budget, Date starting_date, Date end_time) {
+    super();
+    this.pno = pno;
+    this.project_name = project_name;
+    this.budget = budget;
+    this.starting_date = starting_date;
+    this.end_time = end_time;
+  }
+
   public Long getPno() {
     return pno;
   }
