@@ -45,7 +45,7 @@ CREATE TABLE `club` (
 CREATE TABLE `project` (
   `pno` bigint(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `project_name` varchar(100) NOT NULL,
-  `budget` int(11),
+  `budget` double,
   `starting_time` date,
   `end_time` date
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -53,7 +53,7 @@ CREATE TABLE `project` (
 CREATE TABLE `activity` (
   `ano` bigint(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `activity_name` varchar(100) NOT NULL,
-  `budget` int(11),
+  `budget` double,
   `starting_time` date,
   `end_time` date,
   `charge_club` bigint(20),
@@ -63,7 +63,7 @@ CREATE TABLE `activity` (
 CREATE TABLE `dedicated_budget` (
   `tno` bigint(20) NOT NULL,
   `item_name` varchar(100) NOT NULL,
-  `budget` int(11) NOT NULL,
+  `budget` double NOT NULL,
   CONSTRAINT CONSTRAINT_C3 PRIMARY KEY (`tno`,`item_name`),
   CONSTRAINT `TNO_FK` FOREIGN KEY (`tno`) REFERENCES `teacher` (`tno`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -73,9 +73,10 @@ CREATE TABLE `voucher` (
   `invoice_code` varchar(32),
   `invoice_no` varchar(32),
   `voucher_type` varchar(100) NOT NULL,
-  `item_name` varchar(100) NOT NULL,
-  `item_money` int(11) NOT NULL,
-  `enclosure` blob NOT NULL 
+  `expense_money` double NOT NULL,
+  `enclosure` blob NOT NULL,
+  `apno` bigint NOT NULL,
+  CONSTRAINT `APNO_FK1` FOREIGN KEY (`apno`) REFERENCES `application` (`apno`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `application` (
@@ -84,13 +85,11 @@ CREATE TABLE `application` (
   `application_sno` bigint(20),
   `application_tno` bigint(20),
   `pno` bigint(20),
-  `ano` bigint(20),
-  `vno` bigint(20) NOT NULL,
+  `ano` bigint(20)
   CONSTRAINT `APPLICATION_SNO_FK` FOREIGN KEY (`application_sno`) REFERENCES `studentinfo` (`sno`),
   CONSTRAINT `APPLICATION_TNO_FK` FOREIGN KEY (`application_tno`) REFERENCES `teacher` (`tno`),
   CONSTRAINT `PNO_FK` FOREIGN KEY (`pno`) REFERENCES `project` (`pno`),
-  CONSTRAINT `ANO_FK` FOREIGN KEY (`ano`) REFERENCES `activity` (`ano`),
-  CONSTRAINT `VNO_FK` FOREIGN KEY (`vno`) REFERENCES `voucher` (`vno`)
+  CONSTRAINT `ANO_FK` FOREIGN KEY (`ano`) REFERENCES `activity` (`ano`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `project_respon` (
@@ -113,6 +112,14 @@ CREATE TABLE `approval` (
   CONSTRAINT `APNO_FK2` FOREIGN KEY (`apno`) REFERENCES `application` (`apno`),
   CONSTRAINT `APPLICATION_PERSON_FK` FOREIGN KEY (`approval_person`) REFERENCES `teacher` (`tno`),
   CONSTRAINT `APPLICATION_CLUB_FK` FOREIGN KEY (`approval_club`) REFERENCES `club` (`cno`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `Item` (
+  `id` bigint(20) PRIMARY KEY NOT NULL,
+  `item_name` varchar(100) NOT NULL,
+  `item_money` double NOT NULL,
+  `vno` bigint NOT NULL,
+  CONSTRAINT `VNO_FK` FOREIGN KEY (`vno`) REFERENCES `vouvher` (`vno`),
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `feedback` (

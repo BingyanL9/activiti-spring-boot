@@ -18,8 +18,8 @@ public class Project {
   @Column(name = "project_name", nullable = false, length = 100)
   private String project_name;
   
-  @Column(name = "budget", length = 11)
-  private long budget;
+  @Column(name = "budget")
+  private double budget;
   
   @Column(name = "starting_date")
   private Date starting_date;
@@ -27,7 +27,7 @@ public class Project {
   @Column(name = "end_time")
   private Date end_time;
 
-  public Project(Long pno, String project_name, long budget, Date starting_date, Date end_time) {
+  public Project(Long pno, String project_name, double budget, Date starting_date, Date end_time) {
     super();
     this.pno = pno;
     this.project_name = project_name;
@@ -52,11 +52,11 @@ public class Project {
     this.project_name = project_name;
   }
 
-  public long getBudget() {
+  public double getBudget() {
     return budget;
   }
 
-  public void setBudget(long budget) {
+  public void setBudget(double budget) {
     this.budget = budget;
   }
 
@@ -75,5 +75,6 @@ public class Project {
   public void setEnd_time(Date end_time) {
     this.end_time = end_time;
   }
+
  
 }

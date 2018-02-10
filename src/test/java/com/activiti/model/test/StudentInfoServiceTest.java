@@ -1,6 +1,6 @@
 package com.activiti.model.test;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -35,8 +35,10 @@ public class StudentInfoServiceTest {
   
   @Test
   public void find() {
-    String eamil = studentInfoRepository.findStudentEmail("001");
-    assertNotNull(eamil);
+    String email = studentInfoRepository.findStudentEmail("201810311100");
+    assertNotNull(email);
+    assertEquals(email,"bingyanl@126.com");
+    
   }
 
 }

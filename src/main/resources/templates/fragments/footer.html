@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+</head>
+
+<div th:fragment="footer">
+	<div id="loading-indicator">
+		<div class="form-group">
+		    <div class="spinner">
+		        <img th:src="@{/images/large-loading.gif}" alt="Loading"></img>
+		    </div>
+		</div>
+	</div>
+	<div id="notifications"></div>
+    <footer class="footer">
+        <span>&copy; Copyright Echo Liang. 2018, <font th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy')}"></font>. All rights reserved.</span>
+        <script type="text/javascript" th:src="@{/js/lib/require.js}" data-main="/js/require-main.js"></script>
+    </footer>
+</div>
+
+</html>

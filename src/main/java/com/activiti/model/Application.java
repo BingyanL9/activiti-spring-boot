@@ -31,13 +31,8 @@ public class Application {
   @ManyToOne(fetch = FetchType.LAZY, targetEntity = Activity.class, cascade = CascadeType.REMOVE)
   private long ano;
   
-  @ManyToOne(fetch = FetchType.LAZY, optional = false, targetEntity = Voucher.class)
-  private long vno;
-  
-  
-
   public Application(Long apno, String application_type, String application_sno,
-      String application_tno, long pno, long ano, long vno) {
+      String application_tno, long pno, long ano) {
     super();
     this.apno = apno;
     this.application_type = application_type;
@@ -45,7 +40,6 @@ public class Application {
     this.application_tno = application_tno;
     this.pno = pno;
     this.ano = ano;
-    this.vno = vno;
   }
 
   public Long getApno() {
@@ -96,14 +90,6 @@ public class Application {
 
   public void setAno(long ano) {
     this.ano = ano;
-  }
-
-  public long getVno() {
-    return vno;
-  }
-
-  public void setVno(long vno) {
-    this.vno = vno;
   }
   
 }

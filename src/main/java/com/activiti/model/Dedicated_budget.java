@@ -26,10 +26,10 @@ public class Dedicated_budget implements Serializable{
   @Id
   private String item_name;
   
-  @Column(name = "budget", nullable = false)
-  private long budget;
+  @Column(name = "budget")
+  private double budget;
 
-  public Dedicated_budget(String tno, String item_name, long budget) {
+  public Dedicated_budget(String tno, String item_name, double budget) {
     super();
     this.tno = tno;
     this.item_name = item_name;
@@ -52,11 +52,11 @@ public class Dedicated_budget implements Serializable{
     this.item_name = item_name;
   }
 
-  public long getBudget() {
+  public double getBudget() {
     return budget;
   }
 
-  public void setBudget(long budget) {
+  public void setBudget(double budget) {
     this.budget = budget;
   }
   

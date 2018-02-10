@@ -2,19 +2,14 @@ package com.activiti;
 
 import java.sql.SQLException;
 
-import org.activiti.spring.SpringProcessEngineConfiguration;
 import org.h2.tools.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import com.activiti.model.Role;
-import com.activiti.model.StudentInfo;
-import com.activiti.repository.StudentInfoRepository;
 import com.alibaba.druid.pool.DruidDataSource;
 
 @SpringBootApplication
@@ -48,18 +43,5 @@ public class DemoApplication {
 	      throw new RuntimeException("Failed to start H2 server: ", e);
 	    }
 	  }
-	 
-	 @Bean
-	  public SpringProcessEngineConfiguration getProcessEngineConfiguration(){
-	      SpringProcessEngineConfiguration config =  
-	                             new SpringProcessEngineConfiguration();
-	      config.setDataSource(druidDataSource);
-	      config.setTransactionManager(transactionManager);
-	      config.setDatabaseType("h2");
-
-	      config.setDatabaseSchemaUpdate("true");
-	      return config;
-	  }
-	 
 	 
 }

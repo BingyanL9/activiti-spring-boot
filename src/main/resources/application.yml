@@ -6,7 +6,6 @@
     url: jdbc:h2:tcp://localhost/~/.h2/lby-test;DB_CLOSE_DELAY=-1;
     username: sa
     password:
-    schema: classpath:/schema-mysql.sql 
     druid:
       validationQuery: SELECT 1
       initialSize: 10
@@ -22,13 +21,18 @@
       maxOpenPreparedStatements: 100
   activiti:
     check-process-definitions: false
+    mailServerHost: smtp.163.com
+    mailServerPost: 25
+    mailServerDefaultFrom: bingyanl@126.com
+    mailServerUsername: bingyanl@126.com
+    mailServerPassword: lby951104
     
   mvc:
     static-path-pattern: /**
+    view:
+     suffix: .html
     
  security:
   basic:
     enabled: false
-    
- server:
-  port: 6000
+ 

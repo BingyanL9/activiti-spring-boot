@@ -20,8 +20,8 @@ public class Activity {
   @Column(name = "activity_name", nullable = false, length = 100)
   private String activity_name;
   
-  @Column(name = "budget", length = 11)
-  private long budget;
+  @Column(name = "budget")
+  private double budget;
   
   @Column(name = "starting_date")
   private Date starting_date;
@@ -48,11 +48,11 @@ public class Activity {
     this.activity_name = activity_name;
   }
 
-  public long getBudget() {
+  public double getBudget() {
     return budget;
   }
 
-  public void setBudget(long budget) {
+  public void setBudget(double budget) {
     this.budget = budget;
   }
 
@@ -80,7 +80,7 @@ public class Activity {
     this.charge_cno = charge_cno;
   }
 
-  public Activity(Long ano, String activity_name, long budget, Date starting_date, Date end_time,
+  public Activity(Long ano, String activity_name, double budget, Date starting_date, Date end_time,
       String charge_cno) {
     super();
     this.ano = ano;
@@ -90,4 +90,5 @@ public class Activity {
     this.end_time = end_time;
     this.charge_cno = charge_cno;
   }
+
 }

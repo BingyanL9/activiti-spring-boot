@@ -34,6 +34,11 @@ public class StudentInfo {
     this.role = role;
   }
 
+  public StudentInfo() {
+    super();
+    // TODO Auto-generated constructor stub
+  }
+
   public String getSno() {
     return sno;
   }

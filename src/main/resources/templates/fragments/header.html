@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="header">
+<title>Expense System</title>
+<meta charset="utf-8"/>
+<meta name="viewport"
+	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+<link rel="stylesheet" th:href="@{/css/bootstrap.css}" />
+<link rel="stylesheet" th:href="@{/css/footer.css}" />
+<link rel="stylesheet" th:href="@{/css/layout.css}" />
+</head>
+<script th:inline="javascript">
+	var contextPath = [[${#httpServletRequest.getContextPath()}]]
+</script>
+<div>
+</div>
+</html>

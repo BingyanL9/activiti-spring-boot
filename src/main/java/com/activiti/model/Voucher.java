@@ -2,10 +2,12 @@ package com.activiti.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Voucher {
@@ -23,15 +25,36 @@ public class Voucher {
   @Column(name = "voucher_type",nullable = false , length = 100)
   private String voucher_type;
   
-  @Column(name = "item_name",nullable = false , length = 100)
-  private String item_name;
-  
-  @Column(name = "item_money",nullable = false)
-  private Long item_money;
+  @Column(name = "expense_money",nullable = false)
+  private double expense_money;
   
   @Lob
   @Column(name = "enclosure",nullable = false, length = 4096)
   private String enclosure;
+  
+  @ManyToOne(fetch = FetchType.LAZY, optional = false, targetEntity = Application.class)
+  private long apno;
+
+
+  public Voucher(Long vno, String invoice_code, String invoice_no, String voucher_type,
+      double expense_money, String enclosure, long apno) {
+    super();
+    this.vno = vno;
+    this.invoice_code = invoice_code;
+    this.invoice_no = invoice_no;
+    this.voucher_type = voucher_type;
+    this.expense_money = expense_money;
+    this.enclosure = enclosure;
+    this.apno = apno;
+  }
+
+  public long getApno() {
+    return apno;
+  }
+
+  public void setApno(long apno) {
+    this.apno = apno;
+  }
 
   public Long getVno() {
     return vno;
@@ -65,20 +88,12 @@ public class Voucher {
     this.voucher_type = voucher_type;
   }
 
-  public String getItem_name() {
-    return item_name;
+  public double getExpense_money() {
+    return expense_money;
   }
 
-  public void setItem_name(String item_name) {
-    this.item_name = item_name;
-  }
-
-  public Long getItem_money() {
-    return item_money;
-  }
-
-  public void setItem_money(Long item_money) {
-    this.item_money = item_money;
+  public void setExpense_money(double expense_money) {
+    this.expense_money = expense_money;
   }
 
   public String getEnclosure() {

@@ -6,28 +6,36 @@ import java.util.HashMap;
 import java.util.Map;
 import java.io.FileInputStream;
 
-import org.activiti.engine.ProcessEngine;
-import org.activiti.engine.ProcessEngineConfiguration;
-import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.runtime.ProcessInstance;
-import org.activiti.engine.test.ActivitiRule;
-import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringRunner;
 
+import com.activiti.DemoApplication;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = DemoApplication.class)
+@ActiveProfiles("test")
 public class ProcessTestMyProcess {
+  
+    @Autowired
+    private RepositoryService repositoryService;
+    
+    @Autowired
+    private RuntimeService runtimeService;
 
-	private String filename = "C:\\Users\\IBM_ADMIN\\Documents\\GitHub\\activiti-spring-boot\\src\\main\\resources\\processes\\MyProcess.bpmn";
+	private String filename = "src/main/resources/processes/MyProcess.bpmn";
 
 
 	@Test
 	public void startProcess() throws Exception {
-	    ProcessEngine engine = ProcessEngineConfiguration.createStandaloneInMemProcessEngineConfiguration().buildProcessEngine();
-		RepositoryService repositoryService = engine.getRepositoryService();
 		repositoryService.createDeployment().addInputStream("myProcess.bpmn20.xml",
 				new FileInputStream(filename)).deploy();
-		RuntimeService runtimeService = engine.getRuntimeService();
 		Map<String, Object> variableMap = new HashMap<String, Object>();
 		variableMap.put("name", "Activiti");
 		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("myProcess", variableMap);
