@@ -6,6 +6,7 @@
     url: jdbc:h2:tcp://localhost/~/.h2/lby-test;DB_CLOSE_DELAY=-1;
     username: sa
     password:
+    data: classpath:/data-init.sql  
     druid:
       validationQuery: SELECT 1
       initialSize: 10
@@ -26,6 +27,9 @@
     mailServerDefaultFrom: bingyanl@126.com
     mailServerUsername: bingyanl@126.com
     mailServerPassword: lby951104
+  jpa:
+    show-sql: true
+    hibernate.ddl-auto: update
     
   mvc:
     static-path-pattern: /**

@@ -9,9 +9,9 @@ class Project_respon_id implements Serializable{
    */
   private static final long serialVersionUID = 1L;
 
-  private long pno;
+  private Project project;
   
-  private String charge;
+  private TeacherUser charge;
   
   private int level;
 

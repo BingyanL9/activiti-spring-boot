@@ -32,29 +32,8 @@ public class Voucher {
   @Column(name = "enclosure",nullable = false, length = 4096)
   private String enclosure;
   
-  @ManyToOne(fetch = FetchType.LAZY, optional = false, targetEntity = Application.class)
-  private long apno;
-
-
-  public Voucher(Long vno, String invoice_code, String invoice_no, String voucher_type,
-      double expense_money, String enclosure, long apno) {
-    super();
-    this.vno = vno;
-    this.invoice_code = invoice_code;
-    this.invoice_no = invoice_no;
-    this.voucher_type = voucher_type;
-    this.expense_money = expense_money;
-    this.enclosure = enclosure;
-    this.apno = apno;
-  }
-
-  public long getApno() {
-    return apno;
-  }
-
-  public void setApno(long apno) {
-    this.apno = apno;
-  }
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Application application;
 
   public Long getVno() {
     return vno;
@@ -103,4 +82,25 @@ public class Voucher {
   public void setEnclosure(String enclosure) {
     this.enclosure = enclosure;
   }
+
+  public Application getApplication() {
+    return application;
+  }
+
+  public void setApplication(Application application) {
+    this.application = application;
+  }
+
+  public Voucher(Long vno, String invoice_code, String invoice_no, String voucher_type,
+      double expense_money, String enclosure, Application application) {
+    super();
+    this.vno = vno;
+    this.invoice_code = invoice_code;
+    this.invoice_no = invoice_no;
+    this.voucher_type = voucher_type;
+    this.expense_money = expense_money;
+    this.enclosure = enclosure;
+    this.application = application;
+  }
+
 }

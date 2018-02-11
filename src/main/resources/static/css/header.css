@@ -1,0 +1,8 @@
+@-ms-viewport     { width: device-width; }
+@-o-viewport      { width: device-width; }
+@viewport         { width: device-width; }
+
+body {
+  min-height: 2000px;
+  padding-top: 70px;
+}

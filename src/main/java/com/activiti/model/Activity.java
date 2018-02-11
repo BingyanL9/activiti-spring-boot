@@ -2,6 +2,7 @@ package com.activiti.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,8 +30,8 @@ public class Activity {
   @Column(name = "end_time")
   private Date end_time;
   
-  @ManyToOne(fetch = FetchType.LAZY,optional = false,targetEntity = Club.class)
-  private String charge_cno;
+  @ManyToOne(fetch = FetchType.LAZY ,cascade = CascadeType.REMOVE)
+  private ClubUser charge_club;
 
   public Long getAno() {
     return ano;
@@ -72,23 +73,22 @@ public class Activity {
     this.end_time = end_time;
   }
 
-  public String getCharge_cno() {
-    return charge_cno;
+  public ClubUser getCharge_club() {
+    return charge_club;
   }
 
-  public void setCharge_cno(String charge_cno) {
-    this.charge_cno = charge_cno;
+  public void setCharge_club(ClubUser charge_club) {
+    this.charge_club = charge_club;
   }
 
   public Activity(Long ano, String activity_name, double budget, Date starting_date, Date end_time,
-      String charge_cno) {
+      ClubUser charge_club) {
     super();
     this.ano = ano;
     this.activity_name = activity_name;
     this.budget = budget;
     this.starting_date = starting_date;
     this.end_time = end_time;
-    this.charge_cno = charge_cno;
+    this.charge_club = charge_club;
   }
-
 }

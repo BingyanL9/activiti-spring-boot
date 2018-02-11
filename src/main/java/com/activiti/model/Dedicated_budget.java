@@ -20,8 +20,8 @@ public class Dedicated_budget implements Serializable{
   private static final long serialVersionUID = 1L;
 
   @Id
-  @ManyToOne(fetch = FetchType.LAZY, targetEntity = Teacher.class, cascade = CascadeType.REMOVE)
-  private String tno;
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+  private TeacherUser teacher;
   
   @Id
   private String item_name;
@@ -29,19 +29,19 @@ public class Dedicated_budget implements Serializable{
   @Column(name = "budget")
   private double budget;
 
-  public Dedicated_budget(String tno, String item_name, double budget) {
+  public Dedicated_budget(TeacherUser teacher, String item_name, double budget) {
     super();
-    this.tno = tno;
+    this.teacher = teacher;
     this.item_name = item_name;
     this.budget = budget;
   }
 
-  public String getTno() {
-    return tno;
+  public TeacherUser getTeacher() {
+    return teacher;
   }
 
-  public void setTno(String tno) {
-    this.tno = tno;
+  public void setTeacher(TeacherUser teacher) {
+    this.teacher = teacher;
   }
 
   public String getItem_name() {

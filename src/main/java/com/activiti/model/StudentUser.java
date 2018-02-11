@@ -5,15 +5,18 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 @Entity
-public class StudentInfo {
-  
-  @Id
-  private String sno;
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+public class StudentUser{
 
-  @Column(name = "student_name", nullable = false, length = 100)
-  private String student_name;
+  @Id
+  private String userName;
+  
+  @Column(name = "displayname", nullable = false, length = 100)
+  private String displayName;
   
   @Column(name = "password", nullable = false, length = 16)
   private String password;
@@ -25,42 +28,39 @@ public class StudentInfo {
   @Enumerated(EnumType.STRING)
   private Role role;
 
-  public StudentInfo(String sno, String student_name, String password, String email, Role role) {
+  public StudentUser(String userName, String displayName, String password, String email,
+      Role role) {
     super();
-    this.sno = sno;
-    this.student_name = student_name;
+    this.userName = userName;
+    this.displayName = displayName;
     this.password = password;
     this.email = email;
     this.role = role;
   }
+  
+  
 
-  public StudentInfo() {
+  public StudentUser() {
     super();
     // TODO Auto-generated constructor stub
   }
 
-  public String getSno() {
-    return sno;
+
+
+  public String getUserName() {
+    return userName;
   }
 
-  public void setSno(String sno) {
-    this.sno = sno;
+  public void setUserName(String userName) {
+    this.userName = userName;
   }
 
-  public Role getRole() {
-    return role;
+  public String getDisplayName() {
+    return displayName;
   }
 
-  public void setRole(Role role) {
-    this.role = role;
-  }
-
-  public String getStudent_name() {
-    return student_name;
-  }
-
-  public void setStudent_name(String student_name) {
-    this.student_name = student_name;
+  public void setDisplayName(String displayName) {
+    this.displayName = displayName;
   }
 
   public String getPassword() {
@@ -77,6 +77,14 @@ public class StudentInfo {
 
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  public Role getRole() {
+    return role;
+  }
+
+  public void setRole(Role role) {
+    this.role = role;
   }
 
   

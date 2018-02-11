@@ -2,12 +2,15 @@ package com.activiti.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Feedback {
@@ -26,17 +29,8 @@ public class Feedback {
   @Column(name = "suggest", length = 1024)
   private String suggest;
   
-  @Column(name = "apno", nullable = false, length = 20)
-  private long apno;
-
-  public Feedback(long fno, Date feedback_time, byte isCorrect, String suggest, long apno) {
-    super();
-    this.fno = fno;
-    this.feedback_time = feedback_time;
-    this.isCorrect = isCorrect;
-    this.suggest = suggest;
-    this.apno = apno;
-  }
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+  private Application application;
 
   public long getFno() {
     return fno;
@@ -70,12 +64,22 @@ public class Feedback {
     this.suggest = suggest;
   }
 
-  public long getApno() {
-    return apno;
+  public Application getApplication() {
+    return application;
   }
 
-  public void setApno(long apno) {
-    this.apno = apno;
+  public void setApplication(Application application) {
+    this.application = application;
   }
-  
+
+  public Feedback(long fno, Date feedback_time, byte isCorrect, String suggest,
+      Application application) {
+    super();
+    this.fno = fno;
+    this.feedback_time = feedback_time;
+    this.isCorrect = isCorrect;
+    this.suggest = suggest;
+    this.application = application;
+  }
+
 }

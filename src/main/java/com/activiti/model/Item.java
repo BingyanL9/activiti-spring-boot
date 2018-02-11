@@ -21,17 +21,8 @@ public class Item {
   @Column(name = "item_money")
   private double item_money;
   
-  @ManyToOne(fetch = FetchType.LAZY,optional = false,targetEntity = Voucher.class)
-  private long vno;
-
-  
-  public Item(Long id, String item_name, double item_money, long vno) {
-    super();
-    this.id = id;
-    this.item_name = item_name;
-    this.item_money = item_money;
-    this.vno = vno;
-  }
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Voucher voucher;
 
   public Long getId() {
     return id;
@@ -57,14 +48,20 @@ public class Item {
     this.item_money = item_money;
   }
 
-  public long getVno() {
-    return vno;
+  public Voucher getVoucher() {
+    return voucher;
   }
 
-  public void setVno(long vno) {
-    this.vno = vno;
+  public void setVoucher(Voucher voucher) {
+    this.voucher = voucher;
   }
-  
-  
+
+  public Item(Long id, String item_name, double item_money, Voucher voucher) {
+    super();
+    this.id = id;
+    this.item_name = item_name;
+    this.item_money = item_money;
+    this.voucher = voucher;
+  }
 
 }

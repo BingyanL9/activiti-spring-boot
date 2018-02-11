@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<link th:include="fragments/header :: header"></link>
+</head>
+<body>
+<div id="wrapper">
+
+	<div class="content-wrapper full-content-wrapper">
+		<div>home page</div>
+		<!-- footer -->
+        <div th:replace="fragments/footer :: footer"></div>
+	</div>
+</div>
+</body>
+</html>

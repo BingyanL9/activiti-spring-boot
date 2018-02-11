@@ -19,28 +19,17 @@ public class Application {
   @Column(name = "application_type", nullable = false, length = 11)
   private String application_type;
   
-  @ManyToOne(fetch = FetchType.LAZY, targetEntity = StudentInfo.class, cascade = CascadeType.REMOVE)
-  private String application_sno;
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+  private StudentUser application_student;
   
-  @ManyToOne(fetch = FetchType.LAZY, targetEntity = Teacher.class, cascade = CascadeType.REMOVE)
-  private String application_tno;
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+  private TeacherUser application_teacher;
   
-  @ManyToOne(fetch = FetchType.LAZY, targetEntity = Project.class, cascade = CascadeType.REMOVE)
-  private long pno;
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+  private Project project;
   
-  @ManyToOne(fetch = FetchType.LAZY, targetEntity = Activity.class, cascade = CascadeType.REMOVE)
-  private long ano;
-  
-  public Application(Long apno, String application_type, String application_sno,
-      String application_tno, long pno, long ano) {
-    super();
-    this.apno = apno;
-    this.application_type = application_type;
-    this.application_sno = application_sno;
-    this.application_tno = application_tno;
-    this.pno = pno;
-    this.ano = ano;
-  }
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+  private Activity activity;
 
   public Long getApno() {
     return apno;
@@ -58,38 +47,48 @@ public class Application {
     this.application_type = application_type;
   }
 
-
-
-  public String getApplication_sno() {
-    return application_sno;
+  public StudentUser getApplication_student() {
+    return application_student;
   }
 
-  public void setApplication_sno(String application_sno) {
-    this.application_sno = application_sno;
+  public void setApplication_student(StudentUser application_student) {
+    this.application_student = application_student;
   }
 
-  public String getApplication_tno() {
-    return application_tno;
+  public TeacherUser getApplication_teacher() {
+    return application_teacher;
   }
 
-  public void setApplication_tno(String application_tno) {
-    this.application_tno = application_tno;
+  public void setApplication_teacher(TeacherUser application_teacher) {
+    this.application_teacher = application_teacher;
   }
 
-  public long getPno() {
-    return pno;
+  public Project getProject() {
+    return project;
   }
 
-  public void setPno(long pno) {
-    this.pno = pno;
+  public void setProject(Project project) {
+    this.project = project;
   }
 
-  public long getAno() {
-    return ano;
+  public Activity getActivity() {
+    return activity;
   }
 
-  public void setAno(long ano) {
-    this.ano = ano;
+  public void setActivity(Activity activity) {
+    this.activity = activity;
   }
+
+  public Application(Long apno, String application_type, StudentUser application_student,
+      TeacherUser application_teacher, Project project, Activity activity) {
+    super();
+    this.apno = apno;
+    this.application_type = application_type;
+    this.application_student = application_student;
+    this.application_teacher = application_teacher;
+    this.project = project;
+    this.activity = activity;
+  }
+  
   
 }

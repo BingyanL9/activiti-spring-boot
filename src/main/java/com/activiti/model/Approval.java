@@ -24,16 +24,16 @@ public class Approval implements Serializable{
   private static final long serialVersionUID = 1L;
 
   @Id
-  @ManyToOne(fetch = FetchType.LAZY, targetEntity = Application.class, cascade = CascadeType.REMOVE)
-  private long apno;
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+  private Application application;
   
   @Id
-  @ManyToOne(fetch = FetchType.LAZY, targetEntity = Teacher.class)
-  private String approval_person;
+  @ManyToOne(fetch = FetchType.LAZY)
+  private TeacherUser approval_person;
   
   @Id 
-  @ManyToOne(fetch = FetchType.LAZY, targetEntity = Club.class)
-  private String approcval_club;
+  @ManyToOne(fetch = FetchType.LAZY)
+  private ClubUser approcval_club;
   
   @Column(name = "approval_time", nullable = false)
   private Date approval_time;
@@ -44,47 +44,28 @@ public class Approval implements Serializable{
   
   @Column(name = "disapproval_reason", length = 200 )
   private String disapproval_reason;
-
-  public Approval(long apno, String approval_person, String approcval_club, Date approval_time,
-      Approval_status approval_statu, String disapproval_reason) {
-    super();
-    this.apno = apno;
-    this.approval_person = approval_person;
-    this.approcval_club = approcval_club;
-    this.approval_time = approval_time;
-    this.approval_statu = approval_statu;
-    this.disapproval_reason = disapproval_reason;
+  
+  public Application getApplication() {
+    return application;
   }
 
-  public Approval_status getApproval_statu() {
-    return approval_statu;
+  public void setApplication(Application application) {
+    this.application = application;
   }
 
-  public void setApproval_statu(Approval_status approval_statu) {
-    this.approval_statu = approval_statu;
-  }
-
-  public long getApno() {
-    return apno;
-  }
-
-  public void setApno(long apno) {
-    this.apno = apno;
-  }
-
-  public String getApproval_person() {
+  public TeacherUser getApproval_person() {
     return approval_person;
   }
 
-  public void setApproval_person(String approval_person) {
+  public void setApproval_person(TeacherUser approval_person) {
     this.approval_person = approval_person;
   }
 
-  public String getApprocval_club() {
+  public ClubUser getApprocval_club() {
     return approcval_club;
   }
 
-  public void setApprocval_club(String approcval_club) {
+  public void setApprocval_club(ClubUser approcval_club) {
     this.approcval_club = approcval_club;
   }
 
@@ -96,6 +77,14 @@ public class Approval implements Serializable{
     this.approval_time = approval_time;
   }
 
+  public Approval_status getApproval_statu() {
+    return approval_statu;
+  }
+
+  public void setApproval_statu(Approval_status approval_statu) {
+    this.approval_statu = approval_statu;
+  }
+
   public String getDisapproval_reason() {
     return disapproval_reason;
   }
@@ -103,5 +92,16 @@ public class Approval implements Serializable{
   public void setDisapproval_reason(String disapproval_reason) {
     this.disapproval_reason = disapproval_reason;
   }
-  
+
+  public Approval(Application application, TeacherUser approval_person, ClubUser approcval_club,
+      Date approval_time, Approval_status approval_statu, String disapproval_reason) {
+    super();
+    this.application = application;
+    this.approval_person = approval_person;
+    this.approcval_club = approcval_club;
+    this.approval_time = approval_time;
+    this.approval_statu = approval_statu;
+    this.disapproval_reason = disapproval_reason;
+  }
+
 }
