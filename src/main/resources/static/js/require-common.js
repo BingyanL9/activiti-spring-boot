@@ -1,16 +1,16 @@
 require.config({
 
-    baseUrl: "/js",
+    baseUrl: "/js/lib/",
 
     paths: {
-        "jquery": "lib/jquery.1.11.3.min",
-        "validate": "lib/jquery.validate",
-        "validateAdditional": "lib/additional-methods",
-        "jqueryui": "lib/jquery-ui-1.9.2.min",
-        "jqte": "lib/jquery-te-1.4.0",
-        "bootstrap": "lib/bootstrap.min",
-        "d3": "lib/d3.v3.min",
-        "c3": "lib/c3.min",
+        "jquery": "jquery.1.11.3.min",
+        "validate": "jquery.validate",
+        "validateAdditional": "additional-methods",
+        "jqueryui": "jquery-ui-1.9.2.min",
+        "jqte": "jquery-te-1.4.0",
+        "bootstrap": "bootstrap.min",
+        "d3": "d3.v3.min",
+        "c3": "c3.min",
     },
 
     shim: {

@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:include="fragments/header :: header"></link>
+    <link href="/css/error.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="container">
+        
+         <div class="row text-center">
+               
+                <div class="col-md-12 set-pad" >
+                           
+                           <strong class="error-txt">ERROR ! 404</strong>
+                           <p class="p-err">Could not find you page!</p>
+                    <a href="home" class="btn btn-danger" ><i class="fa fa-mail-reply"></i>&nbsp;PLEASE GO BACK</a>
+                </div>
+                
+                
+        </div>
+        <div th:replace="fragments/footer :: footer"></div>
+    </div>
+   
+</body>
+</html>

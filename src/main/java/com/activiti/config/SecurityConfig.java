@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.authentication.dao.ReflectionSaltSource;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -32,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     http.authorizeRequests()
         .anyRequest().fullyAuthenticated().and().formLogin().loginPage("/login")
         .defaultSuccessUrl("/home").failureUrl("/login?error=true").permitAll().and().logout()
-        .logoutSuccessUrl("/login?logout=true").permitAll();
+        .logoutSuccessUrl("/login?logout=true").permitAll().and().rememberMe();
 
     http.headers().frameOptions().disable();
 
@@ -60,6 +58,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   public Md5PasswordEncoder passwordEncoder() {
     return new Md5PasswordEncoder();
   }
+  
+
   
   
 
