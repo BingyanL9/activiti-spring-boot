@@ -11,6 +11,45 @@
 		<!-- navigation start-->
 		<div th:replace="fragments/header :: nav"></div>
 		<!-- navigation end-->
+		<div id="page-wrapper">
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="page-head-line">--   通  知    --</h1>
+                    </div>
+                </div>
+                <!-- /. ROW  -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <i class="fa fa-bell fa-fw"></i>Message Box
+                            </div>
+
+                            <div class="panel-body">
+                                <div class="list-group">
+
+                                    <a href="#" class="list-group-item">
+                                        <i class="fa fa-warning fa-fw"></i>Server Rebooted
+                                    <span class="pull-right text-muted small"><em>11:32 AM</em>
+                                    </span>
+                                    </a>
+                                   
+                                </div>
+                                <!-- /.list-group -->
+                                <nav aria-label="...">
+                                   <ul class="pager">
+                                     <li class="previous disabled"><a href="#"><span aria-hidden="true">&larr;</span> Newer</a></li>
+                                     <li class="next"><a href="#">Older <span aria-hidden="true">&rarr;</span></a></li>
+                                   </ul>
+                               </nav>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
 		<!-- footer -->
         <div th:replace="fragments/footer :: footer"></div>
 	</div>
