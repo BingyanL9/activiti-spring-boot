@@ -25,6 +25,10 @@ public class StudentUserService {
     return studentUserRepository.findByUserName(userName);
   }
   
+  public StudentUser getCurrentUser() {
+    return findByName(getCurrentUserName());
+  }
+
   public String getCurrentUserDisplayName() {
     return studentUserRepository.getUserDisplayName(getCurrentUserName());
   }

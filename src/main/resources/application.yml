@@ -37,8 +37,10 @@
     static-path-pattern: /**
     view:
      suffix: .html
-    
  security:
   basic:
     enabled: false
+    
+# server:
+#   context-path: /expense
  

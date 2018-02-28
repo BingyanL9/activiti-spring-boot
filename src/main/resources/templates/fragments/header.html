@@ -12,7 +12,6 @@
 <link rel="stylesheet" th:href="@{/css/custom.css}"/>
 <link rel="stylesheet" th:href="@{/css/basic.css}"/>
 <link rel="stylesheet" th:href="@{/css/layout.css}" />
-<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 </head>
 <script th:inline="javascript">
 	var contextPath = [[${#httpServletRequest.getContextPath()}]]
@@ -34,7 +33,7 @@
          
                 <div class="btn-group">
                    <button type="button" class="btn btn-lg btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="fasle">
-                    <span th:text="${username}"></span> <span class="caret"></span>
+                    <span th:text="${user.displayName}"></span> <span class="caret"></span>
                    </button>
                    <ul class="dropdown-menu">
                      <li><a href="#">你的信息</a></li>

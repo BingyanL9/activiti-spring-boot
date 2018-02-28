@@ -23,9 +23,16 @@ public class MainController {
   
   @RequestMapping(value = {"/", "/home"})
   public String home(Map<String, Object> model) {
-    model.put("username",studentUserService.getCurrentUserDisplayName());
+    model.put("user", studentUserService.getCurrentUser());
     logger.debug("Welcome to home page.");
     return "home";
+  }
+
+  @RequestMapping(value = {"/apply"})
+  public String apply(Map<String, Object> model) {
+    model.put("user", studentUserService.getCurrentUser());
+    logger.debug("Start to apply an expense");
+    return "apply";
   }
 
 }

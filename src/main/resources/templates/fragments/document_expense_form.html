@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+  <div th:fragment="document_expense_form" id="documentExpenseFormBlock">
+    <div class="container">
+      <h3 class="text-center">单据报销单</h3>
+      <form class="form-horizontal" id="documentExpenseForm" method="POST">
+        <div class="form-group required col-md-4">
+		  <label class="control-label col-md-4" for="college">部门:</label>
+		  <div class="col-md-8">
+		  <input type="text" class="form-control" id="college"
+		  name="college" placeholder="请输入部门" 
+		  th:value="${user.college}"/>
+		  </div>
+	    </div>
+	  
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-4" for="cardnum">经费卡号:</label>
+		  <div class="col-md-8">
+		  <input type="text" class="form-control" id="cardnum"
+		  name="cardnum" placeholder="请输入经费卡号" required="required"/>
+		  </div>
+	    </div>
+	  
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-4" for="">时间:</label>
+		  <div class="col-md-8">
+		  <input type="text" class="form-control" id="createtime"
+		  name="cardnum" th:value="${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd')}"/>
+		  </div>
+	    </div>
+	    
+	    <div th:replace="fragments/item_input :: item_input"></div>
+	    
+	     <button type="button" class="btn btn-info pull-left" id="add-item-button" onclick="addItem();"
+	     style="margin-left:4px">
+	     <span class= "glyphicon glyphicon-plus"></span>
+	     </button>
+        
+      </form>
+    </div>
+</div>
+
+</body>
+</html>

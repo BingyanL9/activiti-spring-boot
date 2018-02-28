@@ -14,7 +14,6 @@ import com.alibaba.druid.pool.DruidDataSource;
 
 @SpringBootApplication
 @ComponentScan("com.activiti")
-@ComponentScan("com.activiti.repository")
 public class DemoApplication {
   
    @Autowired
