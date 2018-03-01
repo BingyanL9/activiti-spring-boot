@@ -11,6 +11,7 @@ require.config({
         "bootstrap": "bootstrap.min",
         "d3": "d3.v3.min",
         "c3": "c3.min",
+        "bootstrap_select":"bootstrap-select.min", 
     },
 
     shim: {
@@ -42,6 +43,10 @@ require.config({
         },
         "c3": {
         	deps: ['d3']
+        },
+        "bootstrap_select": {
+        	deps: ['bootstrap_select'],
+        	deps: ['jquery', 'bootstrap']
         }
 
     }

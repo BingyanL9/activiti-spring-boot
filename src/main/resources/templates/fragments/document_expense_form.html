@@ -7,8 +7,8 @@
       <h3 class="text-center">单据报销单</h3>
       <form class="form-horizontal" id="documentExpenseForm" method="POST">
         <div class="form-group required col-md-4">
-		  <label class="control-label col-md-4" for="college">部门:</label>
-		  <div class="col-md-8">
+		  <label class="control-label col-md-5" for="college">部门:</label>
+		  <div class="col-md-7">
 		  <input type="text" class="form-control" id="college"
 		  name="college" placeholder="请输入部门" 
 		  th:value="${user.college}"/>
@@ -16,16 +16,16 @@
 	    </div>
 	  
 	    <div class="form-group required col-md-4">
-		  <label class="control-label col-md-4" for="cardnum">经费卡号:</label>
-		  <div class="col-md-8">
+		  <label class="control-label col-md-5" for="cardnum">经费卡号:</label>
+		  <div class="col-md-7">
 		  <input type="text" class="form-control" id="cardnum"
 		  name="cardnum" placeholder="请输入经费卡号" required="required"/>
 		  </div>
 	    </div>
 	  
 	    <div class="form-group required col-md-4">
-		  <label class="control-label col-md-4" for="">时间:</label>
-		  <div class="col-md-8">
+		  <label class="control-label col-md-5" for="">时间:</label>
+		  <div class="col-md-7">
 		  <input type="text" class="form-control" id="createtime"
 		  name="cardnum" th:value="${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd')}"/>
 		  </div>
@@ -37,7 +37,50 @@
 	     style="margin-left:4px">
 	     <span class= "glyphicon glyphicon-plus"></span>
 	     </button>
-        
+	     
+	     <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">收款单位名称:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="payee-name"
+		  name="payee-name" placeholder="请输入收款单位名称" required="required"/>
+		  </div>
+	    </div>
+	  
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">收款单位账户:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="payee-account"
+		  name="payee-account" placeholder="请输入收款单位账户" required="required"/>
+		  </div>
+	    </div>
+	  
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="">收款单位银行:</label>
+		  <div class="col-md-7">
+		 <input type="text" class="form-control" id="payee-account-opening-bank"
+		  name="payee-account-opening-bank" placeholder="请输入收款单位银行" required="required"/>
+		  </div>
+	    </div>
+	    <div class="col-md-12 selectblock" >
+	      <div class="form-group required col-md-4">
+		  	<label class="control-label col-md-5" for="">付款方式:</label>
+		  	<div class="col-md-7">
+				<select multiple="multiple" class="selectpicker form-control" id="paymode">
+					<option value="check"> 支票 </option>
+					<option value="mail-transfer"> 信汇 </option>
+					<option value="cash"> 现金 </option>
+					<option value="borrow"> 冲借支 </option>
+					<option value="online-payment"> 网上支付 </option>
+				</select>
+			</div>
+	    </div>
+	    
+	     <div class="col-md-3">
+	      <button type="submit" class="btn btn-info pull-right" id="document-expense-submit">提交</button>
+         </div>
+
+         </div>
+         
       </form>
     </div>
 </div>

@@ -1,3 +1,9 @@
+define(["jquery", "bootstrap", "bootstrap_select"], function($, bootstrap_select) {
+$(document).ready(function(e) {
+	  $('.selectpicker').selectpicker();
+	});
+});
+
 function addItem(){
 	$.ajax({
 		type: "GET",
