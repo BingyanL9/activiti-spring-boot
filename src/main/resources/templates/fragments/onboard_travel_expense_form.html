@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+  <div th:fragment="onboard_travel_expense_form" id="onboard_travelExpenseFormBlock">
+    <div class="container">
+      <h3 class="text-center">临时出国人员报销单</h3>
+      <form class="form-horizontal" id="onboardTravelExpenseForm" method="POST">
+      
+         <div class="form-group col-md-4">
+          <label class="control-label col-md-5">凭证1</label>
+           <div class="">
+                <div class="fileupload fileupload-new col-md-7" data-provides="fileupload">
+                    <div class="fileupload-preview thumbnail" style="width: 200px; height: 150px;"></div>
+                    <div>
+                        <span class="btn btn-file btn-success">
+                        <span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
+                        <input type="file" />
+                        </span>
+                        <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload">Remove</a>
+                    </div>
+                </div>
+           </div>
+        </div>
+        
+         <div class="form-group col-md-4">
+          <label class="control-label col-md-5">凭证2</label>
+           <div class="">
+                <div class="fileupload fileupload-new col-md-7" data-provides="fileupload">
+                    <div class="fileupload-preview thumbnail" style="width: 200px; height: 150px;"></div>
+                    <div>
+                        <span class="btn btn-file btn-success">
+                        <span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
+                        <input type="file"/>
+                        </span>
+                        <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload">Remove</a>
+                    </div>
+                </div>
+           </div>
+        </div>
+        
+         <div class="form-group col-md-4">
+          <label class="control-label col-md-5">凭证3</label>
+           <div class="">
+                <div class="fileupload fileupload-new col-md-7" data-provides="fileupload">
+                    <div class="fileupload-preview thumbnail" style="width: 200px; height: 150px;"></div>
+                    <div>
+                        <span class="btn btn-file btn-success">
+                        <span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
+                        <input type="file"/>
+                        </span>
+                        <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload">Remove</a>
+                    </div>
+                </div>
+           </div>
+        </div>
+      
+        <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="college">部门:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="college"
+		  name="college" placeholder="请输入部门" 
+		  th:value="${user.college}"/>
+		  </div>
+	    </div>
+	  
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">经费卡号:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="cardnum"
+		  name="cardnum" placeholder="请输入经费卡号" required="required"/>
+		  </div>
+	    </div>
+	  
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="createtime">填表时间:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="createtime"
+		  name="cardnum" th:value="${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd')}"/>
+		  </div>
+	    </div>
+	    
+	     <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="college">出差开始时间:</label>
+		    <div class="col-md-7">
+			  <div class='input-group date form_date' data-date-format="yyyy-mm-dd">  
+                <input type='text' class="form-control" readonly="readonly" id="startTraveltime"
+		        name="startTraveltime" required="required"/>  
+                <span class="input-group-addon">  
+                    <i class="glyphicon glyphicon-calendar"></i>  
+                </span> 
+              </div> 
+            </div>  
+		 </div>
+	  
+	 	 <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="college">出差结束时间:</label>
+		    <div class="col-md-7">
+			  <div class='input-group date form_date' data-date-format="yyyy-mm-dd">  
+                <input type='text' class="form-control" readonly="readonly" id="endTraveltime"
+		        name="endTraveltime" required="required"/>  
+                <span class="input-group-addon">  
+                    <i class="glyphicon glyphicon-calendar"></i>  
+                </span> 
+              </div> 
+            </div>  
+		 </div>
+	  
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">出国事由:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="onboardReason"
+		  name="onboardReason" placeholder="请输入出国事由" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="">伙食费天数:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="foodDay"
+		  name="foodDay" placeholder="请输入天数" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">伙食费币种:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="foodcurrency"
+		  name="foodcurrency" placeholder="请输入币种" required="required"/>
+		  </div>
+	    </div>
+	    
+	      <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">伙食费标准:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="foodstandard"
+		  name="foodstandard" placeholder="请输入标准" required="required"/>
+		  </div>
+	    </div>
+	    
+	     <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">伙食费外汇金额:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="foodamountofforeignexchange"
+		  name="foodamountofforeignexchange" placeholder="请输入外汇金额" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">伙食费折算汇率:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="foodexchangerate"
+		  name="foodexchangerate" placeholder="请输入折算汇率" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">伙食费折合RNB:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="foodexchangeRNB"
+		  name="foodexchangeRNB" placeholder="请输入折合RNB" required="required"/>
+		  </div>
+	    </div>
+	    
+	    	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="">公杂费天数:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="publicfeeDay"
+		  name="publicfeeDay" placeholder="请输入天数" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">公杂费币种:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="publicfeecurrency"
+		  name="publicfeecurrency" placeholder="请输入币种" required="required"/>
+		  </div>
+	    </div>
+	    
+	      <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">公杂费标准:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="publicfeestandard"
+		  name="publicfeestandard" placeholder="请输入标准" required="required"/>
+		  </div>
+	    </div>
+	    
+	     <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">公杂费外汇金额:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="publicfeeamountofforeignexchange"
+		  name="publicfeeamountofforeignexchange" placeholder="请输入外汇金额" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">公杂费折算汇率:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="publicfeeexchangerate"
+		  name="publicfeeexchangerate" placeholder="请输入折算汇率" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">公杂费折合RNB:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="publicfeeexchangeRNB"
+		  name="publicfeeexchangeRNB" placeholder="请输入折合RNB" required="required"/>
+		  </div>
+	    </div>
+	    
+	   <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="">住宿费天数:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="accommodationDay"
+		  name="accommodationDay" placeholder="请输入天数" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">住宿费币种:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="accommodationcurrency"
+		  name="accommodationcurrency" placeholder="请输入币种" required="required"/>
+		  </div>
+	    </div>
+	    
+	      <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">住宿费标准:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="accommodationstandard"
+		  name="accommodationstandard" placeholder="请输入标准" required="required"/>
+		  </div>
+	    </div>
+	    
+	     <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">住宿费外汇金额:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="accommodationamountofforeignexchange"
+		  name="accommodationamountofforeignexchange" placeholder="请输入外汇金额" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">住宿费折算汇率:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="accommodationexchangerate"
+		  name="accommodationexchangerate" placeholder="请输入折算汇率" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">住宿费折合RNB:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="accommodationexchangeRNB"
+		  name="accommodationexchangeRNB" placeholder="请输入折合RNB" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="">公务费天数:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="publicServiceFeeDay"
+		  name="publicServiceFeeDay" placeholder="请输入天数" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">公务费币种:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="publicServiceFeecurrency"
+		  name="publicServiceFeecurrency" placeholder="请输入币种" required="required"/>
+		  </div>
+	    </div>
+	    
+	      <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">公务费标准:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="publicServiceFeestandard"
+		  name="publicServiceFeestandard" placeholder="请输入标准" required="required"/>
+		  </div>
+	    </div>
+	    
+	     <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">公务费外汇金额:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="publicServiceFeeamountofforeignexchange"
+		  name="publicServiceFeeamountofforeignexchange" placeholder="请输入外汇金额" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">公务费折算汇率:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="publicServiceFeeexchangerate"
+		  name="publicServiceFeeexchangerate" placeholder="请输入折算汇率" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">公务费折合RNB:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="publicServiceFeeexchangeRNB"
+		  name="publicServiceFeeexchangeRNB" placeholder="请输入折合RNB" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="">城市交通费天数:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="cityTrafficFeeDay"
+		  name="cityTrafficFeeDay" placeholder="请输入天数" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">城市交通费币种:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="cityTrafficFeecurrency"
+		  name="cityTrafficFeeFeecurrency" placeholder="请输入币种" required="required"/>
+		  </div>
+	    </div>
+	    
+	      <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">城市交通费标准:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="cityTrafficFeestandard"
+		  name="cityTrafficFeestandard" placeholder="请输入标准" required="required"/>
+		  </div>
+	    </div>
+	    
+	     <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">城市交通费外汇金额:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="cityTrafficFeeamountofforeignexchange"
+		  name="cityTrafficFeeamountofforeignexchange" placeholder="请输入外汇金额" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">城市交通费折算汇率:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="cityTrafficFeeexchangerate"
+		  name="cityTrafficFeeexchangerate" placeholder="请输入折算汇率" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">城市交通费折合RNB:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="cityTrafficFeeexchangeRNB"
+		  name="cityTrafficFeeexchangeRNB" placeholder="请输入折合RNB" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="">其他天数:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="otherDay"
+		  name="otherDay" placeholder="请输入天数" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">其他币种:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="othercurrency"
+		  name="othercurrency" placeholder="请输入币种" required="required"/>
+		  </div>
+	    </div>
+	    
+	      <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">其他标准:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="otherstandard"
+		  name="otherstandard" placeholder="请输入标准" required="required"/>
+		  </div>
+	    </div>
+	    
+	     <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">其他外汇金额:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="otheramountofforeignexchange"
+		  name="otheramountofforeignexchange" placeholder="请输入外汇金额" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">其他折算汇率:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="otherexchangerate"
+		  name="otherexchangerate" placeholder="请输入折算汇率" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">其他折合RNB:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="otherexchangeRNB"
+		  name="otherexchangeRNB" placeholder="请输入折合RNB" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">汇兑手续费（RNB）:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="Remittancefee"
+		  name="Remittancefee" placeholder="请输入汇兑手续费" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">汇兑损益（收益用'-'表示/RNB）:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="RemittancePL"
+		  name="Remittancefee" placeholder="请输入汇兑损益" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">出国机票费（RNB）:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="Airticketfee"
+		  name="Airticketfee" placeholder="请输入出国机票费" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">交通及其他费用（RNB）:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="TrafficorOtherfee"
+		  name="TrafficorOtherfee" placeholder="请输入交通及其他费用" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">出国总费用（RNB）:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="sumofaboardfee"
+		  name="sumofaboardfee" placeholder="请输入出国总费用" required="required"/>
+		  </div>
+	    </div>
+	    
+	    	     <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="reason_of_travel">出国费用报销付款方式：</label>
+		  <div class="col-md-7">
+		    <select  class="form-control" id="onboard_paymode" required="required"
+		    onchange="showonboardOnlineRequiredInfo(this.value);">
+		      <option></option>
+		      <option th:value="cash">现金</option>
+		      <option th:value="online-payment">网上支付</option>
+		    </select>
+		  </div>
+		</div>
+		
+	    <div id="onboardOnlineRequiredInfo" style="display:none;">
+			<div class="form-group required col-md-4">
+			  <label class="control-label col-md-5" for="reason_of_travel">用户:</label>
+			  <div class="col-md-7">
+			    <input type="text" class="form-control" id="payUser"
+			    name="payUser" placeholder="请输入用户"/>
+			  </div>
+			</div>
+			
+			<div class="form-group required col-md-4">
+			  <label class="control-label col-md-5" for="reason_of_travel">账号:</label>
+			  <div class="col-md-7">
+			    <input type="text" class="form-control" id="payAccount"
+			    name="payAccount" placeholder="请输入账号"/>
+			  </div>
+			</div>
+		</div>
+		
+		<div class="form-group required col-md-4">
+		<label class="control-label col-md-5" for="expense_type">报销类型：</label>
+		  <div class="col-md-7">
+		    <select  class="form-control" id="expense_type">
+		      <option></option>
+		      <option th:value="activity_expense">活动报销</option>
+		      <option th:value="medical_expense">医疗报销</option>
+		      <option th:value="daily_expense">日常报销</option>
+		      <option th:value="project_expense">项目报销</option>
+		    </select>
+		  </div>
+         </div>
+	    
+		<div class="col-md-3">
+	      <button type="submit" class="btn btn-info pull-right" id="document-expense-submit">提交</button>
+         </div>
+	    
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>

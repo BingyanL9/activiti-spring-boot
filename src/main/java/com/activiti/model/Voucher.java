@@ -1,5 +1,9 @@
 package com.activiti.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Voucher {
@@ -30,10 +35,13 @@ public class Voucher {
   
   @Lob
   @Column(name = "enclosure",nullable = false, length = 4096)
-  private String enclosure;
+  private List<String> enclosure;
   
   @ManyToOne(fetch = FetchType.LAZY)
   private Application application;
+  
+  @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private List<Item> items = new ArrayList<Item>();
 
   public Long getVno() {
     return vno;
@@ -75,11 +83,11 @@ public class Voucher {
     this.expense_money = expense_money;
   }
 
-  public String getEnclosure() {
+  public List<String> getEnclosure() {
     return enclosure;
   }
 
-  public void setEnclosure(String enclosure) {
+  public void setEnclosure(List<String> enclosure) {
     this.enclosure = enclosure;
   }
 
@@ -91,8 +99,17 @@ public class Voucher {
     this.application = application;
   }
 
+  public List<Item> getItems() {
+    return items;
+  }
+
+  public void setItems(List<Item> items) {
+    this.items = items;
+  }
+  
+
   public Voucher(Long vno, String invoice_code, String invoice_no, String voucher_type,
-      double expense_money, String enclosure, Application application) {
+      double expense_money, List<String> enclosure, Application application, List<Item> items) {
     super();
     this.vno = vno;
     this.invoice_code = invoice_code;
@@ -101,6 +118,12 @@ public class Voucher {
     this.expense_money = expense_money;
     this.enclosure = enclosure;
     this.application = application;
+    this.items = items;
+  }
+
+  public Voucher() {
+    super();
+    // TODO Auto-generated constructor stub
   }
 
 }

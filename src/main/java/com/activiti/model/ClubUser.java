@@ -31,22 +31,21 @@ public class ClubUser extends StudentUser{
     this.leaderClub = leaderClub;
   }
 
-  public ClubUser(String userName, String displayName, String password, String email, Role role,
-      String college, ClubUser leaderClub) {
-    super(userName, displayName, password, email, role);
-    this.college = college;
-    this.leaderClub = leaderClub;
-  }
-
   public ClubUser() {
     super();
     // TODO Auto-generated constructor stub
   }
 
-  public ClubUser(String userName, String displayName, String password, String email, Role role) {
-    super(userName, displayName, password, email, role);
+  public ClubUser(String college, ClubUser leaderClub) {
+    super();
+    this.college = college;
+    this.leaderClub = leaderClub;
+  }
+
+  public ClubUser(String userName, String displayName, String password, String email,
+      String cardnum, Role role) {
+    super(userName, displayName, password, email, cardnum, role);
     // TODO Auto-generated constructor stub
   }
- 
-  
+
 }

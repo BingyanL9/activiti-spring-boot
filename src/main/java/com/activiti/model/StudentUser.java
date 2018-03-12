@@ -24,28 +24,18 @@ public class StudentUser{
   @Column(name = "email", nullable = false, length = 50)
   private String email;
   
+  @Column(name = "cardnum", nullable = false, length = 32)
+  private String cardnum;
+  
   @Column(name = "role", nullable = false)
   @Enumerated(EnumType.STRING)
   private Role role;
-
-  public StudentUser(String userName, String displayName, String password, String email,
-      Role role) {
-    super();
-    this.userName = userName;
-    this.displayName = displayName;
-    this.password = password;
-    this.email = email;
-    this.role = role;
-  }
-  
   
 
   public StudentUser() {
     super();
     // TODO Auto-generated constructor stub
   }
-
-
 
   public String getUserName() {
     return userName;
@@ -84,6 +74,25 @@ public class StudentUser{
   }
 
   public void setRole(Role role) {
+    this.role = role;
+  }
+
+  public String getCardnum() {
+    return cardnum;
+  }
+
+  public void setCardnum(String cardnum) {
+    this.cardnum = cardnum;
+  }
+
+  public StudentUser(String userName, String displayName, String password, String email,
+      String cardnum, Role role) {
+    super();
+    this.userName = userName;
+    this.displayName = displayName;
+    this.password = password;
+    this.email = email;
+    this.cardnum = cardnum;
     this.role = role;
   }
 

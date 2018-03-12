@@ -5,6 +5,8 @@
 <link th:include="fragments/header :: header"></link>
 <link rel="stylesheet" th:href="@{/css/apply.css}" />
 <link rel="stylesheet" th:href="@{/css/lib/bootstrap-select.min.css}" />
+<link rel="stylesheet" th:href="@{/css/lib/bootstrap-datetimepicker.css}" />
+<link rel="stylesheet" th:href="@{/css/lib/bootstrap-fileupload.min.css}" />
 </head>
 <body>
 <div id="wrapper">
@@ -17,15 +19,44 @@
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <h1 class="page-head-line">--   请填写报销单    --</h1>
-                    </div>
+                        <h2 class="page-head-line">--   请填写报销单    --</h2>
+		              
+		                <div class="form-group required col-md-4">
+						<label class="control-label col-md-5" for="expense_form_type">报销单类型：</label>
+						  <div class="col-md-7">
+						    <select  class="form-control" id="expense_form_type" onchange="showExpenseByType(this.value);">
+						      <option></option>
+						      <option th:value="document_expense_form">单据报销单</option>
+						      <option th:value="travel_expense_form">出差费用报销单</option>
+						      <option th:value="city_traffic_expense_form">市内交通报销单</option>
+						      <option th:value="onboard_travel_expense_form">临时出国人员报销单</option>
+						    </select>
+						  </div>
+		              </div>
+		              
+                  </div>
                 </div>
                 <!-- /. ROW  -->
                 <div class="row">
-                    <div class="col-md-12">
-                       <div th:replace="fragments/document_expense_form :: document_expense_form"></div>
-                    </div>
-                </div>
+                
+                  <div class="col-md-12" style="display:none;"  id="document_expense_form">
+                     <div th:replace="fragments/document_expense_form :: document_expense_form"></div>
+                  </div>
+                  
+                  <div class="col-md-12" style="display:none;" id="city_traffic_expense_form">
+                     <div th:replace="fragments/city_traffic_expense_form :: city_traffic_expense_form"></div>
+                  </div>
+                  
+                  <div class="col-md-12" style="display:none;"  id="travel_expense_form"> 
+                     <div th:replace="fragments/travel_expense_form :: travel_expense_form"></div>
+                  </div>
+            
+                 
+                 <div class="col-md-12" style="display:none;" id="onboard_travel_expense_form">
+                       <div th:replace="fragments/onboard_travel_expense_form :: onboard_travel_expense_form"></div>
+                 </div>
+                    
+               </div>
             </div>
             </div>
 		<!-- footer -->

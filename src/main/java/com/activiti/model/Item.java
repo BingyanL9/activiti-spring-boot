@@ -64,4 +64,9 @@ public class Item {
     this.voucher = voucher;
   }
 
+  public Item() {
+    super();
+    // TODO Auto-generated constructor stub
+  }
+
 }

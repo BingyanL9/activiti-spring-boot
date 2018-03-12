@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+  <div th:fragment="city_traffic_expense_form" id="cityTrafficExpenseFormBlock">
+    <div class="container">
+      <h3 class="text-center">市内交通报销单</h3>
+      <form class="form-horizontal" id="cityTrafficExpenseForm" method="POST">
+         <!-- 
+         <div th:replace="fragments/traffic_info_input :: traffic_info_input"></div>
+	    
+	     <button type="button" class="btn btn-info pull-left" id="add-traffic-input-button" onclick="addTrafficInput();"
+	     style="margin-left:4px">
+	     <span class= "glyphicon glyphicon-plus"></span>
+	     </button>
+	      -->
+	      <div class="form-group col-md-4">
+          <label class="control-label col-md-5">凭证1</label>
+           <div class="">
+                <div class="fileupload fileupload-new col-md-7" data-provides="fileupload">
+                    <div class="fileupload-preview thumbnail" style="width: 200px; height: 150px;"></div>
+                    <div>
+                        <span class="btn btn-file btn-success">
+                        <span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
+                        <input type="file" />
+                        </span>
+                        <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload">Remove</a>
+                    </div>
+                </div>
+           </div>
+        </div>
+        
+         <div class="form-group col-md-4">
+          <label class="control-label col-md-5">凭证2</label>
+           <div class="">
+                <div class="fileupload fileupload-new col-md-7" data-provides="fileupload">
+                    <div class="fileupload-preview thumbnail" style="width: 200px; height: 150px;"></div>
+                    <div>
+                        <span class="btn btn-file btn-success">
+                        <span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
+                        <input type="file"/>
+                        </span>
+                        <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload">Remove</a>
+                    </div>
+                </div>
+           </div>
+        </div>
+        
+         <div class="form-group col-md-4">
+          <label class="control-label col-md-5">凭证3</label>
+           <div class="">
+                <div class="fileupload fileupload-new col-md-7" data-provides="fileupload">
+                    <div class="fileupload-preview thumbnail" style="width: 200px; height: 150px;"></div>
+                    <div>
+                        <span class="btn btn-file btn-success">
+                        <span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
+                        <input type="file"/>
+                        </span>
+                        <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload">Remove</a>
+                    </div>
+                </div>
+           </div>
+        </div>
+           
+       <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="name">姓名:</label>
+		  <div class="col-md-7">
+		    <input type="text" class="form-control" id="name1"
+		    name="name1" placeholder="请输入姓名" required="required"/>
+		  </div>
+		</div>
+		  
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="travel_time">时间:</label>
+		  <div class="col-md-7">
+		      <div class='input-group date form_date' data-date-format="yyyy-mm-dd">  
+	               <input type='text' class="form-control" readonly="readonly" id="travel_time1"
+		        name="startTraveltime1" required="required"/>  
+	               <span class="input-group-addon">  
+	                   <i class="glyphicon glyphicon-calendar"></i>  
+	               </span> 
+              </div> 
+		  </div>
+		</div>
+		
+		<div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="reason_of_travel">出差事由:</label>
+		  <div class="col-md-7">
+		    <input type="text" class="form-control" id="reason_of_travel1"
+		    name="reason_of_travel1" placeholder="请输入出差事由" required="required"/>
+		  </div>
+		</div>
+		
+		<div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="reason_of_travel">起止地点:</label>
+		  <div class="col-md-7">
+		    <input type="text" class="form-control" id="start_end_position1"
+		    name="start_end_position1" placeholder="请输入起止地点" required="required"/>
+		  </div>
+		</div>
+		
+		<div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="reason_of_travel">车费:</label>
+		  <div class="col-md-7">
+		    <input type="text" class="form-control" id="fare1"
+		    name="fare1" placeholder="车费" required="required"/>
+		  </div>
+		</div>
+		
+		<div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="reason_of_travel">其他:</label>
+		  <div class="col-md-7">
+		    <input type="text" class="form-control" id="other1"
+		    name="other1" placeholder="请输入其他"/>
+		  </div>
+		</div>
+		
+		       <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="name2">姓名:</label>
+		  <div class="col-md-7">
+		    <input type="text" class="form-control" id="name2"
+		    name="name2" placeholder="请输入姓名" required="required"/>
+		  </div>
+		</div>
+		  
+	     <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="travel_time">时间:</label>
+		  <div class="col-md-7">
+		      <div class='input-group date form_date' data-date-format="yyyy-mm-dd">  
+	               <input type='text' class="form-control" readonly="readonly" id="travel_time2"
+		        name="startTraveltime2" required="required"/>  
+	               <span class="input-group-addon">  
+	                   <i class="glyphicon glyphicon-calendar"></i>  
+	               </span> 
+              </div> 
+		  </div>
+		</div>
+		
+		<div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="reason_of_travel">出差事由:</label>
+		  <div class="col-md-7">
+		    <input type="text" class="form-control" id="reason_of_travel2"
+		    name="reason_of_travel2" placeholder="请输入出差事由" required="required"/>
+		  </div>
+		</div>
+		
+		<div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="reason_of_travel">起止地点:</label>
+		  <div class="col-md-7">
+		    <input type="text" class="form-control" id="start_end_position2"
+		    name="start_end_position2" placeholder="请输入起止地点" required="required"/>
+		  </div>
+		</div>
+		
+		<div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="reason_of_travel">车费:</label>
+		  <div class="col-md-7">
+		    <input type="text" class="form-control" id="fare2"
+		    name="fare2" placeholder="车费" required="required"/>
+		  </div>
+		</div>
+		
+		<div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="reason_of_travel">其他:</label>
+		  <div class="col-md-7">
+		    <input type="text" class="form-control" id="other1"
+		    name="other2" placeholder="请输入其他"/>
+		  </div>
+		</div>
+		
+		       <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="name3">姓名:</label>
+		  <div class="col-md-7">
+		    <input type="text" class="form-control" id="name3"
+		    name="name3" placeholder="请输入姓名" required="required"/>
+		  </div>
+		</div>
+		  
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="travel_time">时间:</label>
+		  <div class="col-md-7">
+		      <div class='input-group date form_date' data-date-format="yyyy-mm-dd">  
+	               <input type='text' class="form-control" readonly="readonly" id="travel_time3"
+		        name="startTraveltime3" required="required"/>  
+	               <span class="input-group-addon">  
+	                   <i class="glyphicon glyphicon-calendar"></i>  
+	               </span> 
+              </div> 
+		  </div>
+		</div>
+		
+		<div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="reason_of_travel">出差事由:</label>
+		  <div class="col-md-7">
+		    <input type="text" class="form-control" id="reason_of_travel3"
+		    name="reason_of_travel3" placeholder="请输入出差事由" required="required"/>
+		  </div>
+		</div>
+		
+		<div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="reason_of_travel">起止地点:</label>
+		  <div class="col-md-7">
+		    <input type="text" class="form-control" id="start_end_position3"
+		    name="start_end_position3" placeholder="请输入起止地点" required="required"/>
+		  </div>
+		</div>
+		
+		<div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="reason_of_travel">车费:</label>
+		  <div class="col-md-7">
+		    <input type="text" class="form-control" id="fare3"
+		    name="fare3" placeholder="车费" required="required"/>
+		  </div>
+		</div>
+		
+		<div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="reason_of_travel">其他:</label>
+		  <div class="col-md-7">
+		    <input type="text" class="form-control" id="other3"
+		    name="other3" placeholder="请输入其他"/>
+		  </div>
+		</div>
+	      
+	     <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="reason_of_travel">付款方式：</label>
+		  <div class="col-md-7">
+		    <select  class="form-control" id="traffic_paymode" required="required"
+		    onchange="showOnlineRequiredInfo(this.value);">
+		      <option></option>
+		      <option th:value="cash">现金</option>
+		      <option th:value="online-payment">网上支付</option>
+		    </select>
+		  </div>
+		</div>
+		
+	    <div id="onlineRequiredInfo" style="display:none;">
+			<div class="form-group required col-md-4">
+			  <label class="control-label col-md-5" for="reason_of_travel">用户:</label>
+			  <div class="col-md-7">
+			    <input type="text" class="form-control" id="payUser"
+			    name="payUser" placeholder="请输入用户"/>
+			  </div>
+			</div>
+			
+			<div class="form-group required col-md-4">
+			  <label class="control-label col-md-5" for="reason_of_travel">账号:</label>
+			  <div class="col-md-7">
+			    <input type="text" class="form-control" id="payAccount"
+			    name="payAccount" placeholder="请输入账号"/>
+			  </div>
+			</div>
+		</div>
+		
+		<div class="form-group required col-md-4">
+		<label class="control-label col-md-5" for="expense_type">报销类型：</label>
+		  <div class="col-md-7">
+		    <select  class="form-control" id="expense_type">
+		      <option></option>
+		      <option th:value="activity_expense">活动报销</option>
+		      <option th:value="medical_expense">医疗报销</option>
+		      <option th:value="daily_expense">日常报销</option>
+		      <option th:value="project_expense">项目报销</option>
+		    </select>
+		  </div>
+         </div>
+		
+		<div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="reason_of_travel">领款人:</label>
+		  <div class="col-md-7">
+		    <input type="text" class="form-control" id="payee"
+		    name="payee" placeholder="请输入领款人"/>
+		  </div>
+		</div>
+		
+		<div class="col-md-3">
+	      <button type="submit" class="btn btn-info pull-right" id="city-traffic-expense-submit">提交</button>
+         </div>
+		
+      
+      </form>
+    </div>
+   </div>
+</body>
+</html>

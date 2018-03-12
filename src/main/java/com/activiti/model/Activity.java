@@ -18,8 +18,8 @@ public class Activity {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long ano;
   
-  @Column(name = "activity_name", nullable = false, length = 100)
-  private String activity_name;
+  @Column(name = "activityname", nullable = false, length = 100)
+  private String activityName;
   
   @Column(name = "budget")
   private double budget;
@@ -31,7 +31,7 @@ public class Activity {
   private Date end_time;
   
   @ManyToOne(fetch = FetchType.LAZY ,cascade = CascadeType.REMOVE)
-  private ClubUser charge_club;
+  private ClubUser chargeClub;
 
   public Long getAno() {
     return ano;
@@ -42,11 +42,11 @@ public class Activity {
   }
 
   public String getActivity_name() {
-    return activity_name;
+    return activityName;
   }
 
   public void setActivity_name(String activity_name) {
-    this.activity_name = activity_name;
+    this.activityName = activity_name;
   }
 
   public double getBudget() {
@@ -74,21 +74,27 @@ public class Activity {
   }
 
   public ClubUser getCharge_club() {
-    return charge_club;
+    return chargeClub;
   }
 
   public void setCharge_club(ClubUser charge_club) {
-    this.charge_club = charge_club;
+    this.chargeClub = charge_club;
+  }
+  
+
+  public Activity() {
+    super();
+    // TODO Auto-generated constructor stub
   }
 
   public Activity(Long ano, String activity_name, double budget, Date starting_date, Date end_time,
       ClubUser charge_club) {
     super();
     this.ano = ano;
-    this.activity_name = activity_name;
+    this.activityName = activity_name;
     this.budget = budget;
     this.starting_date = starting_date;
     this.end_time = end_time;
-    this.charge_club = charge_club;
+    this.chargeClub = charge_club;
   }
 }

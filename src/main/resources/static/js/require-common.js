@@ -12,6 +12,8 @@ require.config({
         "d3": "d3.v3.min",
         "c3": "c3.min",
         "bootstrap_select":"bootstrap-select.min", 
+        "bootstrap_datetimepicker":"bootstrap-datetimepicker",
+        "bootstrap_fileupload":"bootstrap-fileupload"
     },
 
     shim: {
@@ -46,6 +48,14 @@ require.config({
         },
         "bootstrap_select": {
         	deps: ['bootstrap_select'],
+        	deps: ['jquery', 'bootstrap']
+        },
+        "bootstrap_datetimepicker": {
+        	deps: ['bootstrap_datetimepicker'],
+        	deps: ['jquery', 'bootstrap']
+        },
+        "bootstrap_fileupload": {
+        	deps: ['bootstrap_fileupload'],
         	deps: ['jquery', 'bootstrap']
         }
 

@@ -3,11 +3,12 @@ package com.activiti.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.activiti.repository.ActivityRepository;
+import com.activiti.repository.ItemRepository;
 
 @Service
-public class ActivitySercice {
+public class ItemService {
 
   @Autowired
-  private ActivityRepository activityRepository;
+  private ItemRepository itemRepository;
+  
 }

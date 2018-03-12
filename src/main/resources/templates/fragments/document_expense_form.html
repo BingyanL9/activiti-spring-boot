@@ -6,6 +6,55 @@
     <div class="container">
       <h3 class="text-center">单据报销单</h3>
       <form class="form-horizontal" id="documentExpenseForm" method="POST">
+
+       <div class="form-group col-md-4">
+          <label class="control-label col-md-5">凭证1</label>
+           <div class="">
+                <div class="fileupload fileupload-new col-md-7" data-provides="fileupload">
+                    <div class="fileupload-preview thumbnail" style="width: 200px; height: 150px;"></div>
+                    <div>
+                        <span class="btn btn-file btn-success">
+                        <span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
+                        <input type="file" />
+                        </span>
+                        <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload">Remove</a>
+                    </div>
+                </div>
+           </div>
+        </div>
+        
+         <div class="form-group col-md-4">
+          <label class="control-label col-md-5">凭证2</label>
+           <div class="">
+                <div class="fileupload fileupload-new col-md-7" data-provides="fileupload">
+                    <div class="fileupload-preview thumbnail" style="width: 200px; height: 150px;"></div>
+                    <div>
+                        <span class="btn btn-file btn-success">
+                        <span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
+                        <input type="file"/>
+                        </span>
+                        <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload">Remove</a>
+                    </div>
+                </div>
+           </div>
+        </div>
+        
+         <div class="form-group col-md-4">
+          <label class="control-label col-md-5">凭证3</label>
+           <div class="">
+                <div class="fileupload fileupload-new col-md-7" data-provides="fileupload">
+                    <div class="fileupload-preview thumbnail" style="width: 200px; height: 150px;"></div>
+                    <div>
+                        <span class="btn btn-file btn-success">
+                        <span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
+                        <input type="file"/>
+                        </span>
+                        <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload">Remove</a>
+                    </div>
+                </div>
+           </div>
+        </div>
+        
         <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="college">部门:</label>
 		  <div class="col-md-7">
@@ -24,22 +73,103 @@
 	    </div>
 	  
 	    <div class="form-group required col-md-4">
-		  <label class="control-label col-md-5" for="">时间:</label>
+		  <label class="control-label col-md-5" for="createtime">填表时间:</label>
 		  <div class="col-md-7">
 		  <input type="text" class="form-control" id="createtime"
 		  name="cardnum" th:value="${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd')}"/>
 		  </div>
 	    </div>
 	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="activityName">活动名称:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="activityName"
+		  name="cardnum" placeholder="请输入活动名称"/>
+		  </div>
+	    </div>
+	    
+	    <!-- 
 	    <div th:replace="fragments/item_input :: item_input"></div>
 	    
 	     <button type="button" class="btn btn-info pull-left" id="add-item-button" onclick="addItem();"
 	     style="margin-left:4px">
 	     <span class= "glyphicon glyphicon-plus"></span>
 	     </button>
-	     
+	      -->
+
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="college">小项:</label>
+		  <div class="col-md-7">
+		    <input type="text" class="form-control" id="item1"
+		    name="item1" placeholder="请输入小项名称" required="required"/>
+		  </div>
+		</div>
+		  
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">金额:</label>
+		  <div class="col-md-7">
+		    <input type="text" class="form-control" id="money1"
+		    name="money1" placeholder="请输入金额" required="required"/>
+		  </div>
+	    </div>
+		  
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="">备注:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="description1"
+		    name="description1" placeholder="备注"/>
+		  </div>
+	    </div>
+        
+        	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="college">小项:</label>
+		  <div class="col-md-7">
+		    <input type="text" class="form-control" id="item2"
+		    name="item2" placeholder="请输入小项名称" required="required"/>
+		  </div>
+		</div>
+		  
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">金额:</label>
+		  <div class="col-md-7">
+		    <input type="text" class="form-control" id="money2"
+		    name="money2" placeholder="请输入金额" required="required"/>
+		  </div>
+	    </div>
+		  
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="">备注:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="description2"
+		    name="description2" placeholder="备注"/>
+		  </div>
+	    </div>
+	    	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="college">小项:</label>
+		  <div class="col-md-7">
+		    <input type="text" class="form-control" id="item3"
+		    name="item3" placeholder="请输入小项名称" required="required"/>
+		  </div>
+		</div>
+		  
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">金额:</label>
+		  <div class="col-md-7">
+		    <input type="text" class="form-control" id="money3"
+		    name="money3" placeholder="请输入金额" required="required"/>
+		  </div>
+	    </div>
+		  
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="">备注:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="description3"
+		    name="description3" placeholder="备注"/>
+		  </div>
+	    </div>
+	      
 	     <div class="form-group required col-md-4">
-		  <label class="control-label col-md-5" for="cardnum">收款单位名称:</label>
+		  <label class="control-label col-md-5" for="payee-name">收款单位名称:</label>
 		  <div class="col-md-7">
 		  <input type="text" class="form-control" id="payee-name"
 		  name="payee-name" placeholder="请输入收款单位名称" required="required"/>
@@ -47,7 +177,7 @@
 	    </div>
 	  
 	    <div class="form-group required col-md-4">
-		  <label class="control-label col-md-5" for="cardnum">收款单位账户:</label>
+		  <label class="control-label col-md-5" for="payee-account">收款单位账户:</label>
 		  <div class="col-md-7">
 		  <input type="text" class="form-control" id="payee-account"
 		  name="payee-account" placeholder="请输入收款单位账户" required="required"/>
@@ -55,7 +185,7 @@
 	    </div>
 	  
 	    <div class="form-group required col-md-4">
-		  <label class="control-label col-md-5" for="">收款单位银行:</label>
+		  <label class="control-label col-md-5" for="payee-account-opening-bank">收款单位银行:</label>
 		  <div class="col-md-7">
 		 <input type="text" class="form-control" id="payee-account-opening-bank"
 		  name="payee-account-opening-bank" placeholder="请输入收款单位银行" required="required"/>
@@ -63,7 +193,7 @@
 	    </div>
 	    <div class="col-md-12 selectblock" >
 	      <div class="form-group required col-md-4">
-		  	<label class="control-label col-md-5" for="">付款方式:</label>
+		  	<label class="control-label col-md-5" for="paymode">付款方式:</label>
 		  	<div class="col-md-7">
 				<select multiple="multiple" class="selectpicker form-control" id="paymode">
 					<option value="check"> 支票 </option>
@@ -74,6 +204,19 @@
 				</select>
 			</div>
 	    </div>
+	    
+ 		<div class="form-group required col-md-4">
+		<label class="control-label col-md-5" for="expense_type">报销类型：</label>
+		  <div class="col-md-7">
+		    <select  class="form-control" id="expense_type">
+		      <option></option>
+		      <option th:value="activity_expense">活动报销</option>
+		      <option th:value="medical_expense">医疗报销</option>
+		      <option th:value="daily_expense">日常报销</option>
+		      <option th:value="project_expense">项目报销</option>
+		    </select>
+		  </div>
+         </div>
 	    
 	     <div class="col-md-3">
 	      <button type="submit" class="btn btn-info pull-right" id="document-expense-submit">提交</button>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+  <div th:fragment="travel_expense_form" id="travelExpenseFormBlock">
+    <div class="container">
+      <h3 class="text-center">出差费用报销单</h3>
+      <form class="form-horizontal" id="travelExpenseForm" method="POST">
+               <div class="form-group col-md-4">
+          <label class="control-label col-md-5">凭证1</label>
+           <div class="">
+                <div class="fileupload fileupload-new col-md-7" data-provides="fileupload">
+                    <div class="fileupload-preview thumbnail" style="width: 200px; height: 150px;"></div>
+                    <div>
+                        <span class="btn btn-file btn-success">
+                        <span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
+                        <input type="file" />
+                        </span>
+                        <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload">Remove</a>
+                    </div>
+                </div>
+           </div>
+        </div>
+        
+         <div class="form-group col-md-4">
+          <label class="control-label col-md-5">凭证2</label>
+           <div class="">
+                <div class="fileupload fileupload-new col-md-7" data-provides="fileupload">
+                    <div class="fileupload-preview thumbnail" style="width: 200px; height: 150px;"></div>
+                    <div>
+                        <span class="btn btn-file btn-success">
+                        <span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
+                        <input type="file"/>
+                        </span>
+                        <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload">Remove</a>
+                    </div>
+                </div>
+           </div>
+        </div>
+        
+         <div class="form-group col-md-4">
+          <label class="control-label col-md-5">凭证3</label>
+           <div class="">
+                <div class="fileupload fileupload-new col-md-7" data-provides="fileupload">
+                    <div class="fileupload-preview thumbnail" style="width: 200px; height: 150px;"></div>
+                    <div>
+                        <span class="btn btn-file btn-success">
+                        <span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
+                        <input type="file"/>
+                        </span>
+                        <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload">Remove</a>
+                    </div>
+                </div>
+           </div>
+        </div>
+        
+        <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="college">部门:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="college"
+		  name="college" placeholder="请输入部门" 
+		  th:value="${user.college}"/>
+		  </div>
+	    </div>
+	  
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">经费卡号:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="cardnum"
+		  name="cardnum" placeholder="请输入经费卡号" required="required"/>
+		  </div>
+	    </div>
+	  
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="createtime">填表时间:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="createtime"
+		  name="cardnum" th:value="${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd')}"/>
+		  </div>
+	    </div>
+	    
+	     <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="college">出差开始时间:</label>
+		    <div class="col-md-7">
+			  <div class='input-group date form_date' data-date-format="yyyy-mm-dd">  
+                <input type='text' class="form-control" readonly="readonly" id="startTraveltime"
+		        name="startTraveltime" required="required"/>  
+                <span class="input-group-addon">  
+                    <i class="glyphicon glyphicon-calendar"></i>  
+                </span> 
+              </div> 
+            </div>  
+		 </div>
+	  
+	 	 <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="college">出差结束时间:</label>
+		    <div class="col-md-7">
+			  <div class='input-group date form_date' data-date-format="yyyy-mm-dd">  
+                <input type='text' class="form-control" readonly="readonly" id="endTraveltime"
+		        name="endTraveltime" required="required"/>  
+                <span class="input-group-addon">  
+                    <i class="glyphicon glyphicon-calendar"></i>  
+                </span> 
+              </div> 
+            </div>  
+		 </div>
+	  
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">出差事由:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="travelReason"
+		  name="travelReason" placeholder="请输入出差事由" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">出差人员姓名:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="travelPersonName"
+		  name="travelPersonName" placeholder="请输入出差人员姓名" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">出差人员职务:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="travelPersonPosition"
+		  name="travelPersonPosition" placeholder="请输入出差人员职务" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">途中车船费日期1:</label>
+		  <div class="col-md-7">
+		    <div class='input-group date form_date' data-date-format="yyyy-mm-dd">  
+                <input type='text' class="form-control" readonly="readonly" id="travelTrafficFareDate1"
+		        name="startTraveltime" required="required"/>  
+                <span class="input-group-addon">  
+                    <i class="glyphicon glyphicon-calendar"></i>  
+                </span> 
+              </div>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">起止地点1:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="travelTrafficSite1"
+		  name="travelTrafficSite1" placeholder="请输入起止地点" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">交通工具1:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="travelTrafficTool1"
+		  name="travelTrafficTool1" placeholder="请输入交通工具" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">途中车船费1:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="travelTrafficFare1"
+		  name="travelTrafficFare1" placeholder="请输入途中车船费" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">途中车船费日期2:</label>
+		  <div class="col-md-7">
+		    <div class='input-group date form_date' data-date-format="yyyy-mm-dd">  
+                <input type='text' class="form-control" readonly="readonly" id="travelTrafficFareDate2"
+		        name="startTraveltime" required="required"/>  
+                <span class="input-group-addon">  
+                    <i class="glyphicon glyphicon-calendar"></i>  
+                </span> 
+              </div>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">起止地点2:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="travelTrafficSite2"
+		  name="travelTrafficSite2" placeholder="请输入起止地点" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">交通工具2:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="travelTrafficTool2"
+		  name="travelTrafficTool2" placeholder="请输入交通工具" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">途中车船费2:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="travelTrafficFare2"
+		  name="travelTrafficFare2" placeholder="请输入途中车船费" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">途中车船费日期3:</label>
+		  <div class="col-md-7">
+		    <div class='input-group date form_date' data-date-format="yyyy-mm-dd">  
+                <input type='text' class="form-control" readonly="readonly" id="travelTrafficFareDate3"
+		        name="startTraveltime" required="required"/>  
+                <span class="input-group-addon">  
+                    <i class="glyphicon glyphicon-calendar"></i>  
+                </span> 
+              </div>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">起止地点3:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="travelTrafficSite3"
+		  name="travelTrafficSite3" placeholder="请输入起止地点" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">交通工具3:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="travelTrafficTool3"
+		  name="travelTrafficTool3" placeholder="请输入交通工具" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">途中车船费3:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="travelTrafficFare3"
+		  name="travelTrafficFare3" placeholder="请输入途中车船费" required="required"/>
+		  </div>
+	    </div>
+	    
+	     <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">住宿费:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="travelAccommodationFare"
+		  name="travelAccommodationFare" placeholder="请输入住宿费" required="required"/>
+		  </div>
+	    </div>
+	    
+	     <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">伙食补助费天数:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="days-of-food-subsidy"
+		  name="days-of-food-subsidy" placeholder="请输入伙食补助费天数" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">伙食补助费标准:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="food-subsidy-stadard"
+		  name="food-subsidy-stadard" placeholder="请输入伙食补助费标准" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">伙食补助费金额:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="food-subsidy-fare"
+		  name="food-subsidy-fare" placeholder="请输入伙食补助费金额" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">其他摘要:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="Other-Abstracts"
+		  name="Other-Abstracts" placeholder="请输入其他摘要" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">其他金额:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" id="Other-Fare"
+		  name="Other-Fare" placeholder="请输入其他金额" required="required"/>
+		  </div>
+	    </div>
+	    
+	     <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="reason_of_travel">付款方式：</label>
+		  <div class="col-md-7">
+		    <select  class="form-control" id="travel_paymode" required="required"
+		    onchange="showTravelOnlineRequiredInfo(this.value);">
+		      <option></option>
+		      <option th:value="cash">现金</option>
+		      <option th:value="online-payment">网上支付</option>
+		    </select>
+		  </div>
+		</div>
+		
+	    <div id="travelOnlineRequiredInfo" style="display:none;">
+			<div class="form-group required col-md-4">
+			  <label class="control-label col-md-5" for="reason_of_travel">用户:</label>
+			  <div class="col-md-7">
+			    <input type="text" class="form-control" id="payUser"
+			    name="payUser" placeholder="请输入用户"/>
+			  </div>
+			</div>
+			
+			<div class="form-group required col-md-4">
+			  <label class="control-label col-md-5" for="reason_of_travel">开户银行:</label>
+			  <div class="col-md-7">
+			    <input type="text" class="form-control" id="payOpenBank"
+			    name="payOpenBank" placeholder="请输入账号开户银行"/>
+			  </div>
+			</div>
+			
+			<div class="form-group required col-md-4">
+			  <label class="control-label col-md-5" for="reason_of_travel">账号:</label>
+			  <div class="col-md-7">
+			    <input type="text" class="form-control" id="payAccount"
+			    name="payAccount" placeholder="请输入账号"/>
+			  </div>
+			</div>
+		</div>
+		
+		<div class="form-group required col-md-4">
+			  <label class="control-label col-md-5" for="reason_of_travel">负责人:</label>
+			  <div class="col-md-7">
+			    <input type="text" class="form-control" id="manager"
+			    name="manager" placeholder="请输入负责人"/>
+			  </div>
+		</div>
+		
+		<div class="form-group required col-md-4">
+			  <label class="control-label col-md-5" for="reason_of_travel">填报人:</label>
+			  <div class="col-md-7">
+			    <input type="text" class="form-control" id="submitter"
+			    name="submitter" placeholder="请输入填报人"/>
+			  </div>
+		</div>
+		
+		<div class="form-group required col-md-4">
+			  <label class="control-label col-md-5" for="reason_of_travel">填报人联系电话:</label>
+			  <div class="col-md-7">
+			    <input type="text" class="form-control" id="submitterTell"
+			    name="submitterTell" placeholder="请输入填报人联系电话"/>
+			  </div>
+		</div>
+		
+		<div class="col-md-3">
+	      <button type="submit" class="btn btn-info pull-right" id="document-expense-submit">提交</button>
+         </div>
+	    
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>

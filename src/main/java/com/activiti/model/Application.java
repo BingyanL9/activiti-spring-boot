@@ -2,6 +2,8 @@ package com.activiti.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +19,23 @@ public class Application {
   private Long apno;
   
   @Column(name = "application_type", nullable = false, length = 11)
-  private String application_type;
+  @Enumerated(EnumType.STRING)
+  private Application_Type application_type;
+  
+  @Column(name = " createtime", length = 32)
+  private String createtime;
+  
+  @Column(name = " payee_name", length = 32)
+  private String payee_name;
+  
+  @Column(name = " payee_account", length = 32)
+  private String payee_account;
+  
+  @Column(name = " payee_account_opening_bank", length = 32)
+  private String payee_account_opening_bank;
+  
+  @Column(name = "paymode", length = 32)
+  private String paymode;
   
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
   private StudentUser application_student;
@@ -39,11 +57,11 @@ public class Application {
     this.apno = apno;
   }
 
-  public String getApplication_type() {
+  public Application_Type getApplication_type() {
     return application_type;
   }
 
-  public void setApplication_type(String application_type) {
+  public void setApplication_type(Application_Type application_type) {
     this.application_type = application_type;
   }
 
@@ -79,16 +97,67 @@ public class Application {
     this.activity = activity;
   }
 
-  public Application(Long apno, String application_type, StudentUser application_student,
-      TeacherUser application_teacher, Project project, Activity activity) {
+  public String getCreatetime() {
+    return createtime;
+  }
+
+  public void setCreatetime(String createtime) {
+    this.createtime = createtime;
+  }
+
+  public String getPayee_name() {
+    return payee_name;
+  }
+
+  public void setPayee_name(String payee_name) {
+    this.payee_name = payee_name;
+  }
+
+  public String getPayee_account() {
+    return payee_account;
+  }
+
+  public void setPayee_account(String payee_account) {
+    this.payee_account = payee_account;
+  }
+
+  public String getPayee_account_opening_bank() {
+    return payee_account_opening_bank;
+  }
+
+  public void setPayee_account_opening_bank(String payee_account_opening_bank) {
+    this.payee_account_opening_bank = payee_account_opening_bank;
+  }
+
+  public String getPaymode() {
+    return paymode;
+  }
+
+  public void setPaymode(String paymode) {
+    this.paymode = paymode;
+  }
+
+  public Application(Long apno, Application_Type application_type, String createtime,
+      String payee_name, String payee_account, String payee_account_opening_bank, String paymode,
+      StudentUser application_student, TeacherUser application_teacher, Project project,
+      Activity activity) {
     super();
     this.apno = apno;
     this.application_type = application_type;
+    this.createtime = createtime;
+    this.payee_name = payee_name;
+    this.payee_account = payee_account;
+    this.payee_account_opening_bank = payee_account_opening_bank;
+    this.paymode = paymode;
     this.application_student = application_student;
     this.application_teacher = application_teacher;
     this.project = project;
     this.activity = activity;
   }
-  
+
+  public Application() {
+    super();
+    // TODO Auto-generated constructor stub
+  }
   
 }

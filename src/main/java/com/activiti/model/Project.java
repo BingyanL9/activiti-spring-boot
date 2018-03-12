@@ -21,20 +21,14 @@ public class Project {
   @Column(name = "budget")
   private double budget;
   
+  @Column(name = "cardnum")
+  private double cardnum;
+  
   @Column(name = "starting_date")
   private Date starting_date;
   
   @Column(name = "end_time")
   private Date end_time;
-
-  public Project(Long pno, String project_name, double budget, Date starting_date, Date end_time) {
-    super();
-    this.pno = pno;
-    this.project_name = project_name;
-    this.budget = budget;
-    this.starting_date = starting_date;
-    this.end_time = end_time;
-  }
 
   public Long getPno() {
     return pno;
@@ -76,5 +70,30 @@ public class Project {
     this.end_time = end_time;
   }
 
+  public double getCardnum() {
+    return cardnum;
+  }
+
+  public void setCardnum(double cardnum) {
+    this.cardnum = cardnum;
+  }
+
+  public Project(Long pno, String project_name, double budget, double cardnum, Date starting_date,
+      Date end_time) {
+    super();
+    this.pno = pno;
+    this.project_name = project_name;
+    this.budget = budget;
+    this.cardnum = cardnum;
+    this.starting_date = starting_date;
+    this.end_time = end_time;
+  }
+
+  public Project() {
+    super();
+    // TODO Auto-generated constructor stub
+  }
+
+  
  
 }

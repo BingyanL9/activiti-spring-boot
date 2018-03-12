@@ -10,7 +10,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.activiti.model.Application_Type;
 import com.activiti.model.StudentUser;
+import com.activiti.repository.ClubUserRepository;
 import com.activiti.repository.StudentUserRepository;
 
 @Service
@@ -20,6 +22,9 @@ public class StudentUserService {
   
   @Autowired
   private StudentUserRepository studentUserRepository;
+  
+  @Autowired
+  private ClubUserService clubUserService;
   
   public StudentUser findByName(String userName) {
     return studentUserRepository.findByUserName(userName);
@@ -33,6 +38,10 @@ public class StudentUserService {
     return studentUserRepository.getUserDisplayName(getCurrentUserName());
   }
   
+  public String getCardNumByUserName() {
+    return studentUserRepository.getCardnumByUserName(getCurrentUserName());
+  }
+  
   private String getCurrentUserName() {
     logger.debug("Start getting current username.");
     Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -43,6 +52,16 @@ public class StudentUserService {
       return ((Principal) principal).getName();
     }
     return String.valueOf(principal);
+  }
+  
+  public Application_Type getApplicationTypebyCardnum( String cardNum ) {
+    if (getCardNumByUserName().equals(cardNum)) {
+      if (clubUserService.findByName(getCurrentUserName()) != null) {
+        return Application_Type.ActivityExpense;
+      }else
+        return Application_Type.DailyExpense;
+    }else
+      return Application_Type.ProjectExpense;
   }
  
 }

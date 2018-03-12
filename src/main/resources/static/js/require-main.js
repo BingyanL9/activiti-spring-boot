@@ -1,5 +1,5 @@
 requirejs(['./require-common'], function (common) {
-	requirejs(['bootstrap','jquery','bootstrap_select']);
+	requirejs(['bootstrap','jquery','bootstrap_select','bootstrap_fileupload']);
 	requirejs(['/js/header.js']);
-	requirejs(['/js/document_expense_form.js']);
+	requirejs(['/js/apply.js']);
 });

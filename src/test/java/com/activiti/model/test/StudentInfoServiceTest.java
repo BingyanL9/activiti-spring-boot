@@ -3,7 +3,6 @@ package com.activiti.model.test;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,7 +28,7 @@ public class StudentInfoServiceTest {
   
   @Before
   public void setUp() {
-    studentInfo = new StudentUser("201810311100", "Echo", "123456", "bingyanl@126.com",Role.ordinary);
+    studentInfo = new StudentUser("201810311100", "Echo", "123456", "bingyanl@126.com", "1234567890", Role.ordinary);
     studentInfoRepository.save(studentInfo);
   }
   

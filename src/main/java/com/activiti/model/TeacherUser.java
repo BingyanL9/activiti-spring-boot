@@ -41,23 +41,24 @@ public class TeacherUser extends StudentUser{
     this.leader = leader;
   }
 
-  public TeacherUser(String userName, String displayName, String password, String email, Role role,
-      String college, String title, TeacherUser leader) {
-    super(userName, displayName, password, email, role);
-    this.college = college;
-    this.title = title;
-    this.leader = leader;
-  }
 
   public TeacherUser() {
     super();
     // TODO Auto-generated constructor stub
   }
 
+  public TeacherUser(String college, String title, TeacherUser leader) {
+    super();
+    this.college = college;
+    this.title = title;
+    this.leader = leader;
+  }
+
   public TeacherUser(String userName, String displayName, String password, String email,
-      Role role) {
-    super(userName, displayName, password, email, role);
+      String cardnum, Role role) {
+    super(userName, displayName, password, email, cardnum, role);
     // TODO Auto-generated constructor stub
   }
+
 
 }
