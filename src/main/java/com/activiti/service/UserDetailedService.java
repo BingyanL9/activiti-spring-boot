@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.activiti.model.StudentUser;
+import com.activiti.model.User;
 import com.activiti.model.UserWithSalt;;
 
 
@@ -27,7 +27,7 @@ public class UserDetailedService implements UserDetailsService{
   public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
     logger.debug("Load user by userName: " + userName);
     List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
-    StudentUser studentInfo = studentUserService.findByName(userName);
+    User studentInfo = studentUserService.findByName(userName);
     
     if (studentInfo == null) {
       logger.error("User not found");

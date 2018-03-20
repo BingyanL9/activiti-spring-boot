@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.activiti.model.Application_Type;
-import com.activiti.model.StudentUser;
+import com.activiti.model.User;
 import com.activiti.repository.ClubUserRepository;
 import com.activiti.repository.StudentUserRepository;
 
@@ -26,11 +26,11 @@ public class StudentUserService {
   @Autowired
   private ClubUserService clubUserService;
   
-  public StudentUser findByName(String userName) {
+  public User findByName(String userName) {
     return studentUserRepository.findByUserName(userName);
   }
   
-  public StudentUser getCurrentUser() {
+  public User getCurrentUser() {
     return findByName(getCurrentUserName());
   }
 

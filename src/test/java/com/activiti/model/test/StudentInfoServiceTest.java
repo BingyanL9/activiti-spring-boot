@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.activiti.DemoApplication;
 import com.activiti.model.Role;
-import com.activiti.model.StudentUser;
+import com.activiti.model.User;
 import com.activiti.repository.StudentUserRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -21,14 +21,14 @@ import com.activiti.repository.StudentUserRepository;
 @Transactional
 public class StudentInfoServiceTest {
   
-  private StudentUser studentInfo;
+  private User studentInfo;
   
   @Autowired
   private StudentUserRepository studentInfoRepository;
   
   @Before
   public void setUp() {
-    studentInfo = new StudentUser("201810311100", "Echo", "123456", "bingyanl@126.com", "1234567890", Role.ordinary);
+    studentInfo = new User("201810311100", "Echo", "123456", "bingyanl@126.com", "1234567890", Role.ordinary);
     studentInfoRepository.save(studentInfo);
   }
   

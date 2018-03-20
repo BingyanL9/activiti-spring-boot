@@ -1,12 +1,16 @@
 package com.activiti.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
-public class TeacherUser extends StudentUser{
+public class TeacherUser extends User{
   
   @Column(name = "college", nullable = false, length = 50) 
   private String college;
@@ -16,7 +20,16 @@ public class TeacherUser extends StudentUser{
   
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   private TeacherUser leader;
-
+  
+  @OneToMany(mappedBy = "leader", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<TeacherUser> subordinates;
+  
+  @OneToMany(mappedBy = "application_teacher", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<Application> documentApplications;
+  
+  @OneToMany(mappedBy = "approval_person", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<Approval> approvals;
+  
   public String getCollege() {
     return college;
   }
@@ -41,24 +54,20 @@ public class TeacherUser extends StudentUser{
     this.leader = leader;
   }
 
-
-  public TeacherUser() {
-    super();
-    // TODO Auto-generated constructor stub
+  public List<TeacherUser> getSubordinates() {
+    return subordinates;
   }
 
-  public TeacherUser(String college, String title, TeacherUser leader) {
-    super();
-    this.college = college;
-    this.title = title;
-    this.leader = leader;
+  public void setSubordinates(List<TeacherUser> subordinates) {
+    this.subordinates = subordinates;
   }
 
-  public TeacherUser(String userName, String displayName, String password, String email,
-      String cardnum, Role role) {
-    super(userName, displayName, password, email, cardnum, role);
-    // TODO Auto-generated constructor stub
+  public List<Application> getDocumentApplications() {
+    return documentApplications;
   }
 
+  public void setDocumentApplications(List<Application> documentApplications) {
+    this.documentApplications = documentApplications;
+  }
 
 }

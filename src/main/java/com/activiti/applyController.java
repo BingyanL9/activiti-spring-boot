@@ -16,7 +16,7 @@ import com.activiti.model.Application;
 import com.activiti.model.Application_Type;
 import com.activiti.model.ClubUser;
 import com.activiti.model.DocumentExpenseViewObject;
-import com.activiti.model.Item;
+import com.activiti.model.DocumentItem;
 import com.activiti.model.Voucher;
 import com.activiti.repository.ItemRepository;
 import com.activiti.repository.VoucherRepository;
@@ -53,54 +53,54 @@ public class applyController {
     return "fragments/traffic_info_input :: traffic_info_input";
   }
   
-  @RequestMapping(value = "/apply/documentexpense", method = RequestMethod.POST)
-  public String createDocumentExpenseApplication( DocumentExpenseViewObject devo) {
-    logger.debug("Start create document expense application!");
-    Application application = new Application();
-    
-    Voucher voucher = new Voucher();
-    List<Item> items = new ArrayList<Item>();
-    Item item1 = new Item();
-    item1.setItem_name(devo.getItem1());
-    item1.setItem_money(Double.parseDouble(devo.getItemMoney1()));
-    items.add(item1);
-    Item item2 = new Item();
-    item2.setItem_name(devo.getItem2());
-    item2.setItem_money(Double.parseDouble(devo.getItemMoney2()));
-    items.add(item2);
-    Item item3 = new Item();
-    item3.setItem_name(devo.getItem3());
-    item3.setItem_money(Double.parseDouble(devo.getItemMoney3()));
-    items.add(item3);
-    itemRepository.save(items);
-    voucher.setItems(items);
-    List<String> enclosures = new ArrayList<String>();
-    enclosures.add(devo.getEnclosure1());
-    enclosures.add(devo.getEnclosure2());
-    enclosures.add(devo.getEnclosure3());
-    voucher.setEnclosure(enclosures);
-    Application_Type application_type =
-        studentUserService.getApplicationTypebyCardnum(devo.getCardnum());
-    application
-        .setApplication_type(application_type);
-    application.setCreatetime(devo.getCreatetime());
-    application.setPaymode(devo.getPaymode());
-    if (devo.getPaymode() != "cash") {
-    application.setPayee_account(devo.getPayee_account());
-    application.setPayee_account_opening_bank(devo.getPayee_account_opening_bank());
-    application.setPayee_name(devo.getPayee_name());
-    }
-    
-    if ( application_type.equals(Application_Type.ActivityExpense)) {
-      ClubUser clubUser = clubUserService.getCurrentUser();
-      Activity activity = activityService.findByNameAndChargeClub(devo.getActivityName(), clubUser);
-      application.setActivity(activity);
-    }else {
-      
-    }
-     
-    return null;
-  }
+//  @RequestMapping(value = "/apply/documentexpense", method = RequestMethod.POST)
+//  public String createDocumentExpenseApplication( DocumentExpenseViewObject devo) {
+//    logger.debug("Start create document expense application!");
+//    Application application = new Application();
+//    
+//    Voucher voucher = new Voucher();
+//    List<DocumentItem> items = new ArrayList<DocumentItem>();
+//    DocumentItem item1 = new DocumentItem();
+//    item1.setItem_name(devo.getItem1());
+//    item1.setItem_money(Double.parseDouble(devo.getItemMoney1()));
+//    items.add(item1);
+//    DocumentItem item2 = new DocumentItem();
+//    item2.setItem_name(devo.getItem2());
+//    item2.setItem_money(Double.parseDouble(devo.getItemMoney2()));
+//    items.add(item2);
+//    DocumentItem item3 = new DocumentItem();
+//    item3.setItem_name(devo.getItem3());
+//    item3.setItem_money(Double.parseDouble(devo.getItemMoney3()));
+//    items.add(item3);
+//    itemRepository.save(items);
+//    voucher.setItems(items);
+//    List<String> enclosures = new ArrayList<String>();
+//    enclosures.add(devo.getEnclosure1());
+//    enclosures.add(devo.getEnclosure2());
+//    enclosures.add(devo.getEnclosure3());
+//    voucher.setEnclosure(enclosures);
+//    Application_Type application_type =
+//        studentUserService.getApplicationTypebyCardnum(devo.getCardnum());
+//    application
+//        .setApplication_type(application_type);
+//    application.setCreatetime(devo.getCreatetime());
+//    application.setPaymode(devo.getPaymode());
+//    if (devo.getPaymode() != "cash") {
+//    application.setPayee_account(devo.getPayee_account());
+//    application.setPayee_account_opening_bank(devo.getPayee_account_opening_bank());
+//    application.setPayee_name(devo.getPayee_name());
+//    }
+//    
+//    if ( application_type.equals(Application_Type.ActivityExpense)) {
+//      ClubUser clubUser = clubUserService.getCurrentUser();
+//      Activity activity = activityService.findByNameAndChargeClub(devo.getActivityName(), clubUser);
+//      application.setActivity(activity);
+//    }else {
+//      
+//    }
+//     
+//    return null;
+// }
   
 
 }

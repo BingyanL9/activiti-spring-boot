@@ -1,6 +1,7 @@
 package com.activiti.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,13 +11,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Activity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long ano;
+  private Long id;
   
   @Column(name = "activityname", nullable = false, length = 100)
   private String activityName;
@@ -30,15 +32,18 @@ public class Activity {
   @Column(name = "end_time")
   private Date end_time;
   
-  @ManyToOne(fetch = FetchType.LAZY ,cascade = CascadeType.REMOVE)
+  @ManyToOne(fetch = FetchType.LAZY)
   private ClubUser chargeClub;
+  
+  @OneToMany(mappedBy = "avtivity", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+  private List<Application> documentApplications;
 
-  public Long getAno() {
-    return ano;
+  public Long getId() {
+    return id;
   }
 
-  public void setAno(Long ano) {
-    this.ano = ano;
+  public void setId(Long id) {
+    this.id = id;
   }
 
   public String getActivity_name() {
@@ -80,21 +85,30 @@ public class Activity {
   public void setCharge_club(ClubUser charge_club) {
     this.chargeClub = charge_club;
   }
+
+  public String getActivityName() {
+    return activityName;
+  }
+
+  public void setActivityName(String activityName) {
+    this.activityName = activityName;
+  }
+
+  public ClubUser getChargeClub() {
+    return chargeClub;
+  }
+
+  public void setChargeClub(ClubUser chargeClub) {
+    this.chargeClub = chargeClub;
+  }
+
+  public List<Application> getDocumentApplications() {
+    return documentApplications;
+  }
+
+  public void setDocumentApplications(List<Application> documentApplications) {
+    this.documentApplications = documentApplications;
+  }
   
 
-  public Activity() {
-    super();
-    // TODO Auto-generated constructor stub
-  }
-
-  public Activity(Long ano, String activity_name, double budget, Date starting_date, Date end_time,
-      ClubUser charge_club) {
-    super();
-    this.ano = ano;
-    this.activityName = activity_name;
-    this.budget = budget;
-    this.starting_date = starting_date;
-    this.end_time = end_time;
-    this.chargeClub = charge_club;
-  }
 }

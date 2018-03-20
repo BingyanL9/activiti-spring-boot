@@ -88,85 +88,12 @@
 		  </div>
 	    </div>
 	    
-	    <!-- 
-	    <div th:replace="fragments/item_input :: item_input"></div>
+	    <div th:replace="fragments/document_expense_form :: item_input"></div>
 	    
 	     <button type="button" class="btn btn-info pull-left" id="add-item-button" onclick="addItem();"
 	     style="margin-left:4px">
 	     <span class= "glyphicon glyphicon-plus"></span>
 	     </button>
-	      -->
-
-	    <div class="form-group required col-md-4">
-		  <label class="control-label col-md-5" for="college">小项:</label>
-		  <div class="col-md-7">
-		    <input type="text" class="form-control" id="item1"
-		    name="item1" placeholder="请输入小项名称" required="required"/>
-		  </div>
-		</div>
-		  
-	    <div class="form-group required col-md-4">
-		  <label class="control-label col-md-5" for="cardnum">金额:</label>
-		  <div class="col-md-7">
-		    <input type="text" class="form-control" id="money1"
-		    name="money1" placeholder="请输入金额" required="required"/>
-		  </div>
-	    </div>
-		  
-	    <div class="form-group required col-md-4">
-		  <label class="control-label col-md-5" for="">备注:</label>
-		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="description1"
-		    name="description1" placeholder="备注"/>
-		  </div>
-	    </div>
-        
-        	    <div class="form-group required col-md-4">
-		  <label class="control-label col-md-5" for="college">小项:</label>
-		  <div class="col-md-7">
-		    <input type="text" class="form-control" id="item2"
-		    name="item2" placeholder="请输入小项名称" required="required"/>
-		  </div>
-		</div>
-		  
-	    <div class="form-group required col-md-4">
-		  <label class="control-label col-md-5" for="cardnum">金额:</label>
-		  <div class="col-md-7">
-		    <input type="text" class="form-control" id="money2"
-		    name="money2" placeholder="请输入金额" required="required"/>
-		  </div>
-	    </div>
-		  
-	    <div class="form-group required col-md-4">
-		  <label class="control-label col-md-5" for="">备注:</label>
-		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="description2"
-		    name="description2" placeholder="备注"/>
-		  </div>
-	    </div>
-	    	    <div class="form-group required col-md-4">
-		  <label class="control-label col-md-5" for="college">小项:</label>
-		  <div class="col-md-7">
-		    <input type="text" class="form-control" id="item3"
-		    name="item3" placeholder="请输入小项名称" required="required"/>
-		  </div>
-		</div>
-		  
-	    <div class="form-group required col-md-4">
-		  <label class="control-label col-md-5" for="cardnum">金额:</label>
-		  <div class="col-md-7">
-		    <input type="text" class="form-control" id="money3"
-		    name="money3" placeholder="请输入金额" required="required"/>
-		  </div>
-	    </div>
-		  
-	    <div class="form-group required col-md-4">
-		  <label class="control-label col-md-5" for="">备注:</label>
-		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="description3"
-		    name="description3" placeholder="备注"/>
-		  </div>
-	    </div>
 	      
 	     <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="payee-name">收款单位名称:</label>
@@ -227,6 +154,37 @@
       </form>
     </div>
 </div>
+
+  <div th:fragment="item_input">
+    <div class="form-group required col-md-4">
+	  <label class="control-label col-md-5" for="college">小项:</label>
+	  <div class="col-md-7">
+	    <input type="text" class="form-control" id="item"
+	    name="item" placeholder="请输入小项名称" required="required"/>
+	  </div>
+	</div>
+	  
+    <div class="form-group required col-md-4">
+	  <label class="control-label col-md-5" for="cardnum">金额:</label>
+	  <div class="col-md-7">
+	    <input type="text" class="form-control" id="money"
+	    name="money" placeholder="请输入金额" required="required"/>
+	  </div>
+    </div>
+	  
+    <div class="form-group required col-md-4">
+	  <label class="control-label col-md-5" for="">备注:</label>
+	  <div class="col-md-7">
+	  <input type="text" class="form-control" id="description"
+	    name="description" placeholder="备注"/>
+	  </div>
+    </div>
+    
+     <button type="button" class="btn btn-info pull-left" id="delete-item-button" onclick="deleteItem();">
+	     <span class= "glyphicon glyphicon-remove"></span>
+	 </button>
+    
+  </div>
 
 </body>
 </html>

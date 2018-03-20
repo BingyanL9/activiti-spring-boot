@@ -1,35 +1,40 @@
 package com.activiti.model;
 
 
-import java.io.Serializable;
-
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
-@IdClass(Project_respon_id.class)
-public class Project_respon implements Serializable{
-  
-
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+//@IdClass(Project_respon_id.class)
+public class Project_respon {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long id;
+  
   @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
   private Project project;
   
-  @Id
-  @ManyToOne(fetch = FetchType.LAZY)
+  @OneToOne(mappedBy = "userName", fetch = FetchType.LAZY)
   private TeacherUser charge;
   
-  @Id
-  private int level;
+  @Column(name = "level", length =32) 
+  private String level;
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
 
   public Project getProject() {
     return project;
@@ -47,20 +52,12 @@ public class Project_respon implements Serializable{
     this.charge = charge;
   }
 
-  public int getLevel() {
+  public String getLevel() {
     return level;
   }
 
-  public void setLevel(int level) {
+  public void setLevel(String level) {
     this.level = level;
   }
-
-  public Project_respon(Project project, TeacherUser charge, int level) {
-    super();
-    this.project = project;
-    this.charge = charge;
-    this.level = level;
-  }
-
   
 }

@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Item {
+public class DocumentItem {
   
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,7 +22,7 @@ public class Item {
   private double item_money;
   
   @ManyToOne(fetch = FetchType.LAZY)
-  private Voucher voucher;
+  private Application application;
 
   public Long getId() {
     return id;
@@ -48,25 +48,25 @@ public class Item {
     this.item_money = item_money;
   }
 
-  public Voucher getVoucher() {
-    return voucher;
+  public Application getApplication() {
+    return application;
   }
 
-  public void setVoucher(Voucher voucher) {
-    this.voucher = voucher;
+  public void setApplication(Application application) {
+    this.application = application;
   }
 
-  public Item(Long id, String item_name, double item_money, Voucher voucher) {
+  public DocumentItem() {
+    super();
+    // TODO Auto-generated constructor stub
+  }
+
+  public DocumentItem(Long id, String item_name, double item_money, Application application) {
     super();
     this.id = id;
     this.item_name = item_name;
     this.item_money = item_money;
-    this.voucher = voucher;
-  }
-
-  public Item() {
-    super();
-    // TODO Auto-generated constructor stub
+    this.application = application;
   }
 
 }
