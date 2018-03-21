@@ -21,6 +21,9 @@ public class DocumentItem {
   @Column(name = "item_money")
   private double item_money;
   
+  @Column(name = "item_description")
+  private double item_description;
+  
   @ManyToOne(fetch = FetchType.LAZY)
   private Application application;
 
@@ -56,17 +59,28 @@ public class DocumentItem {
     this.application = application;
   }
 
+  public double getItem_description() {
+    return item_description;
+  }
+
+  public void setItem_description(double item_description) {
+    this.item_description = item_description;
+  }
+
+  public DocumentItem(Long id, String item_name, double item_money, double item_description,
+      Application application) {
+    super();
+    this.id = id;
+    this.item_name = item_name;
+    this.item_money = item_money;
+    this.item_description = item_description;
+    this.application = application;
+  }
+
   public DocumentItem() {
     super();
     // TODO Auto-generated constructor stub
   }
 
-  public DocumentItem(Long id, String item_name, double item_money, Application application) {
-    super();
-    this.id = id;
-    this.item_name = item_name;
-    this.item_money = item_money;
-    this.application = application;
-  }
 
 }

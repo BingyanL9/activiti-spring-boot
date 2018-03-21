@@ -9,6 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.activiti.model.DocumentExpenseViewObject;
 import com.activiti.service.StudentUserService;
 
 
@@ -32,6 +33,7 @@ public class MainController {
   public String apply(Map<String, Object> model) {
     model.put("user", studentUserService.getCurrentUser());
     logger.debug("Start to apply an expense");
+    model.put("DocumentExpenseViewObject", new DocumentExpenseViewObject());
     return "apply";
   }
 

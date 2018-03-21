@@ -24,7 +24,7 @@ public class Approval {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  @OneToOne(mappedBy = "id")
+  @OneToOne(mappedBy = "approval")
   private Application application;
 
   @ManyToOne(fetch = FetchType.LAZY)

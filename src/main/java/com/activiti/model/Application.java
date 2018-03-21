@@ -32,7 +32,7 @@ public class Application {
   @Column(name = " cardnum", length = 32)
   private String cardNum;
   
-  @OneToOne(mappedBy = "id", optional = true)
+  @OneToOne(mappedBy = "application", optional = true)
   private Payee payee;
   
   @Column(name = "paymode", length = 32)
@@ -65,7 +65,7 @@ public class Application {
   @OneToMany(mappedBy = "application", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<AbroadItem> abroadItems;
   
-  @OneToOne(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @OneToOne(mappedBy = "application", optional = true)
   private AbroadOtherInfo abroadOtherInfo;
   
   @OneToMany(mappedBy = "application", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -74,16 +74,19 @@ public class Application {
   @Column(name = "totle")
   private Double totle;
   
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   private TeacherUser application_teacher;
   
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   private StudentUser application_student;
   
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   private Project project;
   
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   private Activity activity;
+  
+  @OneToOne(fetch = FetchType.LAZY)
+  private Approval approval;
 
 }

@@ -26,7 +26,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" th:href="@{'home'}"> Expense System </a>
+                <a class="navbar-brand" th:href="@{'/home'}"> Expense System </a>
             </div>
 
             <div class="header-right">
@@ -49,10 +49,10 @@
                 <ul class="nav" id="main-menu">
                     <br/>
                     <li>
-                        <a href="#" id="userManager" onclick="collapseAction(this);"><i class="glyphicon glyphicon-user"></i>用户操作<span class="glyphicon glyphicon-chevron-left pull-right"></span></a>
-                         <ul class="nav nav-second-level  collapse" id="userFunctionList">
+                        <a href="#" id="userManager"><i class="glyphicon glyphicon-user"></i>用户操作<span class="glyphicon glyphicon-chevron-down pull-right"></span></a>
+                         <ul class="nav nav-second-level collapse in" id="userFunctionList">
                              <li>
-                                <a th:href="@{'apply'}"><i class="fa fa-edit "></i>申请报销</a>
+                                <a th:href="@{'/apply'}"><i class="fa fa-edit"></i>申请报销</a>
                                 <a href="typography"><i class=" glyphicon glyphicon-check"></i>报销审批</a>
                                 <a href="typography"><i class=" glyphicon glyphicon-file"></i>提交活动预算</a>
                                 <a href="typography"><i class="glyphicon glyphicon-saved"></i>活动预算审批</a>
@@ -61,8 +61,8 @@
                     </li>
                     
                        <li>
-                        <a href="#" id="financeManager" onclick="collapseAction(this);"><i class="fa fa-desktop "></i>财务管理<span class="glyphicon glyphicon-chevron-left pull-right"></span></a>
-                         <ul class="nav nav-second-level  collapse" id="userFunctionList">
+                        <a href="#" id="financeManager"><i class="fa fa-desktop "></i>财务管理<span class="glyphicon glyphicon-chevron-down pull-right"></span></a>
+                         <ul class="nav nav-second-level collapse in" id="userFunctionList">
                              <li>
                                 <a href="typography"><i class="glyphicon glyphicon-usd"></i>预算管理</a>
                                 <a href="typography"><i class=" glyphicon glyphicon-check"></i>财务审批</a>
@@ -72,8 +72,8 @@
                     </li>
                     
                        <li>
-                        <a href="#" id="adminManager" onclick="collapseAction(this);"><i class="glyphicon glyphicon-tag"></i>管理员<span class="glyphicon glyphicon-chevron-left pull-right"></span></a>
-                         <ul class="nav nav-second-level  collapse" id="userFunctionList">
+                        <a href="#" id="adminManager"><i class="glyphicon glyphicon-tag"></i>管理员<span class="glyphicon glyphicon-chevron-down pull-right"></span></a>
+                         <ul class="nav nav-second-level collapse in" id="userFunctionList">
                              <li>
                                 <a href="typography"><i class="glyphicon glyphicon-user"></i>用户管理</a>
                                 <a href="typography"><i class="glyphicon glyphicon-retweet"></i>流程管理</a>

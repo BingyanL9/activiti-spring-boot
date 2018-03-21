@@ -2,9 +2,13 @@ package com.activiti.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class AbroadOtherInfo {
@@ -27,6 +31,10 @@ public class AbroadOtherInfo {
   
   @Column(name = "description", length = 100)
   private String description;
+  
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "id")
+  private Application application;
 
   public Long getId() {
     return id;
@@ -67,5 +75,12 @@ public class AbroadOtherInfo {
   public void setTrafficOrOtherFeeRNB(Double trafficOrOtherFeeRNB) {
     this.trafficOrOtherFeeRNB = trafficOrOtherFeeRNB;
   }
-  
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
 }

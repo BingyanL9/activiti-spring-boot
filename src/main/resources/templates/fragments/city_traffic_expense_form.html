@@ -225,7 +225,7 @@
 		  <label class="control-label col-md-5" for="reason_of_travel">付款方式：</label>
 		  <div class="col-md-7">
 		    <select  class="form-control" id="traffic_paymode" required="required"
-		    onchange="showOnlineRequiredInfo(this.value);">
+		    onchange="showRequiredInfo(this.value);">
 		      <option></option>
 		      <option th:value="cash">现金</option>
 		      <option th:value="online-payment">网上支付</option>
@@ -233,7 +233,7 @@
 		  </div>
 		</div>
 		
-	    <div id="onlineRequiredInfo" style="display:none;">
+	    <div class="paymentInfo" style="display:none;">
 			<div class="form-group required col-md-4">
 			  <label class="control-label col-md-5" for="reason_of_travel">用户:</label>
 			  <div class="col-md-7">

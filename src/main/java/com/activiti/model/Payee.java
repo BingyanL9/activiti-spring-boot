@@ -2,9 +2,12 @@ package com.activiti.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Payee {
@@ -20,6 +23,10 @@ public class Payee {
   
   @Column(name = " payee_account_opening_bank", length = 32)
   private String payee_account_opening_bank;
+  
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "id")
+  private Application application;
 
   public Long getId() {
     return id;
@@ -53,18 +60,28 @@ public class Payee {
     this.payee_account_opening_bank = payee_account_opening_bank;
   }
 
-  public Payee(Long id, String payee_name, String payee_account,
-      String payee_account_opening_bank) {
+  public Application getApplication() {
+    return application;
+  }
+
+  public void setApplication(Application application) {
+    this.application = application;
+  }
+
+  public Payee(Long id, String payee_name, String payee_account, String payee_account_opening_bank,
+      Application application) {
     super();
     this.id = id;
     this.payee_name = payee_name;
     this.payee_account = payee_account;
     this.payee_account_opening_bank = payee_account_opening_bank;
+    this.application = application;
   }
 
   public Payee() {
     super();
     // TODO Auto-generated constructor stub
   }
+  
   
 }

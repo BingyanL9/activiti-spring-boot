@@ -14,11 +14,11 @@ $(document).ready(function(e) {
 	    });
 	});
 });
-
+var itemIndex = 1;
 function addItem(){
 	$.ajax({
 		type: "GET",
-		url: "/apply/iteminput",
+		url: "/apply/iteminput/" + itemIndex++,
 		success: function(responseHTML) {
 			
         	$("#add-item-button").before("<div>" + responseHTML + "</div>");
@@ -27,6 +27,30 @@ function addItem(){
             console.log("failed to get item input");
         }
 	});
+	$("#add-item-button").prev().find('button').remove();
+}
+
+var voucherIndex = 1;
+function addVoucher(){
+	$.ajax({
+		type: "GET",
+		url: "/apply/voucherinput/" + voucherIndex++,
+		success: function(responseHTML) {
+			
+        	$("#add-voucher-button").before("<div>" + responseHTML + "</div>");
+        },
+        error: function(response, status) {
+            console.log("failed to get item input");
+        }
+	});
+	$("#add-voucher-button").prev().find('button').remove();
+}
+
+function deleteVoucher(){
+	var deleteButton = $("#add-voucher-button").prev().find('button');
+	$("#delete-voucher-button").parent().remove();
+	$("#add-voucher-button").prev().append(deleteButton);
+	voucherIndex--;
 }
 
 function addTrafficInput(){
@@ -44,30 +68,17 @@ function addTrafficInput(){
 }
 
 function deleteItem(){
+	var deleteButton = $("#add-item-button").prev().find('button');
 	$("#delete-item-button").parent().remove();
+	$("#add-item-button").prev().append(deleteButton);
+	itemIndex--;
 }
 
-function showOnlineRequiredInfo(paymode){
-	if ("online-payment" === paymode){
-		$("#onlineRequiredInfo").css("display","");
+function showRequiredInfo(paymode){
+	if("cash" === paymode || " " === paymode){
+		$(".paymentInfo").css("display","none");
 	}else{
-		$("#onlineRequiredInfo").css("display","none");
-	}
-}
-
-function showTravelOnlineRequiredInfo(paymode){
-	if ("online-payment" === paymode){
-		$("#travelOnlineRequiredInfo").css("display","");
-	}else{
-		$("#travelOnlineRequiredInfo").css("display","none");
-	}
-}
-
-function showonboardOnlineRequiredInfo(paymode){
-	if ("online-payment" === paymode){
-		$("#onboardOnlineRequiredInfo").css("display","");
-	}else{
-		$("#onboardOnlineRequiredInfo").css("display","none");
+		$(".paymentInfo").css("display","");
 	}
 }
 

@@ -22,7 +22,7 @@ public class Project_respon {
   @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
   private Project project;
   
-  @OneToOne(mappedBy = "userName", fetch = FetchType.LAZY)
+  @OneToOne(mappedBy = "project_respon", fetch = FetchType.LAZY)
   private TeacherUser charge;
   
   @Column(name = "level", length =32) 

@@ -35,8 +35,8 @@ public class Activity {
   @ManyToOne(fetch = FetchType.LAZY)
   private ClubUser chargeClub;
   
-  @OneToMany(mappedBy = "avtivity", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-  private List<Application> documentApplications;
+  @OneToMany(mappedBy = "activity", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+  private List<Application> applications;
 
   public Long getId() {
     return id;
@@ -102,13 +102,12 @@ public class Activity {
     this.chargeClub = chargeClub;
   }
 
-  public List<Application> getDocumentApplications() {
-    return documentApplications;
+  public List<Application> getApplications() {
+    return applications;
   }
 
-  public void setDocumentApplications(List<Application> documentApplications) {
-    this.documentApplications = documentApplications;
+  public void setApplications(List<Application> applications) {
+    this.applications = applications;
   }
-  
 
 }

@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class TeacherUser extends User{
@@ -29,6 +30,9 @@ public class TeacherUser extends User{
   
   @OneToMany(mappedBy = "approval_person", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Approval> approvals;
+  
+  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+  private Project_respon project_respon;
   
   public String getCollege() {
     return college;
