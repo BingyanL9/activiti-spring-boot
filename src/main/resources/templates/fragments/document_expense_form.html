@@ -47,15 +47,42 @@
 		     </button>
 	     </div>
 	     
+	   <div class="form-group required col-md-4">
+		<label class="control-label col-md-5" for="expense_type">报销类型：</label>
+		  <div class="col-md-7">
+		    <select  class="form-control" id="expense_type" th:field="*{expense_type}" onchange="expenseTypeAction(this.value);">
+		      <option value=" "></option>
+		      <option th:value="ActivityExpense">活动报销</option>
+		      <option th:value="MedicalExpense">医疗报销</option>
+		      <option th:value="DailyExpense">日常报销</option>
+		      <option th:value="ProjectExpense">项目报销</option>
+		    </select>
+		  </div>
+         </div>
 	     	    
-	    <div class="form-group required col-md-4">
+	    <div id="activityName" class="form-group required col-md-4" style="display:none">
 		  <label class="control-label col-md-5" for="activityName">活动名称:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="activityName"
-		  placeholder="请输入活动名称" th:field="*{activityName}"/>
+		  <input type="text" class="form-control" placeholder="请输入活动名称" th:field="*{activityName}"/>
 		  </div>
 	    </div>
 	    
+	    <div id="medicalExpenseInfo" style="display:none">
+		    <div class="form-group required col-md-4">
+			  <label class="control-label col-md-5">医院名称:</label>
+			  <div class="col-md-7">
+			  <input type="text" class="form-control" placeholder="请输入医院名称" th:field="*{hospitalName}"/>
+			  </div>
+		    </div>
+		    
+		    <div class="form-group required col-md-4">
+			  <label class="control-label col-md-5">疾病名称:</label>
+			  <div class="col-md-7">
+			  <input type="text" class="form-control" placeholder="请输入疾病名称" th:field="*{illnessName}"/>
+			  </div>
+		    </div>
+	   </div> 
+	   
 	    <div class="form-group required col-md-4">
 		  	<label class="control-label col-md-5" for="paymode">付款方式:</label>
 		  	<div class="col-md-7">
@@ -94,19 +121,6 @@
 			  </div>
 		    </div>
         </div>
-	    
- 		<div class="form-group required col-md-4">
-		<label class="control-label col-md-5" for="expense_type">报销类型：</label>
-		  <div class="col-md-7">
-		    <select  class="form-control" id="expense_type" th:field="*{expense_type}">
-		      <option value=" "></option>
-		      <option th:value="activity_expense">活动报销</option>
-		      <option th:value="medical_expense">医疗报销</option>
-		      <option th:value="daily_expense">日常报销</option>
-		      <option th:value="project_expense">项目报销</option>
-		    </select>
-		  </div>
-         </div>
 	    
 	     <div class="col-md-3">
 	      <button type="submit" class="btn btn-info pull-right" id="document-expense-submit">提交</button>
@@ -153,11 +167,12 @@
      <label class="control-label col-md-2">凭证</label>
       <div class="col-md-10">
            <div class="fileupload fileupload-new" data-provides="fileupload">
-               <div class="fileupload-preview thumbnail"  style="width:800px; height: 300px;"></div>
+               <div class="fileupload-preview thumbnail" style="width:800px; height: 300px;"></div>
                <div>
                    <span class="btn btn-file btn-success">
                    <span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
-                   <input type="file" th:name="|vouchers[${voucherIndex}].enclosure|"/>
+                   <input type="file" accept="image/*" onchange="getFileUrl(this);"/>
+                   <input type="hidden" th:name="|vouchers[${voucherIndex}].enclosure|"/>
                    </span>
                    <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload">Remove</a>
                </div>

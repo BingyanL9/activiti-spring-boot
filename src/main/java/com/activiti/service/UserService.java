@@ -2,30 +2,39 @@ package com.activiti.service;
 
 import java.security.Principal;
 
+import org.activiti.engine.IdentityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import com.activiti.model.Application_Type;
 import com.activiti.model.User;
-import com.activiti.repository.ClubUserRepository;
-import com.activiti.repository.StudentUserRepository;
+import com.activiti.repository.UserRepository;
 
 @Service
-public class StudentUserService {
+public class UserService {
 
-  private static final Logger logger = LoggerFactory.getLogger(StudentUserService.class);
+  private static final Logger logger = LoggerFactory.getLogger(UserService.class);
   
   @Autowired
-  private StudentUserRepository studentUserRepository;
+  private UserRepository userRepository;
   
+  @Autowired
+  private IdentityService identityService;
   
   public User findByName(String userName) {
-    return studentUserRepository.findByUserName(userName);
+    return userRepository.findByUserName(userName);
+  }
+  
+  public void save(User user) {
+    userRepository.save(user);
+    org.activiti.engine.identity.User activitiUser = identityService.newUser(user.getUserName());
+    activitiUser.setEmail(user.getEmail());
+    activitiUser.setLastName(user.getDisplayName());
+    activitiUser.setPassword(user.getPassword());
+    identityService.saveUser(activitiUser);
   }
   
   public User getCurrentUser() {
@@ -33,11 +42,11 @@ public class StudentUserService {
   }
 
   public String getCurrentUserDisplayName() {
-    return studentUserRepository.getUserDisplayName(getCurrentUserName());
+    return userRepository.getUserDisplayName(getCurrentUserName());
   }
   
   public String getCardNumByUserName() {
-    return studentUserRepository.getCardnumByUserName(getCurrentUserName());
+    return userRepository.getCardnumByUserName(getCurrentUserName());
   }
   
   private String getCurrentUserName() {
@@ -51,6 +60,4 @@ public class StudentUserService {
     }
     return String.valueOf(principal);
   }
-
- 
 }

@@ -21,13 +21,13 @@ public class UserDetailedService implements UserDetailsService{
   private static final Logger logger = LoggerFactory.getLogger(UserDetailedService.class);
   
   @Autowired
-  private StudentUserService studentUserService;
+  private UserService userService;
   
   @Override
   public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
     logger.debug("Load user by userName: " + userName);
     List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
-    User studentInfo = studentUserService.findByName(userName);
+    User studentInfo = userService.findByName(userName);
     
     if (studentInfo == null) {
       logger.error("User not found");

@@ -24,8 +24,8 @@ public class User{
   @Column(name = "email", nullable = false, length = 50)
   private String email;
   
-  @Column(name = "cardnum", nullable = false, length = 32)
-  private String cardnum;
+  @Column(name = "cardNum", nullable = false, length = 32)
+  private String cardNum;
   
   @Column(name = "role", nullable = false)
   @Enumerated(EnumType.STRING)
@@ -78,11 +78,11 @@ public class User{
   }
 
   public String getCardnum() {
-    return cardnum;
+    return cardNum;
   }
 
   public void setCardnum(String cardnum) {
-    this.cardnum = cardnum;
+    this.cardNum = cardnum;
   }
 
   public User(String userName, String displayName, String password, String email,
@@ -92,7 +92,7 @@ public class User{
     this.displayName = displayName;
     this.password = password;
     this.email = email;
-    this.cardnum = cardnum;
+    this.cardNum = cardnum;
     this.role = role;
   }
 

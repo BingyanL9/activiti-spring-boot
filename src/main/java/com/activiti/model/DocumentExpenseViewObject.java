@@ -9,6 +9,8 @@ public class DocumentExpenseViewObject {
   private String cardnum;
   private String createtime;
   private String activityName;
+  private String hospitalName;
+  private String illnessName;
   private List<DocumentItem> items;
   private Payee payee;
   private String paymode;
@@ -67,6 +69,18 @@ public class DocumentExpenseViewObject {
   }
   public void setExpense_type(String expense_type) {
     this.expense_type = expense_type;
+  }
+  public String getHospitalName() {
+    return hospitalName;
+  }
+  public void setHospitalName(String hospitalName) {
+    this.hospitalName = hospitalName;
+  }
+  public String getIllnessName() {
+    return illnessName;
+  }
+  public void setIllnessName(String illnessName) {
+    this.illnessName = illnessName;
   }
   
 }

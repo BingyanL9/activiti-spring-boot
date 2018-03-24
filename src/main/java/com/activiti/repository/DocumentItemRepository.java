@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import com.activiti.model.DocumentItem;
 
 @Repository
-public interface ItemRepository extends JpaRepository<DocumentItem, Long> {
+public interface DocumentItemRepository extends JpaRepository<DocumentItem, Long> {
 
 }

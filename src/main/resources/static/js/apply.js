@@ -105,3 +105,21 @@ function showExpenseByType(expense_type){
 		$("#onboard_travel_expense_form").css("display","");
 	}
 }
+
+function expenseTypeAction(expenseType) {
+	if (expenseType === "activity_expense"){
+		$("#activityName").css("display","");
+		$("#medicalExpenseInfo").css("display","none");
+	}else if(expenseType === "medical_expense"){
+		$("#medicalExpenseInfo").css("display","");
+		$("#activityName").css("display","none");
+	}else{
+		$("#medicalExpenseInfo").css("display","none");
+		$("#activityName").css("display","none");
+	}
+}
+
+function getFileUrl(_this) {
+	_this.nextElementSibling.value = _this.value;
+} 
+ 

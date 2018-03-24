@@ -43,5 +43,4 @@ public class DemoApplication {
 	      throw new RuntimeException("Failed to start H2 server: ", e);
 	    }
 	  }
-	 
 }

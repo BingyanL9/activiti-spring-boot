@@ -38,4 +38,8 @@ public class ClubUserService {
     }
     return String.valueOf(principal);
   }
+  
+  public ClubUser findByCardNum(String cardNum) {
+    return clubRepository.findByCardNum(cardNum);
+  }
 }

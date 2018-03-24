@@ -26,11 +26,11 @@ public class StudentInfoServiceTest {
   @Autowired
   private StudentUserRepository studentInfoRepository;
   
-  @Before
-  public void setUp() {
-    studentInfo = new User("201810311100", "Echo", "123456", "bingyanl@126.com", "1234567890", Role.ordinary);
-    studentInfoRepository.save(studentInfo);
-  }
+//  @Before
+//  public void setUp() {
+//    studentInfo = new User("201810311100", "Echo", "123456", "bingyanl@126.com", "1234567890", Role.ordinary);
+//    studentInfoRepository.save(studentInfo);
+//  }
   
 //  @Test
 //  public void find() {

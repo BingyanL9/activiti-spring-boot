@@ -4,17 +4,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.activiti.model.StudentUser;
-
+import com.activiti.model.User;
 
 @Repository
-public interface StudentUserRepository extends JpaRepository<StudentUser, Long>{
+public interface UserRepository  extends JpaRepository<User, Long>  {
+
+  User findByUserName(String userName);
   
-  StudentUser findByUserName(String userName);
-  
-  @Query("select displayName from StudentUser s where s.userName=?1")
+  @Query("select displayName from User s where s.userName=?1")
   String getUserDisplayName(String userName);
   
-  @Query("select cardNum from StudentUser s where s.userName=?1")
+  @Query("select cardNum from User s where s.userName=?1")
   String getCardnumByUserName(String userName);
 }
