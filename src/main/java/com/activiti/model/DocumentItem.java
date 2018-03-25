@@ -22,7 +22,7 @@ public class DocumentItem {
   private double item_money;
   
   @Column(name = "item_description")
-  private double item_description;
+  private String item_description;
   
   @ManyToOne(fetch = FetchType.LAZY)
   private Application application;
@@ -59,15 +59,15 @@ public class DocumentItem {
     this.application = application;
   }
 
-  public double getItem_description() {
+  public String getItem_description() {
     return item_description;
   }
 
-  public void setItem_description(double item_description) {
+  public void setItem_description(String item_description) {
     this.item_description = item_description;
   }
 
-  public DocumentItem(Long id, String item_name, double item_money, double item_description,
+  public DocumentItem(Long id, String item_name, double item_money, String item_description,
       Application application) {
     super();
     this.id = id;

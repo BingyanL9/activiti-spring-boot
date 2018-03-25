@@ -3,6 +3,7 @@ package com.activiti.service;
 import java.security.Principal;
 
 import org.activiti.engine.IdentityService;
+import org.activiti.engine.identity.Group;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,11 @@ public class UserService {
     activitiUser.setLastName(user.getDisplayName());
     activitiUser.setPassword(user.getPassword());
     identityService.saveUser(activitiUser);
+    Group users = identityService.createGroupQuery().groupType("users").singleResult();
+    identityService.createMembership(activitiUser.getId(), users.getId());
+    Group g =
+        identityService.createGroupQuery().groupType(user.getRole().toString()).singleResult();
+    identityService.createMembership(activitiUser.getId(), g.getId());
   }
   
   public User getCurrentUser() {

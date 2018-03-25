@@ -32,6 +32,9 @@ public class Application {
   @Column(name = " createtime", length = 32)
   private String createtime;
   
+  @ManyToOne(optional = false)
+  private User owner;
+  
   @Column(name = " cardnum", length = 32)
   private String cardNum;
   
@@ -306,4 +309,13 @@ public class Application {
     this.illnessName = illnessName;
   }
 
+  public User getOwner() {
+    return owner;
+  }
+
+  public void setOwner(User owner) {
+    this.owner = owner;
+  }
+
+  
 }

@@ -44,11 +44,11 @@ public class MainController {
   }
 
 private void InitialGroup() {
-    String usersId = UUID.randomUUID().toString();
-    Group users = identityService.newGroup(usersId);
-    users.setName("普通用户");
-    users.setType(Role.ordinary.toString());
-    identityService.saveGroup(users);
+    String ordinaryId = UUID.randomUUID().toString();
+    Group ordinary = identityService.newGroup(ordinaryId);
+    ordinary.setName("普通用户");
+    ordinary.setType(Role.ordinary.toString());
+    identityService.saveGroup(ordinary);
     String adminUsersId = UUID.randomUUID().toString();
     Group adminUsers = identityService.newGroup(adminUsersId);
     adminUsers.setName("管理员用户");
@@ -66,14 +66,19 @@ private void InitialGroup() {
       identityService.saveGroup(finance_group);
       String liberaryId = UUID.randomUUID().toString();
       Group liberary = identityService.newGroup(liberaryId);
-      liberary.setName("财务组");
-      liberary.setType(Role.finance_group.toString());
+      liberary.setName("图书馆");
+      liberary.setType(Role.liberary.toString());
       identityService.saveGroup(liberary);
       String asset_processing_officeId = UUID.randomUUID().toString();
       Group asset_processing_office = identityService.newGroup(asset_processing_officeId);
-      asset_processing_office.setName("财务组");
-      asset_processing_office.setType(Role.finance_group.toString());
+      asset_processing_office.setName("资产管理办公室");
+      asset_processing_office.setType(Role.asset_processing_office.toString());
       identityService.saveGroup(asset_processing_office);
+      String userId = UUID.randomUUID().toString();
+      Group users = identityService.newGroup(userId);
+      users.setName("用户");
+      users.setType("users");
+      identityService.saveGroup(users);
   }
 
   @RequestMapping(value = {"/apply"})
@@ -81,6 +86,7 @@ private void InitialGroup() {
     model.put("user", userService.getCurrentUser());
     logger.debug("Start to apply an expense");
     model.put("DocumentExpenseViewObject", new DocumentExpenseViewObject());
+    model.put("menu", "apply");
     return "apply";
   }
 

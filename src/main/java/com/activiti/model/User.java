@@ -1,12 +1,17 @@
 package com.activiti.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
@@ -31,7 +36,9 @@ public class User{
   @Enumerated(EnumType.STRING)
   private Role role;
   
-
+  @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<Application> applications;
+      
   public User() {
     super();
     // TODO Auto-generated constructor stub

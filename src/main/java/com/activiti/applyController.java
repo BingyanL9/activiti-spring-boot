@@ -8,11 +8,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.activiti.engine.FormService;
+import org.activiti.engine.RepositoryService;
+import org.activiti.engine.RuntimeService;
+import org.activiti.engine.TaskService;
+import org.activiti.engine.repository.Deployment;
+import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +34,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.activiti.model.Activity;
 import com.activiti.model.Application;
 import com.activiti.model.Application_Type;
+import com.activiti.model.Approval;
+import com.activiti.model.Approval_status;
 import com.activiti.model.DocumentExpenseViewObject;
 import com.activiti.model.DocumentItem;
+import com.activiti.model.Payee;
+import com.activiti.model.TeacherUser;
 import com.activiti.model.Voucher;
 import com.activiti.service.ActivityService;
+import com.activiti.service.ApplicationService;
+import com.activiti.service.ApprovalService;
 import com.activiti.service.DocumentItemService;
+import com.activiti.service.TeacherUserService;
+import com.activiti.service.UserService;
 @Controller
 @ComponentScan("com.activiti.service")
 public class applyController {
@@ -40,6 +57,23 @@ public class applyController {
   @Autowired
   private ActivityService activityService;
   
+  @Autowired
+  private RepositoryService repositoryService;
+  
+  @Autowired
+  private RuntimeService runtimeService;
+  
+  @Autowired
+  private ApprovalService approvalService;
+  
+  @Autowired
+  private TeacherUserService teacherUserService;
+  
+  @Autowired
+  private UserService userService;
+  
+  @Autowired
+  private TaskService taskService;
   
   private static final Logger logger = LoggerFactory.getLogger(MainController.class);
   
@@ -61,11 +95,18 @@ public class applyController {
   }
   
   @RequestMapping(value = "/apply/documentexpense", method = RequestMethod.POST)
-  public String createDocumentExpenseApplication( DocumentExpenseViewObject devo,
-      HttpServletRequest request) {
+  public String createDocumentExpenseApplication( DocumentExpenseViewObject devo) {
     logger.debug("Start create document expense application!");
     
+    String filename = "processes/DocumentExpense.bpmn";
+    Deployment dep = repositoryService.createDeployment().addClasspathResource(filename)
+    .addClasspathResource("templates/fragments/document_expense_form.html").deploy();
+    
+    Map<String, Object> variableMap = new HashMap<String, Object>();
+    
     Application application = new Application();
+    application.setOwner(userService.getCurrentUser());
+    Approval approval = new Approval();
     application.setDepartment(devo.getDepartment());
     application.setCreatetime(devo.getCreatetime());
     application.setCardNum(devo.getCardnum());
@@ -83,14 +124,38 @@ public class applyController {
     List<Voucher> vouchers = getVouchers(devo, application);
     application.setVouchers(vouchers);
     String expense_type = devo.getExpense_type();
+    variableMap.put("Application_Type", expense_type);
     if (expense_type == Application_Type.ActivityExpense.toString()) {
       Activity activity =
           activityService.findByCardNumAndActivityName(devo.getActivityName(), devo.getCardnum());
       application.setActivity(activity);
+      approval.setApprocval_club(activity.getCharge_club());
+      approval.setApproval_statu(Approval_status.level_1);
     }else if (expense_type == Application_Type.MedicalExpense.toString()) {
       application.setHospitalName(devo.getHospitalName());
       application.setIllnessName(devo.getIllnessName());
+      approval.setApproval_statu(Approval_status.level_1);
+    }else if (expense_type == Application_Type.DailyExpense.toString()) {
+      TeacherUser teacher = teacherUserService.findCurrentUser();
+      approval.setApproval_person(teacher.getLeader());
     }
+    approval.setApproval_statu(Approval_status.pending);
+    String payMode = devo.getPaymode();
+    application.setPaymode(payMode);
+    if (payMode != "cash") {
+      Payee payee = new Payee();
+      payee = devo.getPayee();
+      payee.setApplication(application);
+      application.setPayee(payee);
+    }
+    
+    ProcessDefinition pd = repositoryService.createProcessDefinitionQuery()
+        .deploymentId(dep.getId()).singleResult();
+    ProcessInstance processInstance = runtimeService.startProcessInstanceById(pd.getId());
+    approval.setProcessInstanceId(processInstance.getId());
+    Task t1 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
+    taskService.complete(t1.getId(), variableMap);
+    approvalService.saveWhenCreate(approval, application);
     return null;
  }
 
