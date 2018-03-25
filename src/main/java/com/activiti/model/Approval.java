@@ -31,7 +31,7 @@ public class Approval {
   private TeacherUser approval_person;
   
   @ManyToOne(fetch = FetchType.LAZY)
-  private ClubUser approcval_club;
+  private ClubUser approval_club;
   
   @Column(name = "approval_statu", nullable = false)
   @Enumerated(EnumType.STRING)
@@ -68,11 +68,11 @@ public class Approval {
   }
 
   public ClubUser getApprocval_club() {
-    return approcval_club;
+    return approval_club;
   }
 
   public void setApprocval_club(ClubUser approcval_club) {
-    this.approcval_club = approcval_club;
+    this.approval_club = approcval_club;
   }
 
   public Approval_status getApproval_statu() {

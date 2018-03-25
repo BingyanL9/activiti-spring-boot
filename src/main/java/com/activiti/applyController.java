@@ -1,5 +1,6 @@
 package com.activiti;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -97,11 +100,8 @@ public class applyController {
   @RequestMapping(value = "/apply/documentexpense", method = RequestMethod.POST)
   public String createDocumentExpenseApplication( DocumentExpenseViewObject devo) {
     logger.debug("Start create document expense application!");
-    
-    String filename = "processes/DocumentExpense.bpmn";
-    Deployment dep = repositoryService.createDeployment().addClasspathResource(filename)
-    .addClasspathResource("templates/fragments/document_expense_form.html").deploy();
-    
+    Deployment dep = repositoryService.createDeployment().addClasspathResource("processes/DocumentExpense.bpmn")
+        .deploy();
     Map<String, Object> variableMap = new HashMap<String, Object>();
     
     Application application = new Application();
@@ -123,67 +123,43 @@ public class applyController {
     application.setDocumentItems(items);
     List<Voucher> vouchers = getVouchers(devo, application);
     application.setVouchers(vouchers);
-    String expense_type = devo.getExpense_type();
-    variableMap.put("Application_Type", expense_type);
-    if (expense_type == Application_Type.ActivityExpense.toString()) {
+    variableMap.put("Application_Type", devo.getApplication_Type());
+    application.setApplication_type(devo.getApplication_Type());
+    if (devo.getApplication_Type() == Application_Type.ActivityExpense) {
       Activity activity =
           activityService.findByCardNumAndActivityName(devo.getActivityName(), devo.getCardnum());
       application.setActivity(activity);
       approval.setApprocval_club(activity.getCharge_club());
       approval.setApproval_statu(Approval_status.level_1);
-    }else if (expense_type == Application_Type.MedicalExpense.toString()) {
+    }else if (devo.getApplication_Type() == Application_Type.MedicalExpense) {
       application.setHospitalName(devo.getHospitalName());
       application.setIllnessName(devo.getIllnessName());
       approval.setApproval_statu(Approval_status.level_1);
-    }else if (expense_type == Application_Type.DailyExpense.toString()) {
+    }else if (devo.getApplication_Type() == Application_Type.DailyExpense) {
       TeacherUser teacher = teacherUserService.findCurrentUser();
       approval.setApproval_person(teacher.getLeader());
     }
     approval.setApproval_statu(Approval_status.pending);
     String payMode = devo.getPaymode();
     application.setPaymode(payMode);
-    if (payMode != "cash") {
-      Payee payee = new Payee();
-      payee = devo.getPayee();
-      payee.setApplication(application);
-      application.setPayee(payee);
-    }
-    
+    Payee payee = new Payee();
+    payee = devo.getPayee();
     ProcessDefinition pd = repositoryService.createProcessDefinitionQuery()
         .deploymentId(dep.getId()).singleResult();
     ProcessInstance processInstance = runtimeService.startProcessInstanceById(pd.getId());
     approval.setProcessInstanceId(processInstance.getId());
     Task t1 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
     taskService.complete(t1.getId(), variableMap);
-    approvalService.saveWhenCreate(approval, application);
-    return null;
+    approvalService.saveWhenCreate(payee, approval, application);
+    return "redirect:/applylist";
  }
 
   private List<Voucher> getVouchers(DocumentExpenseViewObject devo, Application application) {
     List<Voucher> vouchers = new ArrayList<Voucher>();
     for (Voucher voucher : devo.getVouchers()) {
       Voucher documentVoucher = new Voucher();
-      InputStream inputStream = null;
-      try {
-        inputStream = new FileInputStream(voucher.getEnclosure());
-      } catch (FileNotFoundException e) {
-        logger.error(voucher.getEnclosure() + " file not found! " + e.toString());
-      }
-      ByteArrayOutputStream result = new ByteArrayOutputStream();
-      byte[] buffer = new byte[1024];
-      int length;
-      try {
-        while ((length = inputStream.read(buffer)) != -1) {
-          result.write(buffer, 0, length);
-        }
-      } catch (IOException e) {
-        logger.error(voucher.getEnclosure() + " read exception! " + e.toString());
-      }
-      try {
-        documentVoucher.setEnclosure( result.toString("UTF-8"));
-      } catch (UnsupportedEncodingException e) {
-        logger.error(e.toString());
-      }
+      byte[] bytes = Base64.getEncoder().encode(voucher.getEnclosure());
+      documentVoucher.setEnclosure(bytes);
       documentVoucher.setApplication(application);
       vouchers.add(documentVoucher);
     }

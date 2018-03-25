@@ -46,11 +46,13 @@ public class ProcessTestMyProcess {
 
 
 	@Test
-	public void startProcess() throws Exception {
+	public void startProcess() {
 //		repositoryService.createDeployment().addInputStream("myProcess.bpmn20.xml",
 //				new FileInputStream(filename)).deploy();
-	  Deployment dep = repositoryService.createDeployment().addClasspathResource("processes/MyProcess.bpmn")
-	  .addClasspathResource("templates/fragments/item_input.html").deploy();
+//	  Deployment dep = repositoryService.createDeployment().addClasspathResource("processes/MyProcess.bpmn")
+//	  .addClasspathResource("templates/fragments/item_input.html").deploy();
+	  Deployment dep = repositoryService.createDeployment().addClasspathResource("processes/DocumentExpense.bpmn")
+	      .deploy();
 	  ProcessDefinition pd = repositoryService.createProcessDefinitionQuery()
 	      .deploymentId(dep.getId()).singleResult();
 	  Map<String, Object> variableMap = new HashMap<String, Object>();

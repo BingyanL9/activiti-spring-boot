@@ -1,5 +1,6 @@
 package com.activiti;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -12,8 +13,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.activiti.model.Application;
 import com.activiti.model.DocumentExpenseViewObject;
 import com.activiti.model.Role;
+import com.activiti.model.User;
+import com.activiti.service.ApplicationService;
 import com.activiti.service.UserService;
 
 
@@ -28,6 +32,9 @@ public class MainController {
   
   @Autowired
   private IdentityService identityService;
+  
+  @Autowired
+  private ApplicationService applicationService;
   
   private int initialTime = 0;
   
@@ -88,6 +95,17 @@ private void InitialGroup() {
     model.put("DocumentExpenseViewObject", new DocumentExpenseViewObject());
     model.put("menu", "apply");
     return "apply";
+  }
+  
+  @RequestMapping(value = {"/applylist"})
+  public String applyList(Map<String, Object> model) {
+    User user = userService.getCurrentUser();
+    model.put("user", user);
+    logger.debug("Start to show apply list.");
+    List<Application> applications = applicationService.getApplicationsByUser(user.getUserName());
+    model.put("applications", applications);
+    model.put("menu", "applyList");
+    return "applylist";
   }
 
 }

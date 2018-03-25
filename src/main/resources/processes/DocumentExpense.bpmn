@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="myProcess" name="My process" isExecutable="true">
+  <process id="documentexpense" name="Document Expense" isExecutable="true">
     <startEvent id="documentExpenseStart" name="Start"></startEvent>
-    <userTask id="usertask1" name="apply document expense form" activiti:candidateGroups="users" activiti:formKey="templates/fragments/document_expense_form.html"></userTask>
+    <userTask id="usertask1" name="apply document expense form" activiti:candidateGroups="users"></userTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <userTask id="usertask2" name="clubCharge approval"></userTask>
     <sequenceFlow id="flow3" name="activity_expense" sourceRef="exclusivegateway1" targetRef="usertask2">
@@ -32,7 +32,7 @@
     <sequenceFlow id="flow15" sourceRef="usertask5" targetRef="exclusivegateway2"></sequenceFlow>
     <sequenceFlow id="flow16" sourceRef="usertask7" targetRef="usertask6"></sequenceFlow>
     <sequenceFlow id="flow17" sourceRef="usertask9" targetRef="usertask6"></sequenceFlow>
-    <serviceTask id="servicetask1" name="bankTransfer"></serviceTask>
+    <serviceTask id="servicetask1" name="bankTransfer" activiti:class="org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter"></serviceTask>
     <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask1">
       <errorEventDefinition></errorEventDefinition>
     </boundaryEvent>
@@ -41,15 +41,15 @@
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow20" sourceRef="servicetask1" targetRef="endevent1"></sequenceFlow>
     <sequenceFlow id="flow21" sourceRef="usertask10" targetRef="endevent1"></sequenceFlow>
-    <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
+    <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway" default="flow23"></exclusiveGateway>
     <sequenceFlow id="flow22" sourceRef="usertask6" targetRef="exclusivegateway3"></sequenceFlow>
-    <sequenceFlow id="flow23" name="OnlinePay" sourceRef="exclusivegateway3" targetRef="servicetask1" skipExpression="${paymode == &quot;online-payment&quot;}"></sequenceFlow>
+    <sequenceFlow id="flow23" name="OnlinePay" sourceRef="exclusivegateway3" targetRef="servicetask1" skipExpression="${paymode ！= &quot;cash&quot;}"></sequenceFlow>
     <sequenceFlow id="flow24" name="pay_on_cash" sourceRef="exclusivegateway3" targetRef="usertask10" skipExpression="${paymode == &quot;cash&quot;}"></sequenceFlow>
     <sequenceFlow id="flow25" sourceRef="documentExpenseStart" targetRef="usertask1"></sequenceFlow>
     <sequenceFlow id="flow26" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_myProcess">
-    <bpmndi:BPMNPlane bpmnElement="myProcess" id="BPMNPlane_myProcess">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_documentexpense">
+    <bpmndi:BPMNPlane bpmnElement="documentexpense" id="BPMNPlane_documentexpense">
       <bpmndi:BPMNShape bpmnElement="documentExpenseStart" id="BPMNShape_documentExpenseStart">
         <omgdc:Bounds height="35.0" width="35.0" x="50.0" y="130.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -196,7 +196,7 @@
         <omgdi:waypoint x="898.0" y="98.0"></omgdi:waypoint>
         <omgdi:waypoint x="960.0" y="98.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="48.0" x="898.0" y="98.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="100.0" x="898.0" y="98.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow24" id="BPMNEdge_flow24">

@@ -107,10 +107,10 @@ function showExpenseByType(expense_type){
 }
 
 function expenseTypeAction(expenseType) {
-	if (expenseType === "activity_expense"){
+	if (expenseType === "ActivityExpense"){
 		$("#activityName").css("display","");
 		$("#medicalExpenseInfo").css("display","none");
-	}else if(expenseType === "medical_expense"){
+	}else if(expenseType === "MedicalExpense"){
 		$("#medicalExpenseInfo").css("display","");
 		$("#activityName").css("display","none");
 	}else{
@@ -120,6 +120,12 @@ function expenseTypeAction(expenseType) {
 }
 
 function getFileUrl(_this) {
-	_this.nextElementSibling.value = _this.value;
+	var oFReader = new FileReader();
+	var file = _this.files[0];
+	oFReader.readAsDataURL(file);
+	oFReader.onloadend = function(oFRevent) {
+		var src = oFRevent.target.result;
+		_this.nextElementSibling.value = src;
+	}
 } 
  

@@ -18,7 +18,7 @@ public class Voucher {
   
   @Lob
   @Column(name = "enclosure",nullable = false, length = 4096)
-  private String enclosure;
+  private byte[] enclosure;
   
   @ManyToOne(fetch = FetchType.LAZY)
   private Application application;
@@ -31,11 +31,11 @@ public class Voucher {
     this.id = id;
   }
 
-  public String getEnclosure() {
+  public byte[] getEnclosure() {
     return enclosure;
   }
 
-  public void setEnclosure(String enclosure) {
+  public void setEnclosure(byte[] enclosure) {
     this.enclosure = enclosure;
   }
 
@@ -47,7 +47,7 @@ public class Voucher {
     this.application = application;
   }
 
-  public Voucher(Long id, String enclosure, Application application) {
+  public Voucher(Long id, byte[] enclosure, Application application) {
     super();
     this.id = id;
     this.enclosure = enclosure;

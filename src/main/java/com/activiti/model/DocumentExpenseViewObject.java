@@ -14,7 +14,7 @@ public class DocumentExpenseViewObject {
   private List<DocumentItem> items;
   private Payee payee;
   private String paymode;
-  private String expense_type;
+  private Application_Type application_Type;
   
   public List<Voucher> getVouchers() {
     return vouchers;
@@ -64,12 +64,6 @@ public class DocumentExpenseViewObject {
   public void setPaymode(String paymode) {
     this.paymode = paymode;
   }
-  public String getExpense_type() {
-    return expense_type;
-  }
-  public void setExpense_type(String expense_type) {
-    this.expense_type = expense_type;
-  }
   public String getHospitalName() {
     return hospitalName;
   }
@@ -81,6 +75,12 @@ public class DocumentExpenseViewObject {
   }
   public void setIllnessName(String illnessName) {
     this.illnessName = illnessName;
+  }
+  public Application_Type getApplication_Type() {
+    return application_Type;
+  }
+  public void setApplication_Type(Application_Type application_Type) {
+    this.application_Type = application_Type;
   }
   
 }

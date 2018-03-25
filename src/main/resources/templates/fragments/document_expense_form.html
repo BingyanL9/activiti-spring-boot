@@ -5,7 +5,8 @@
   <div th:fragment="document_expense_form" id="documentExpenseFormBlock">
     <div class="container">
       <h3 class="text-center">单据报销单</h3>
-      <form class="form-horizontal" id="documentExpenseForm" method="POST" th:object="${DocumentExpenseViewObject}">
+      <form class="form-horizontal" id="documentExpenseForm" method="POST" 
+      th:object="${DocumentExpenseViewObject}" th:action="@{apply/documentexpense}">
 		<div>
 			<div th:replace="fragments/document_expense_form :: voucher_input(0)"></div>
 			<button type="button" class="btn btn-info pull-left"
@@ -17,8 +18,8 @@
 		<div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="college">部门:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="college" th:name="*{department}"
-		  placeholder="请输入部门" th:value="${user.college}" readOnly="readOnly"/>
+		  <input type="text" class="form-control" th:id="${department}"
+		  th:value="${user.college}" th:name="|department|" readOnly="readOnly"/>
 		  </div>
 	    </div>
 	  
@@ -33,9 +34,9 @@
 	    <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="createtime">填表时间:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="createtime"
+		  <input type="text" class="form-control" th:id="${createtime}"
 		  th:value="${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd')}"
-		  th:name="*{createtime}" readOnly="readOnly"/>
+		  th:name="|createtime|" readOnly="readOnly"/>
 		  </div>
 	    </div>
 	    
@@ -50,7 +51,7 @@
 	   <div class="form-group required col-md-4">
 		<label class="control-label col-md-5" for="expense_type">报销类型：</label>
 		  <div class="col-md-7">
-		    <select  class="form-control" id="expense_type" th:field="*{expense_type}" onchange="expenseTypeAction(this.value);">
+		    <select  class="form-control" id="expense_type" th:field="*{application_Type}" onchange="expenseTypeAction(this.value);">
 		      <option value=" "></option>
 		      <option th:value="ActivityExpense">活动报销</option>
 		      <option th:value="MedicalExpense">医疗报销</option>

@@ -22,7 +22,7 @@ public class Application {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
   
-  @Column(name = "application_type", nullable = false, length = 11)
+  @Column(name = "application_type", nullable = false, length = 32)
   @Enumerated(EnumType.STRING)
   private Application_Type application_type;
   
@@ -44,7 +44,7 @@ public class Application {
   @Column(name = "illnessName", length = 32)
   private String illnessName;
   
-  @OneToOne(mappedBy = "application", optional = true)
+  @OneToOne(mappedBy = "application")
   private Payee payee;
   
   @Column(name = "paymode", length = 32)

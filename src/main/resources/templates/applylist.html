@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<link th:include="fragments/header :: header"></link>
+</head>
+<body>
+	<div id="wrapper">
+
+		<div class="content-wrapper full-content-wrapper">
+			<!-- navigation start-->
+			<div th:replace="fragments/header :: nav"></div>
+			<!-- navigation end-->
+			<div id="page-wrapper">
+				<div id="page-inner">
+					<div class="row">
+						<div class="col-md-12">
+							<h2 class="page-head-line">-- 你的报销 --</h2>
+						</div>
+						<div class="col-md-12">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<div class="table-responsive">
+										<table class="table table-striped">
+											<thead>
+												<tr>
+												    <th>#</th>
+													<th>申请单id</th>
+													<th>申请类型</th>
+													<th>申请时间</th>
+													<th>状态</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr  th:each="application,applicationStat : ${applications}">  
+													<td th:text="${applicationStat.index}"></td>
+													<td th:text="${application.id}"></td>
+													<td th:text="${application.application_type}"></td>
+													<td th:text="${application.createtime}"></td>
+													<td th:text="${application.approval.approval_statu}"></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- footer -->
+        <div th:replace="fragments/footer :: footer"></div>
+		</div>
+	</div>
+
+</body>
+</html>
