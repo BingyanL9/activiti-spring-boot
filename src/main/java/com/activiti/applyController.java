@@ -1,22 +1,11 @@
 package com.activiti;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.activiti.engine.FormService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
@@ -28,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +33,6 @@ import com.activiti.model.Payee;
 import com.activiti.model.TeacherUser;
 import com.activiti.model.Voucher;
 import com.activiti.service.ActivityService;
-import com.activiti.service.ApplicationService;
 import com.activiti.service.ApprovalService;
 import com.activiti.service.DocumentItemService;
 import com.activiti.service.TeacherUserService;
@@ -138,8 +125,11 @@ public class applyController {
     }else if (devo.getApplication_Type() == Application_Type.DailyExpense) {
       TeacherUser teacher = teacherUserService.findCurrentUser();
       approval.setApproval_person(teacher.getLeader());
+      approval.setApproval_statu(Approval_status.pending);
+    }else {
+      approval.setApproval_statu(Approval_status.pending);
     }
-    approval.setApproval_statu(Approval_status.pending);
+    
     String payMode = devo.getPaymode();
     application.setPaymode(payMode);
     Payee payee = new Payee();
