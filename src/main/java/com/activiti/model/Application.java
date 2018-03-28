@@ -44,7 +44,7 @@ public class Application {
   @Column(name = "illnessName", length = 32)
   private String illnessName;
   
-  @OneToOne(mappedBy = "application")
+  @OneToOne(fetch = FetchType.LAZY)
   private Payee payee;
   
   @Column(name = "paymode", length = 32)
@@ -83,8 +83,8 @@ public class Application {
   @OneToMany(mappedBy = "application", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Voucher> vouchers;
   
-  @Column(name = "totle")
-  private Double totle;
+  @Column(name = "total")
+  private Double total;
   
   @ManyToOne(fetch = FetchType.LAZY)
   private TeacherUser application_teacher;
@@ -237,12 +237,12 @@ public class Application {
     this.vouchers = vouchers;
   }
 
-  public Double getTotle() {
-    return totle;
+  public Double getTotal() {
+    return total;
   }
 
-  public void setTotle(Double totle) {
-    this.totle = totle;
+  public void setTotal(Double total) {
+    this.total = total;
   }
 
   public TeacherUser getApplication_teacher() {

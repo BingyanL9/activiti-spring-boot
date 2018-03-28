@@ -24,8 +24,7 @@ public class Payee {
   @Column(name = " payee_account_opening_bank", length = 32)
   private String payee_account_opening_bank;
   
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "id")
+  @OneToOne(mappedBy = "payee")
   private Application application;
 
   public Long getId() {

@@ -1,7 +1,6 @@
 package com.activiti;
 
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,19 +32,19 @@ import com.activiti.model.Payee;
 import com.activiti.model.TeacherUser;
 import com.activiti.model.Voucher;
 import com.activiti.service.ActivityService;
+import com.activiti.service.ApplicationService;
 import com.activiti.service.ApprovalService;
-import com.activiti.service.DocumentItemService;
 import com.activiti.service.TeacherUserService;
 import com.activiti.service.UserService;
 @Controller
 @ComponentScan("com.activiti.service")
-public class applyController {
-  
-  @Autowired
-  private DocumentItemService documentItemService;
+public class ApplyController {
   
   @Autowired
   private ActivityService activityService;
+  
+  @Autowired
+  private ApplicationService applicationService;
   
   @Autowired
   private RepositoryService repositoryService;
@@ -92,6 +91,7 @@ public class applyController {
     Map<String, Object> variableMap = new HashMap<String, Object>();
     
     Application application = new Application();
+    double total = 0.0;
     application.setOwner(userService.getCurrentUser());
     Approval approval = new Approval();
     application.setDepartment(devo.getDepartment());
@@ -102,12 +102,13 @@ public class applyController {
       DocumentItem documentItem = new DocumentItem();
       documentItem.setItem_name(item.getItem_name());
       documentItem.setItem_money(item.getItem_money());
+      total += item.getItem_money();
       documentItem.setItem_description(item.getItem_description());
       documentItem.setApplication(application);
-      items.add(item);
+      items.add(documentItem);
     }
-    documentItemService.saveDocumentItems(items);
     application.setDocumentItems(items);
+    application.setTotal(total);
     List<Voucher> vouchers = getVouchers(devo, application);
     application.setVouchers(vouchers);
     variableMap.put("Application_Type", devo.getApplication_Type());
@@ -148,14 +149,29 @@ public class applyController {
     List<Voucher> vouchers = new ArrayList<Voucher>();
     for (Voucher voucher : devo.getVouchers()) {
       Voucher documentVoucher = new Voucher();
-      byte[] bytes = Base64.getEncoder().encode(voucher.getEnclosure());
-      documentVoucher.setEnclosure(bytes);
+      documentVoucher.setEnclosure(voucher.getEnclosure());
       documentVoucher.setApplication(application);
       vouchers.add(documentVoucher);
     }
     return vouchers;
   }
   
+  @RequestMapping(value = "/applications/{applicationId}", method = RequestMethod.GET)
+  public String getApplications(Map<String, Object> model, @PathVariable("applicationId") Long applicationId) {
+    logger.debug("Start to get application by id : " + applicationId);
+    Application application = applicationService.findById(applicationId);
+    model.put("applicationObject", application);
+    List<String> pictures = new ArrayList<String>();
+    for (Voucher voucher : application.getVouchers()) {
+      String picture = new String(voucher.getEnclosure());
+      pictures.add(picture);
+    }
+    model.put("vouchers", pictures);
+    model.put("user", userService.getCurrentUser());
+    model.put("menu", "applyList");
+    return "applyInfo";
+  }
+
 
 }
  

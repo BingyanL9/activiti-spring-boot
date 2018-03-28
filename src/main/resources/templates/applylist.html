@@ -15,7 +15,7 @@
 				<div id="page-inner">
 					<div class="row">
 						<div class="col-md-12">
-							<h2 class="page-head-line">-- 你的报销 --</h2>
+							<h2 class="page-head-line">-- 你的申请 --</h2>
 						</div>
 						<div class="col-md-12">
 							<div class="panel panel-default">
@@ -34,7 +34,7 @@
 											<tbody>
 												<tr  th:each="application,applicationStat : ${applications}">  
 													<td th:text="${applicationStat.index}"></td>
-													<td th:text="${application.id}"><a th:href="@{'/applications/' +　${application.id}}"></a></td>
+													<td><a th:href="@{'/applications/' + ${application.id}}" th:text="${application.id}"></a></td>
 													<td th:if="${application.application_type.name() == 'ActivityExpense'}" th:text="活动报销"></td>
 													<td th:if="${application.application_type.name() == 'DailyExpense'}" th:text="日常报销"></td>
 													<td th:if="${application.application_type.name() == 'MedicalExpense'}" th:text="医疗报销"></td>

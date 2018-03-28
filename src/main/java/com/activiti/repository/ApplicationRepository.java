@@ -13,5 +13,7 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
   
   @Query("select a from Application a where a.owner.userName =?1")
   List<Application> getApplicationsByUser(String userName);
+  
+  Application findById(Long id);
 
 }

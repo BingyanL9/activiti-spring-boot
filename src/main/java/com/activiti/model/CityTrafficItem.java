@@ -23,6 +23,9 @@ public class CityTrafficItem {
   @Column(name = "travelreason", length = 100)
   private String travelReason;
   
+  @Column(name = "startEndPosition", length = 100)
+  private String startEndPosition;
+  
   @Column(name = "fare")
   private Double fare;
   
@@ -90,4 +93,21 @@ public class CityTrafficItem {
   public void setTotal(Double total) {
     this.total = total;
   }
+
+  public String getStartEndPosition() {
+    return startEndPosition;
+  }
+
+  public void setStartEndPosition(String startEndPosition) {
+    this.startEndPosition = startEndPosition;
+  }
+
+  public Application getApplication() {
+    return application;
+  }
+
+  public void setApplication(Application application) {
+    this.application = application;
+  }
+  
 }

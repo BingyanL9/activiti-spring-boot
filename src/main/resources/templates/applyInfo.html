@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<link th:include="fragments/header :: header"></link>
+</head>
+<body>
+	<div id="wrapper">
+
+		<div class="content-wrapper full-content-wrapper">
+			<!-- navigation start-->
+			<div th:replace="fragments/header :: nav"></div>
+			<!-- navigation end-->
+			<div id="page-wrapper">
+				<div id="page-inner">
+					<div class="row">
+						<div class="col-md-12">
+							<h2 class="page-head-line">-- 申请单信息 --</h2>
+						</div>
+						
+						<div class="col-md-12">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<div class="table-responsive">
+										<table class="table table-striped">
+											<tbody>
+											   <tr th:each="voucher : ${vouchers}">
+											    <td>附件：</td>
+											    <td><img th:src="${voucher}" style="width:800px; height: 300px;"/></td>
+											  </tr>
+											  </tbody>
+									     </table>
+									     <table class="table table-striped"> 
+									       <tbody>
+											  <tr>
+											    <td>申请类型：</td>
+											    <td th:if="${applicationObject.application_type.name() == 'ActivityExpense'}" th:text="活动报销"></td>
+												<td th:if="${applicationObject.application_type.name() == 'DailyExpense'}" th:text="日常报销"></td>
+												<td th:if="${applicationObject.application_type.name() == 'MedicalExpense'}" th:text="医疗报销"></td>
+												<td th:if="${applicationObject.application_type.name() == 'ProjectExpense'}" th:text="项目报销"></td>
+											    <td>部门：</td>
+											    <td th:text="${applicationObject.department}"></td>
+											    <td>申请时间：</td>
+											    <td th:text="${applicationObject.createtime}"></td>
+											  </tr>
+											   <tr>
+											    <td>申请人：</td>
+											    <td th:text="${applicationObject.owner.displayName}"></td>
+											    <td>经费卡号：</td>
+											    <td th:text="${applicationObject.cardNum}"></td>
+											    <td>付款方式：</td>
+											    <td th:if="${applicationObject.paymode == 'cash'}">现金</td>
+											    <td th:if="${applicationObject.paymode == 'check'}">支票</td>
+											    <td th:if="${applicationObject.paymode == 'mail-transfer'}">信汇</td>
+											    <td th:if="${applicationObject.paymode == 'borrow'}">冲借支</td>
+											    <td th:if="${applicationObject.paymode == 'online-payment'}">网上支付</td>
+											  </tr>
+											   <tr th:if="${applicationObject.paymode != 'cash' }">
+											    <td>户名：</td>
+											    <td th:text="${applicationObject.payee.payee_name}"></td>
+											    <td>账户：</td>
+											    <td th:text="${applicationObject.payee.payee_account}"></td>
+											    <td>开户银行：</td>
+											    <td th:text="${applicationObject.payee.payee_account_opening_bank}"></td>
+											  </tr>
+											  <tr th:if="${applicationObject.travelStartDate != null }">
+											    <td>出差开始时间：</td>
+											    <td th:text="${applicationObject.travelStartDate}"></td>
+											    <td>出差结束时间：</td>
+											    <td th:text="${applicationObject.travelEndDate}"></td>
+											    <td>出差原因：</td>
+											    <td th:text="${applicationObject.travelReason}"></td>
+											  </tr>
+											  
+											   <tr th:if="${applicationObject.documentItems != null }" th:each="documentItem : ${applicationObject.documentItems}">
+											    <td>小项名称：</td>
+											    <td th:text="${documentItem.item_name}"></td>
+											    <td>小项金额：</td>
+											    <td th:text="${documentItem.item_money}"></td>
+											    <td>小项描述：</td>
+											    <td th:text="${documentItem.item_description}"></td>
+											   </tr>
+											</tbody>
+										</table>
+										<table th:if="${applicationObject.cityTrafficItems != null }" class="table table-striped"> 
+											<tbody th:if="${applicationObject.cityTrafficItems != null }" th:each="cityTrafficItem : ${applicationObject.cityTrafficItems}">
+											   <tr>
+											    <td>姓名：</td>
+											    <td th:text="${cityTrafficItem.name}"></td>
+											    <td>日期：</td>
+											    <td th:text="${cityTrafficItem.date}"></td>
+											    <td>出差事由：</td>
+											    <td th:text="${cityTrafficItem.travelReason}"></td>
+											  </tr>
+											  <tr>
+											    <td>起止地点：</td>
+											    <td th:text="${cityTrafficItem.startEndPosition}"></td>
+											    <td>车费：</td>
+											    <td th:text="${cityTrafficItem.fare}"></td>
+											    <td>其他：</td>
+											    <td th:text="${cityTrafficItem.total}"></td>
+											  </tr>
+											 <tr class="col-md-4">
+											    <td>合计：</td>
+											    <td th:text="${cityTrafficItem.total}"></td>
+											 </tr>
+											</tbody>
+										</table>
+										<table class="table table-striped" th:if="${applicationObject.travelItems != null}">
+											<tbody th:if="${applicationObject.travelItems != null}" th:each="travelItem : ${applicationObject.travelItems}">
+											  <tr>
+												  <td>费用产生时间：</td>
+												  <td th:text="travelItem.date"></td>
+												   <td>途中车船费起止地点：</td>
+												  <td th:text="travelItem.startendposition"></td>
+												  <td>途中车船费交通工具：</td>
+												  <td th:text="travelItem.traffictool"></td>
+											  </tr>
+											  <tr>
+												  <td>途中车船费：</td>
+												  <td th:text="travelItem.trafficfare"></td>
+												   <td>其他费用描述：</td>
+												  <td th:text="travelItem.otherdesription"></td>
+												  <td>其他费用：</td>
+												  <td th:text="travelItem.otherFare"></td>
+											  </tr>
+											</tbody>
+										</table>
+										<table class="table table-striped" th:if="${applicationObject.trafficAllowances != null}">
+											<tbody th:if="${applicationObject.trafficAllowances != null}" th:each="trafficAllowance : ${applicationObject.trafficAllowances}">
+											  <tr>
+												  <td>补贴项目名称：</td>
+												  <td th:text="trafficAllowance.allowanceName"></td>
+												   <td>补贴天数：</td>
+												  <td th:text="trafficAllowance.days"></td>
+												  <td>补贴标准：</td>
+												  <td th:text="trafficAllowance.standard"></td>
+											  </tr>
+											  <tr class="col-md-4">
+												  <td>补贴金额：</td>
+												  <td th:text="trafficAllowance.money"></td>
+											  </tr>
+											</tbody>
+										</table>
+										<table class="table table-striped" th:if="${applicationObject.abroadItems != null}">
+											<tbody th:if="${applicationObject.abroadItems != null}" th:each="abroadItem : ${applicationObject.abroadItems}">
+											  <tr>
+												  <td>出国费用项目名称：</td>
+												  <td th:text="abroadItem.name"></td>
+												   <td>天数：</td>
+												  <td th:text="abroadItem.days"></td>
+												  <td>币别：</td>
+												  <td th:text="abroadItem.currency"></td>
+											  </tr>
+											  <tr>
+										          <td>标准：</td>
+												  <td th:text="abroadItem.standard"></td>
+												  <td>外汇金额：</td>
+												  <td th:text="abroadItem.foreignexchange"></td>
+												  <td>折算汇率：</td>
+												  <td th:text="abroadItem.exchangerate"></td>
+											  </tr>
+											  <tr class="col-md-4">
+										          <td>折合人民币：</td>
+												  <td th:text="abroadItem.RNBNum"></td>
+											  </tr>
+											</tbody>
+										</table>
+										<table class="table table-striped" th:if="${applicationObject.abroadOtherInfo != null}">	
+											<tbody th:if="${applicationObject.abroadOtherInfo != null}">
+											  <tr>
+												  <td>汇兑手续费(RNB)：</td>
+												  <td th:text="abroadOtherInfo.remittanceFeeRNB"></td>
+												   <td>汇兑损益：</td>
+												  <td th:text="abroadOtherInfo.remittancePLRNB"></td>
+												  <td>出国机票：</td>
+												  <td th:text="abroadOtherInfo.airTicketFeeRNB"></td>
+											  </tr>
+											  <tr class="col-md-8">
+										          <td>交通费及其他费用：</td>
+												  <td th:text="abroadOtherInfo.trafficOrOtherFeeRNB"></td>
+												  <td>备注：</td>
+												  <td th:text="abroadOtherInfo.description"></td>
+											  </tr>
+											</tbody>
+										</table>
+										<table class="table table-striped">
+										  <tbody>
+											<tr class="col-md-3 pull-right ">
+											  <td>报销总金额：</td>
+											  <td th:text="${applicationObject.total}"></td>
+											</tr>
+										  </tbody>	
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

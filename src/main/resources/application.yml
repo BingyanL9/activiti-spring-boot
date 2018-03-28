@@ -8,7 +8,7 @@
     url: jdbc:h2:tcp://localhost/~/.h2/lby-test;DB_CLOSE_DELAY=-1;
     username: sa
     password:
-#    data: classpath:/data-init.sql  
+    data: classpath:/data-init.sql  
     druid:
       validationQuery: SELECT 1
       initialSize: 10

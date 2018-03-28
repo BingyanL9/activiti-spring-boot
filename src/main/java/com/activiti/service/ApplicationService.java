@@ -21,4 +21,8 @@ public class ApplicationService {
   public List<Application> getApplicationsByUser(String userName){
     return applicationRepository.getApplicationsByUser(userName);
   }
+  
+  public Application findById(Long applicationId) {
+    return applicationRepository.findById(applicationId);
+  }
 }

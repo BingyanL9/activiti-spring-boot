@@ -24,6 +24,9 @@ public class TrafficAllowance {
   @Column(name = "standard")
   private Double standard;
   
+  @Column(name = "money")
+  private Double money;
+  
   @ManyToOne(fetch = FetchType.LAZY)
   private Application application;
 
@@ -65,6 +68,14 @@ public class TrafficAllowance {
 
   public void setApplication(Application application) {
     this.application = application;
+  }
+
+  public Double getMoney() {
+    return money;
+  }
+
+  public void setMoney(Double money) {
+    this.money = money;
   }
   
 }

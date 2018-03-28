@@ -57,14 +57,26 @@ public class ProcessTestMyProcess {
 	      .deploymentId(dep.getId()).singleResult();
 	  Map<String, Object> variableMap = new HashMap<String, Object>();
 	  ProcessInstance processInstance = runtimeService.startProcessInstanceById(pd.getId());
-      variableMap.put("item_name", "name");
+      variableMap.put("Application_Type", "DailyExpense");
 	  Task t1 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
-	  Object obj = formService.getRenderedTaskForm(t1.getId());
 	  System.out.println(formService.getTaskFormData(t1.getId()));
 	  taskService.complete(t1.getId(), variableMap);
+	  variableMap.put("operation", "approval");
+	  variableMap.put("item_name", "图书");
+	  variableMap.put("item_money", 1500);
 	  Task t2 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
+	  taskService.complete(t2.getId(), variableMap);
 	  assertNotNull(processInstance.getId());
-	  System.out.println(obj);
-	  System.out.println(t2.getName());
+	  Map<String, Object> variableMap1 = new HashMap<String, Object>();
+	  Task t3 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
+	  variableMap1.put("operation", "approval");
+	  taskService.complete(t3.getId(), variableMap);
+//	  Task t4 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
+//	  Map<String, Object> variableMap2 = new HashMap<String, Object>();
+//	  variableMap2.put("operation", "approval");
+//	  variableMap2.put("paymode", "cash");
+//	  taskService.complete(t4.getId(), variableMap2);
+//	  Task t5 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
+	  System.out.println(t3.getName());
 	}
 }
