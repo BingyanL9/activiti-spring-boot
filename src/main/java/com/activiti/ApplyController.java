@@ -78,9 +78,10 @@ public class ApplyController {
     return "fragments/document_expense_form :: voucher_input";
   }
   
-  @RequestMapping(value = "/apply/trafficinput", method = RequestMethod.GET)
-  public String getTrafficInput() {
-    return "fragments/traffic_info_input :: traffic_info_input";
+  @RequestMapping(value = "/apply/trafficinput/{itemIndex}", method = RequestMethod.GET)
+  public String getTrafficInput(@PathVariable("itemIndex")Long itemIndex, Map<String, Object> model) {
+    model.put("itemIndex", itemIndex);
+    return "fragments/city_traffic_expense_form :: traffic_info_input";
   }
   
   @RequestMapping(value = "/apply/documentexpense", method = RequestMethod.POST)

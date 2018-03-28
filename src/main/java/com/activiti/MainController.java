@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.activiti.model.Application;
+import com.activiti.model.CityTrafficExpenseViewObject;
 import com.activiti.model.DocumentExpenseViewObject;
 import com.activiti.model.Role;
 import com.activiti.model.User;
@@ -93,6 +94,7 @@ private void InitialGroup() {
     model.put("user", userService.getCurrentUser());
     logger.debug("Start to apply an expense");
     model.put("DocumentExpenseViewObject", new DocumentExpenseViewObject());
+    model.put("CityTrafficExpenseViewObject", new CityTrafficExpenseViewObject());
     model.put("menu", "apply");
     return "apply";
   }

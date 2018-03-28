@@ -71,12 +71,12 @@ public class ProcessTestMyProcess {
 	  Task t3 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
 	  variableMap1.put("operation", "approval");
 	  taskService.complete(t3.getId(), variableMap);
-//	  Task t4 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
-//	  Map<String, Object> variableMap2 = new HashMap<String, Object>();
-//	  variableMap2.put("operation", "approval");
-//	  variableMap2.put("paymode", "cash");
-//	  taskService.complete(t4.getId(), variableMap2);
-//	  Task t5 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
-	  System.out.println(t3.getName());
+	  Task t4 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
+	  Map<String, Object> variableMap2 = new HashMap<String, Object>();
+	  variableMap2.put("operation", "approval");
+	  variableMap2.put("paymode", "cash");
+	  taskService.complete(t4.getId(), variableMap2);
+	  Task t5 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
+	  taskService.complete(t5.getId());
 	}
 }

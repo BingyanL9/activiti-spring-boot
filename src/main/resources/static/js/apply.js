@@ -1,19 +1,40 @@
 define(["jquery", "bootstrap", "bootstrap_select", "bootstrap_datetimepicker"], function($, bootstrap_select, bootstrap_datetimepicker) {
-$(document).ready(function(e) {
+
+	dateConfiguration = function(){
+		$('.form_date').datetimepicker({  
+		    language:  'fr',  
+		    weekStart: 1,  
+		    todayBtn:  1,  
+		    autoclose: 1,  
+		    todayHighlight: 1,  
+		    startView: 2,  
+		    minView: 2,  
+		    forceParse: 0  
+		});
+	};	
+	
+	$(document).ready(function(e) {
 	  $('.selectpicker').selectpicker();
-	  
-	    $('.form_date').datetimepicker({  
-	        language:  'fr',  
-	        weekStart: 1,  
-	        todayBtn:  1,  
-	        autoclose: 1,  
-	        todayHighlight: 1,  
-	        startView: 2,  
-	        minView: 2,  
-	        forceParse: 0  
-	    });
+	  dateConfiguration();
+
 	});
+	
+	addTrafficInput = function(){
+		$.ajax({
+			type: "GET",
+			url: "/apply/trafficinput/" + itemIndex++,
+			success: function(responseHTML) {
+	        	$("#add-traffic-input-button").before("<div>" + responseHTML + "</div>");
+	        },
+	        error: function(response, status) {
+	            console.log("failed to get traffic input");
+	        }
+		});
+		$("#add-traffic-input-button").prev().find('button').remove();
+	};
+	
 });
+
 var itemIndex = 1;
 function addItem(){
 	$.ajax({
@@ -46,6 +67,20 @@ function addVoucher(){
 	$("#add-voucher-button").prev().find('button').remove();
 }
 
+function addTrafficVoucher(){
+	$.ajax({
+		type: "GET",
+		url: "/apply/voucherinput/" + voucherIndex++,
+		success: function(responseHTML) {
+			
+        	$("#add-traffic-voucher-button").before("<div>" + responseHTML + "</div>");
+        },
+        error: function(response, status) {
+            console.log("failed to get item input");
+        }
+	});
+	$("#add-traffic-voucher-button").prev().find('button').remove();
+}
 function deleteVoucher(){
 	var deleteButton = $("#add-voucher-button").prev().find('button');
 	$("#delete-voucher-button").parent().remove();
@@ -53,19 +88,6 @@ function deleteVoucher(){
 	voucherIndex--;
 }
 
-function addTrafficInput(){
-	$.ajax({
-		type: "GET",
-		url: "/apply/trafficinput",
-		success: function(responseHTML) {
-			
-        	$("#add-traffic-input-button").before("<div>" + responseHTML + "</div>");
-        },
-        error: function(response, status) {
-            console.log("failed to get traffic input");
-        }
-	});
-}
 
 function deleteItem(){
 	var deleteButton = $("#add-item-button").prev().find('button');
@@ -74,11 +96,20 @@ function deleteItem(){
 	itemIndex--;
 }
 
+function deleteTrafficItem() {
+	var deleteButton = $("#add-traffic-input-button").prev().find('button');
+	$("#delete-traffic-item-button").parent().remove();
+	$("#add-traffic-input-button").prev().append(deleteButton);
+	itemIndex--;
+}
+
 function showRequiredInfo(paymode){
 	if("cash" === paymode || " " === paymode){
 		$(".paymentInfo").css("display","none");
+		$("#payeePerson").css("display","");
 	}else{
 		$(".paymentInfo").css("display","");
+		$("#payeePerson").css("display","none");
 	}
 }
 
