@@ -19,6 +19,9 @@ public class TeacherUser extends User{
   @Column(name = "title", length =32) 
   private String title;
   
+  @Column(name = "budget")
+  private double budget;
+  
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   private TeacherUser leader;
   
@@ -72,6 +75,30 @@ public class TeacherUser extends User{
 
   public void setDocumentApplications(List<Application> documentApplications) {
     this.documentApplications = documentApplications;
+  }
+
+  public double getBudget() {
+    return budget;
+  }
+
+  public void setBudget(double budget) {
+    this.budget = budget;
+  }
+
+  public List<Approval> getApprovals() {
+    return approvals;
+  }
+
+  public void setApprovals(List<Approval> approvals) {
+    this.approvals = approvals;
+  }
+
+  public Project_respon getProject_respon() {
+    return project_respon;
+  }
+
+  public void setProject_respon(Project_respon project_respon) {
+    this.project_respon = project_respon;
   }
 
 }

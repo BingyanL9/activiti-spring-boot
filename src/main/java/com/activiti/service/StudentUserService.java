@@ -5,14 +5,11 @@ import java.security.Principal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import com.activiti.model.Application_Type;
-import com.activiti.model.User;
-import com.activiti.repository.ClubUserRepository;
+import com.activiti.model.StudentUser;
 import com.activiti.repository.StudentUserRepository;
 
 @Service
@@ -24,11 +21,11 @@ public class StudentUserService {
   private StudentUserRepository studentUserRepository;
   
   
-  public User findByName(String userName) {
+  public StudentUser findByName(String userName) {
     return studentUserRepository.findByUserName(userName);
   }
   
-  public User getCurrentUser() {
+  public StudentUser getCurrentUser() {
     return findByName(getCurrentUserName());
   }
 
@@ -52,5 +49,7 @@ public class StudentUserService {
     return String.valueOf(principal);
   }
 
- 
+  public void save(StudentUser studentUser) {
+    studentUserRepository.save(studentUser);
+  }
 }

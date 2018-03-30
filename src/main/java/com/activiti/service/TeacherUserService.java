@@ -35,4 +35,7 @@ public class TeacherUserService {
     return String.valueOf(principal);
   }
 
+  public void save(TeacherUser teacherUser) {
+    teacherRepository.save(teacherUser);
+  }
 }

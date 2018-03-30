@@ -24,7 +24,7 @@ public class ClubUser extends User{
   
   @OneToMany(mappedBy = "approval_club", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Approval> approvals;
-
+  
   public String getCollege() {
     return college;
   }

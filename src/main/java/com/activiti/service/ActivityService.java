@@ -28,4 +28,8 @@ public class ActivityService {
     return findByNameAndChargeClub(activityName, clubUser);
   }
   
+  
+  public void save(Activity activity) {
+    activityRepository.save(activity);
+  }
 }

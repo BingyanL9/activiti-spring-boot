@@ -29,11 +29,15 @@ import com.activiti.model.Approval_status;
 import com.activiti.model.DocumentExpenseViewObject;
 import com.activiti.model.DocumentItem;
 import com.activiti.model.Payee;
+import com.activiti.model.Project;
+import com.activiti.model.StudentUser;
 import com.activiti.model.TeacherUser;
 import com.activiti.model.Voucher;
 import com.activiti.service.ActivityService;
 import com.activiti.service.ApplicationService;
 import com.activiti.service.ApprovalService;
+import com.activiti.service.ProjectService;
+import com.activiti.service.StudentUserService;
 import com.activiti.service.TeacherUserService;
 import com.activiti.service.UserService;
 @Controller
@@ -42,6 +46,9 @@ public class ApplyController {
   
   @Autowired
   private ActivityService activityService;
+  
+  @Autowired
+  private ProjectService projectService;
   
   @Autowired
   private ApplicationService applicationService;
@@ -57,6 +64,9 @@ public class ApplyController {
   
   @Autowired
   private TeacherUserService teacherUserService;
+  
+  @Autowired
+  private StudentUserService studentUserService;
   
   @Autowired
   private UserService userService;
@@ -121,14 +131,19 @@ public class ApplyController {
       approval.setApprocval_club(activity.getCharge_club());
       approval.setApproval_statu(Approval_status.level_1);
     }else if (devo.getApplication_Type() == Application_Type.MedicalExpense) {
+      StudentUser studentUser = studentUserService.getCurrentUser();
+      application.setApplication_student(studentUser);
       application.setHospitalName(devo.getHospitalName());
       application.setIllnessName(devo.getIllnessName());
       approval.setApproval_statu(Approval_status.level_1);
     }else if (devo.getApplication_Type() == Application_Type.DailyExpense) {
       TeacherUser teacher = teacherUserService.findCurrentUser();
+      application.setApplication_teacher(teacher);
       approval.setApproval_person(teacher.getLeader());
       approval.setApproval_statu(Approval_status.pending);
     }else {
+      Project project = projectService.findByCardNum(devo.getCardnum());
+      application.setProject(project);
       approval.setApproval_statu(Approval_status.pending);
     }
     
