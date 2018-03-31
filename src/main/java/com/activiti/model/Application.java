@@ -72,6 +72,12 @@ public class Application {
   private List<TravelItem> travelItems;
   
   @OneToMany(mappedBy = "application", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<AccommodationItem> accommodationItems;
+  
+  @OneToMany(mappedBy = "application", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<OtherItem> otherItems;
+  
+  @OneToMany(mappedBy = "application", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<TrafficAllowance> trafficAllowances;
   
   @OneToMany(mappedBy = "application", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -317,5 +323,20 @@ public class Application {
     this.owner = owner;
   }
 
-  
+  public List<OtherItem> getOtherItems() {
+    return otherItems;
+  }
+
+  public void setOtherItems(List<OtherItem> otherItems) {
+    this.otherItems = otherItems;
+  }
+
+  public List<AccommodationItem> getAccommodationItems() {
+    return accommodationItems;
+  }
+
+  public void setAccommodationItems(List<AccommodationItem> accommodationItems) {
+    this.accommodationItems = accommodationItems;
+  }
+
 }

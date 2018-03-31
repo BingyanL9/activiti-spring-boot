@@ -14,9 +14,12 @@ public class TravelExpenseViewObject {
     private String travelPersonName;
     private String travelPersonPosition;
     private List<TravelItem> travelItems;
+    private List<AccommodationItem> accommodationItems;
+    private List<OtherItem> otherItems;
     private List<TrafficAllowance> trafficAllowances;
-    private String travelPaymode;
+    private String paymode;
     private Payee payee;
+    private Application_Type application_Type;
     private String manager;
     private String submitter;
     private String submitterTell;
@@ -86,12 +89,6 @@ public class TravelExpenseViewObject {
     public void setTrafficAllowances(List<TrafficAllowance> trafficAllowances) {
       this.trafficAllowances = trafficAllowances;
     }
-    public String getTravelPaymode() {
-      return travelPaymode;
-    }
-    public void setTravelPaymode(String travelPaymode) {
-      this.travelPaymode = travelPaymode;
-    }
     public Payee getPayee() {
       return payee;
     }
@@ -115,6 +112,34 @@ public class TravelExpenseViewObject {
     }
     public void setSubmitterTell(String submitterTell) {
       this.submitterTell = submitterTell;
+    }
+    public String getPaymode() {
+      return paymode;
+    }
+    public void setPaymode(String paymode) {
+      this.paymode = paymode;
+    }
+    public Application_Type getApplication_Type() {
+      return application_Type;
+    }
+    public void setApplication_Type(Application_Type application_Type) {
+      this.application_Type = application_Type;
+    }
+    public List<AccommodationItem> getAccommodationItems() {
+      return accommodationItems;
+    }
+    public void setAccommodationItems(List<AccommodationItem> accommodationItems) {
+      this.accommodationItems = accommodationItems;
+    }
+    public List<OtherItem> getOtherItems() {
+      return otherItems;
+    }
+    public void setOtherItems(List<OtherItem> otherItems) {
+      this.otherItems = otherItems;
+    }
+    public TravelExpenseViewObject() {
+      super();
+      // TODO Auto-generated constructor stub
     }
     
 }

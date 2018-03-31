@@ -5,7 +5,8 @@
   <div th:fragment="city_traffic_expense_form" id="cityTrafficExpenseFormBlock">
     <div class="container">
       <h3 class="text-center">市内交通报销单</h3>
-      <form class="form-horizontal" id="cityTrafficExpenseForm" method="POST" th:object="${CityTrafficExpenseViewObject}">
+      <form class="form-horizontal" id="cityTrafficExpenseForm" method="POST" th:object="${CityTrafficExpenseViewObject}"
+      th:action="@{/apply/citytrafficexpense}">
         <div>
 			<div th:replace="fragments/document_expense_form :: voucher_input(0)"></div>
 			<button type="button" class="btn btn-info pull-left"
@@ -165,7 +166,7 @@
 	<div class="form-group required col-md-4">
 	  <label class="control-label col-md-5" for="otherfare">其他:</label>
 	  <div class="col-md-7">
-	    <input type="text" class="form-control" th:name="|cityTrafficItems[${itemIndex}].otherfare|"
+	    <input type="text" class="form-control" th:name="|cityTrafficItems[${itemIndex}].otherFare|"
 	    placeholder="请输入其他费用"/>
 	  </div>
 	</div>

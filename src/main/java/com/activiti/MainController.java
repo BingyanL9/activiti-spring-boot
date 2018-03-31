@@ -17,6 +17,7 @@ import com.activiti.model.Application;
 import com.activiti.model.CityTrafficExpenseViewObject;
 import com.activiti.model.DocumentExpenseViewObject;
 import com.activiti.model.Role;
+import com.activiti.model.TravelExpenseViewObject;
 import com.activiti.model.User;
 import com.activiti.service.ApplicationService;
 import com.activiti.service.UserService;
@@ -95,6 +96,7 @@ private void InitialGroup() {
     logger.debug("Start to apply an expense");
     model.put("DocumentExpenseViewObject", new DocumentExpenseViewObject());
     model.put("CityTrafficExpenseViewObject", new CityTrafficExpenseViewObject());
+    model.put("TravelExpenseViewObject", new TravelExpenseViewObject());
     model.put("menu", "apply");
     return "apply";
   }

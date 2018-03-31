@@ -26,6 +26,8 @@ import com.activiti.model.Application;
 import com.activiti.model.Application_Type;
 import com.activiti.model.Approval;
 import com.activiti.model.Approval_status;
+import com.activiti.model.CityTrafficExpenseViewObject;
+import com.activiti.model.CityTrafficItem;
 import com.activiti.model.DocumentExpenseViewObject;
 import com.activiti.model.DocumentItem;
 import com.activiti.model.Payee;
@@ -94,6 +96,30 @@ public class ApplyController {
     return "fragments/city_traffic_expense_form :: traffic_info_input";
   }
   
+  @RequestMapping(value = "/apply/travelinput/{travelItemIndex}", method = RequestMethod.GET)
+  public String getTravelInput(@PathVariable("travelItemIndex")Long travelItemIndex, Map<String, Object> model) {
+    model.put("travelItemIndex", travelItemIndex);
+    return "fragments/travel_expense_form :: travel_item_input";
+  }
+  
+  @RequestMapping(value = "/apply/accommodationinput/{accommodationItemIndex}", method = RequestMethod.GET)
+  public String getAccommodationInput(@PathVariable("accommodationItemIndex")Long accommodationItemIndex, Map<String, Object> model) {
+    model.put("accommodationItemIndex", accommodationItemIndex);
+    return "fragments/travel_expense_form :: accommodation_item_input";
+  }
+  
+  @RequestMapping(value = "/apply/otherinput/{otherItemIndex}", method = RequestMethod.GET)
+  public String getOtherInput(@PathVariable("otherItemIndex")Long otherItemIndex, Map<String, Object> model) {
+    model.put("otherItemIndex", otherItemIndex);
+    return "fragments/travel_expense_form :: other_item_input";
+  }
+  
+  @RequestMapping(value = "/apply/allowanceinput/{allowanceItemIndex}", method = RequestMethod.GET)
+  public String getAllowanceInput(@PathVariable("allowanceItemIndex")Long allowanceItemIndex, Map<String, Object> model) {
+    model.put("allowanceItemIndex", allowanceItemIndex);
+    return "fragments/travel_expense_form :: allowance_item_input";
+  }
+  
   @RequestMapping(value = "/apply/documentexpense", method = RequestMethod.POST)
   public String createDocumentExpenseApplication( DocumentExpenseViewObject devo) {
     logger.debug("Start create document expense application!");
@@ -111,10 +137,8 @@ public class ApplyController {
     List<DocumentItem> items = new ArrayList<DocumentItem>();
     for (DocumentItem item: devo.getItems()) {
       DocumentItem documentItem = new DocumentItem();
-      documentItem.setItem_name(item.getItem_name());
-      documentItem.setItem_money(item.getItem_money());
+      documentItem = item;
       total += item.getItem_money();
-      documentItem.setItem_description(item.getItem_description());
       documentItem.setApplication(application);
       items.add(documentItem);
     }
@@ -170,6 +194,66 @@ public class ApplyController {
       vouchers.add(documentVoucher);
     }
     return vouchers;
+  }
+  
+  @RequestMapping(value = "/apply/citytrafficexpense", method = RequestMethod.POST)
+  public String createDocumentExpenseApplication( CityTrafficExpenseViewObject ctevo) {
+    Deployment dep = repositoryService.createDeployment().addClasspathResource("processes/DocumentExpense.bpmn")
+        .deploy();
+    Map<String, Object> variableMap = new HashMap<String, Object>();
+    
+    Application application = new Application();
+    double total = 0.0;
+    application.setOwner(userService.getCurrentUser());
+    Approval approval = new Approval();
+    application.setDepartment(ctevo.getDepartment());
+    application.setCreatetime(ctevo.getCreatetime());
+    application.setCardNum(ctevo.getCardnum());
+    List<CityTrafficItem> cityTrafficItems = new ArrayList<CityTrafficItem>();
+    for (CityTrafficItem cityTrafficItem : ctevo.getCityTrafficItems()) {
+      CityTrafficItem newCityTrafficItem = new CityTrafficItem();
+      newCityTrafficItem = cityTrafficItem;
+      newCityTrafficItem.setApplication(application);
+      total += newCityTrafficItem.getTotal();
+      cityTrafficItems.add(newCityTrafficItem);
+    }
+    application.setCityTrafficItems(cityTrafficItems);
+    application.setTotal(total);
+    
+    List<Voucher> vouchers = new ArrayList<Voucher>();
+    for (Voucher voucher : ctevo.getVouchers()) {
+      Voucher documentVoucher = new Voucher();
+      documentVoucher.setEnclosure(voucher.getEnclosure());
+      documentVoucher.setApplication(application);
+      vouchers.add(documentVoucher);
+    }
+    application.setVouchers(vouchers);
+    variableMap.put("Application_Type", ctevo.getApplication_Type());
+    application.setApplication_type(ctevo.getApplication_Type());
+    if (ctevo.getApplication_Type() == Application_Type.DailyExpense) {
+      TeacherUser teacher = teacherUserService.findCurrentUser();
+      application.setApplication_teacher(teacher);
+      approval.setApproval_person(teacher.getLeader());
+      approval.setApproval_statu(Approval_status.pending);
+    }else {
+      Project project = projectService.findByCardNum(ctevo.getCardnum());
+      application.setProject(project);
+      approval.setApproval_statu(Approval_status.pending);
+    }
+    
+    String payMode = ctevo.getPaymode();
+    application.setPaymode(payMode);
+    Payee payee = new Payee();
+    payee = ctevo.getPayee();
+    ProcessDefinition pd = repositoryService.createProcessDefinitionQuery()
+        .deploymentId(dep.getId()).singleResult();
+    ProcessInstance processInstance = runtimeService.startProcessInstanceById(pd.getId());
+    approval.setProcessInstanceId(processInstance.getId());
+    Task t1 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
+    taskService.complete(t1.getId(), variableMap);
+    approvalService.saveWhenCreate(payee, approval, application);
+    return "redirect:/applylist";
+    
   }
   
   @RequestMapping(value = "/applications/{applicationId}", method = RequestMethod.GET)

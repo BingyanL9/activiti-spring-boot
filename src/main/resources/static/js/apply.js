@@ -36,6 +36,7 @@ define(["jquery", "bootstrap", "bootstrap_select", "bootstrap_datetimepicker"], 
 });
 
 var itemIndex = 1;
+var EXPENSETYPE;
 function addItem(){
 	$.ajax({
 		type: "GET",
@@ -81,10 +82,95 @@ function addTrafficVoucher(){
 	});
 	$("#add-traffic-voucher-button").prev().find('button').remove();
 }
+
+function addTravelVoucher(){
+	$.ajax({
+		type: "GET",
+		url: "/apply/voucherinput/" + voucherIndex++,
+		success: function(responseHTML) {
+			
+        	$("#add-travel-voucher-button").before("<div>" + responseHTML + "</div>");
+        },
+        error: function(response, status) {
+            console.log("failed to get item input");
+        }
+	});
+	$("#add-travel-voucher-button").prev().find('button').remove();
+}
+
+
+function addTravelInput(){
+	$.ajax({
+		type: "GET",
+		url: "/apply/travelinput/" + itemIndex++,
+		success: function(responseHTML) {
+        	$("#add-travel-input-button").before("<div>" + responseHTML + "</div>");
+        },
+        error: function(response, status) {
+            console.log("failed to get travel input");
+        }
+	});
+	$("#add-travel-input-button").prev().find('button').remove();
+}
+
+var accommodationIndex = 1;
+function addAccommodationInput() {
+	$.ajax({
+		type: "GET",
+		url: "/apply/accommodationinput/" + accommodationIndex++,
+		success: function(responseHTML) {
+        	$("#add-accommodation-input-button").before("<div>" + responseHTML + "</div>");
+        },
+        error: function(response, status) {
+            console.log("failed to get accommodation input");
+        }
+	});
+	$("#add-accommodation-input-button").prev().find('button').remove();
+}
+var otherItem = 1;
+function addOtherInput() {
+	$.ajax({
+		type: "GET",
+		url: "/apply/otherinput/" + otherItem++,
+		success: function(responseHTML) {
+        	$("#add-other-input-button").before("<div>" + responseHTML + "</div>");
+        },
+        error: function(response, status) {
+            console.log("failed to get other input");
+        }
+	});
+	$("#add-other-input-button").prev().find('button').remove();
+}
+
+var allowanceItem = 2;
+function addAllowanceInput() {
+	$.ajax({
+		type: "GET",
+		url: "/apply/allowanceinput/" + allowanceItem++,
+		success: function(responseHTML) {
+        	$("#add-allowance-input-button").before("<div>" + responseHTML + "</div>");
+        },
+        error: function(response, status) {
+            console.log("failed to get other input");
+        }
+	});
+	$("#add-allowance-input-button").prev().find('button').remove();
+}
+
 function deleteVoucher(){
-	var deleteButton = $("#add-voucher-button").prev().find('button');
+	if (EXPENSETYPE === 'document_expense_form'){
+	 var deleteButton = $("#add-voucher-button").prev().find('button');
+	 $("#delete-voucher-button").parent().remove();
+	 $("#add-voucher-button").prev().append(deleteButton);
+	}else if(EXPENSETYPE === 'city_traffic_expense_form'){
+	var deleteTrafficButton = $("#add-traffic-voucher-button").prev().find('button');
 	$("#delete-voucher-button").parent().remove();
-	$("#add-voucher-button").prev().append(deleteButton);
+	$("#add-traffic-voucher-button").prev().append(deleteButton);
+	}else if(EXPENSETYPE === 'travel_expense_form'){
+	var deleteTravelButton = $("#add-travel-voucher-button").prev().find('button');
+	$("#delete-voucher-button").parent().remove();
+	$("#add-travel-voucher-button").prev().append(deleteTravelButton);	
+	}
 	voucherIndex--;
 }
 
@@ -103,6 +189,34 @@ function deleteTrafficItem() {
 	itemIndex--;
 }
 
+function deleteTravelItem() {
+	var deleteButton = $("#add-travel-input-button").prev().find('button');
+	$("#delete-travel-item-button").parent().remove();
+	$("#add-travel-input-button").prev().append(deleteButton);
+	itemIndex--;
+}
+
+function deleteAccommodationItem() {
+	var deleteButton = $("#add-accommodation-input-button").prev().find('button');
+	$("#delete-accommodation-item-button").parent().remove();
+	$("#add-accommodation-input-button").prev().append(deleteButton);
+	accommodationIndex--;
+}
+
+function deleteOtherItem() {
+	var deleteButton = $("#add-other-input-button").prev().find('button');
+	$("#delete-other-item-button").parent().remove();
+	$("#add-other-input-button").prev().append(deleteButton);
+	accommodationIndex--;
+}
+
+function deleteAllowanceItem() {
+	var deleteButton = $("#add-allowance-input-button").prev().find('button');
+	$("#delete-allowance-item-button").parent().remove();
+	$("#add-allowance-input-button").prev().append(deleteButton);
+	accommodationIndex--;
+}
+
 function showRequiredInfo(paymode){
 	if("cash" === paymode || " " === paymode){
 		$(".paymentInfo").css("display","none");
@@ -114,6 +228,7 @@ function showRequiredInfo(paymode){
 }
 
 function showExpenseByType(expense_type){
+	EXPENSETYPE = expense_type;
 	if ("document_expense_form" === expense_type){
 		$("#document_expense_form").css("display","");
 		$("#travel_expense_form").css("display","none");

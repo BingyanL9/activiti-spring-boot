@@ -29,15 +29,6 @@ public class TravelItem {
   
   @Column(name = "trafficfare", length = 100)
   private String trafficFare;
-  
-  @Column(name = "accommodationfare", length = 100)
-  private String accommodationFare;
-  
-  @Column(name = "otherdesription", length = 100)
-  private String otherDesription;
-  
-  @Column(name = "otherfare", length = 100)
-  private Double otherFare;
 
   public Long getId() {
     return id;
@@ -86,29 +77,4 @@ public class TravelItem {
   public void setTrafficFare(String trafficFare) {
     this.trafficFare = trafficFare;
   }
-
-  public String getAccommodationFare() {
-    return accommodationFare;
-  }
-
-  public void setAccommodationFare(String accommodationFare) {
-    this.accommodationFare = accommodationFare;
-  }
-
-  public String getOtherDesription() {
-    return otherDesription;
-  }
-
-  public void setOtherDesription(String otherDesription) {
-    this.otherDesription = otherDesription;
-  }
-
-  public Double getOtherFare() {
-    return otherFare;
-  }
-
-  public void setOtherFare(Double otherFare) {
-    this.otherFare = otherFare;
-  }
-  
 }

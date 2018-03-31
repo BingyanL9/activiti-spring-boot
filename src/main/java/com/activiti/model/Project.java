@@ -25,8 +25,8 @@ public class Project {
   @Column(name = "budget")
   private double budget;
   
-  @Column(name = "cardnum")
-  private double cardnum;
+  @Column(name = "cardNum")
+  private String cardNum;
   
   @Column(name = "starting_date")
   private Date starting_date;
@@ -64,12 +64,12 @@ public class Project {
     this.budget = budget;
   }
 
-  public double getCardnum() {
-    return cardnum;
+  public String getCardnum() {
+    return cardNum;
   }
 
-  public void setCardnum(double cardnum) {
-    this.cardnum = cardnum;
+  public void setCardnum(String cardnum) {
+    this.cardNum = cardnum;
   }
 
   public Date getStarting_date() {
