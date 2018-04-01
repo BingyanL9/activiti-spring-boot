@@ -16,16 +16,16 @@ public class AccommodationItem {
   private Long id;
   
   @Column(name = "accommodationfare", length = 100)
-  private String accommodationFare;
+  private double accommodationFare;
 
   @ManyToOne(fetch = FetchType.LAZY)
   private Application application;
 
-  public String getAccommodationFare() {
+  public double getAccommodationFare() {
     return accommodationFare;
   }
 
-  public void setAccommodationFare(String accommodationFare) {
+  public void setAccommodationFare(double accommodationFare) {
     this.accommodationFare = accommodationFare;
   }
 

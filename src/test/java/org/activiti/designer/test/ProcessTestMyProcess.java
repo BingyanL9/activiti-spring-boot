@@ -74,7 +74,7 @@ public class ProcessTestMyProcess {
 	  Task t4 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
 	  Map<String, Object> variableMap2 = new HashMap<String, Object>();
 	  variableMap2.put("operation", "approval");
-	  variableMap2.put("paymode", "cash");
+	  variableMap2.put("paymode", "");
 	  taskService.complete(t4.getId(), variableMap2);
 	  Task t5 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
 	  taskService.complete(t5.getId());

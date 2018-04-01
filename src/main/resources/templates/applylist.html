@@ -43,12 +43,12 @@
 													<td th:if="${application.approval.approval_statu.name() == 'approval'}" th:text="已审批"></td>
 													<td th:if="${application.approval.approval_statu.name() == 'pending'}" th:text="正在审批中"></td>
 													<td th:if="${application.approval.approval_statu.name() == 'rejected'}" th:text="请重新提交"></td>
-													<td th:if="${application.approval.approval_statu.name() == 'level1'}" th:text="一级领导正在审批"></td>
-												    <td th:if="${application.approval.approval_statu.name() == 'level2'}" th:text="二级领导正在审批"></td>
-												    <td th:if="${application.approval.approval_statu.name() == 'level3'}" th:text="三级领导正在审批"></td>
-													<td th:if="${application.approval.approval_statu.name() == 'level4'}" th:text="四级领导正在审批"></td>
-													<td th:if="${application.approval.approval_statu.name() == 'level5'}" th:text="五级领导正在审批"></td>
-													<td th:if="${application.approval.approval_statu.name() == 'level6'}" th:text="六级领导正在审批"></td>
+													<td th:if="${application.approval.approval_statu.name() == 'level_1'}" th:text="一级领导正在审批"></td>
+												    <td th:if="${application.approval.approval_statu.name() == 'level_2'}" th:text="二级领导正在审批"></td>
+												    <td th:if="${application.approval.approval_statu.name() == 'level_3'}" th:text="三级领导正在审批"></td>
+													<td th:if="${application.approval.approval_statu.name() == 'level_4'}" th:text="四级领导正在审批"></td>
+													<td th:if="${application.approval.approval_statu.name() == 'level_5'}" th:text="五级领导正在审批"></td>
+													<td th:if="${application.approval.approval_statu.name() == 'level_6'}" th:text="六级领导正在审批"></td>
 												</tr>
 											</tbody>
 										</table>

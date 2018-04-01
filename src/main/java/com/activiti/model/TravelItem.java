@@ -28,7 +28,7 @@ public class TravelItem {
   private String trafficTool;
   
   @Column(name = "trafficfare", length = 100)
-  private String trafficFare;
+  private double trafficFare;
 
   public Long getId() {
     return id;
@@ -70,11 +70,11 @@ public class TravelItem {
     this.trafficTool = trafficTool;
   }
 
-  public String getTrafficFare() {
+  public double getTrafficFare() {
     return trafficFare;
   }
 
-  public void setTrafficFare(String trafficFare) {
+  public void setTrafficFare(double trafficFare) {
     this.trafficFare = trafficFare;
   }
 }

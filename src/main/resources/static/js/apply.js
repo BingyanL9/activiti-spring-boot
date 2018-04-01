@@ -33,6 +33,20 @@ define(["jquery", "bootstrap", "bootstrap_select", "bootstrap_datetimepicker"], 
 		$("#add-traffic-input-button").prev().find('button').remove();
 	};
 	
+	getFileUrl = function(_this) {
+		var oFReader = new FileReader();
+		var file = _this.files[0];
+		if(file != null){
+			$('#myModal').modal('show');
+			oFReader.readAsDataURL(file);
+			oFReader.onloadend = function(oFRevent) {
+				var src = oFRevent.target.result;
+				_this.nextElementSibling.value = src;
+				$('#myModal').modal('hide');
+			}
+		}
+	}; 
+	
 });
 
 var itemIndex = 1;
@@ -98,6 +112,20 @@ function addTravelVoucher(){
 	$("#add-travel-voucher-button").prev().find('button').remove();
 }
 
+function addOnboardTravelVoucher(){
+	$.ajax({
+		type: "GET",
+		url: "/apply/voucherinput/" + voucherIndex++,
+		success: function(responseHTML) {
+			
+        	$("#add-onboard-travel-voucher-button").before("<div>" + responseHTML + "</div>");
+        },
+        error: function(response, status) {
+            console.log("failed to get item input");
+        }
+	});
+	$("#add-onboard-travel-voucher-button").prev().find('button').remove();
+}
 
 function addTravelInput(){
 	$.ajax({
@@ -170,6 +198,10 @@ function deleteVoucher(){
 	var deleteTravelButton = $("#add-travel-voucher-button").prev().find('button');
 	$("#delete-voucher-button").parent().remove();
 	$("#add-travel-voucher-button").prev().append(deleteTravelButton);	
+	}else if(EXPENSETYPE === 'onboard_travel_expense_form' ){
+	var deleteTravelButton =$("#add-onboard-travel-voucher-button").prev().find('button');
+	$("#delete-voucher-button").parent().remove();
+	$("#add-onboard-travel-voucher-button").prev().append(deleteTravelButton);
 	}
 	voucherIndex--;
 }
@@ -265,13 +297,4 @@ function expenseTypeAction(expenseType) {
 	}
 }
 
-function getFileUrl(_this) {
-	var oFReader = new FileReader();
-	var file = _this.files[0];
-	oFReader.readAsDataURL(file);
-	oFReader.onloadend = function(oFRevent) {
-		var src = oFRevent.target.result;
-		_this.nextElementSibling.value = src;
-	}
-} 
  

@@ -71,6 +71,21 @@
 											    <td>出差原因：</td>
 											    <td th:text="${applicationObject.travelReason}"></td>
 											  </tr>
+											   <tr th:if="${applicationObject.travelPersonName != null }">
+											    <td>出差人员姓名：</td>
+											    <td th:text="${applicationObject.travelPersonName}"></td>
+											    <td>出差人员职务：</td>
+											    <td th:text="${applicationObject.travelPersonPosition}"></td>
+											    <td>负责人：</td>
+											    <td th:text="${applicationObject.manager}"></td>
+											  </tr>
+											  
+											  <tr th:if="${applicationObject.submitter != null }">
+											    <td>填报人：</td>
+											    <td th:text="${applicationObject.submitter}"></td>
+											    <td>填报人电话：</td>
+											    <td th:text="${applicationObject.submitterTell}"></td>
+											  </tr>
 											  
 											   <tr th:if="${applicationObject.documentItems != null }" th:each="documentItem : ${applicationObject.documentItems}">
 											    <td>小项名称：</td>
@@ -106,81 +121,81 @@
 											<tbody th:if="${applicationObject.travelItems != null}" th:each="travelItem : ${applicationObject.travelItems}">
 											  <tr>
 												  <td>费用产生时间：</td>
-												  <td th:text="travelItem.date"></td>
+												  <td th:text="${travelItem.date}"></td>
 												   <td>途中车船费起止地点：</td>
-												  <td th:text="travelItem.startendposition"></td>
+												  <td th:text="${travelItem.startEndPosition}"></td>
 												  <td>途中车船费交通工具：</td>
-												  <td th:text="travelItem.traffictool"></td>
+												  <td th:text="${travelItem.trafficTool}"></td>
 											  </tr>
 											  <tr>
 												  <td>途中车船费：</td>
-												  <td th:text="travelItem.trafficfare"></td>
+												  <td th:text="${travelItem.trafficFare}"></td>
 											  </tr>
 											</tbody>
 										    <tbody th:if="${applicationObject.accommodationItems != null}" th:each="accommodationItem : ${applicationObject.accommodationItems}">
 											  <tr>
 												  <td>住宿费：</td>
-												  <td th:text="accommodationItem.accommodationFare"></td>
+												  <td th:text="${accommodationItem.accommodationFare}"></td>
 											  </tr>
 											</tbody>
 											 <tbody th:if="${applicationObject.otherItems != null}" th:each="otherItem : ${applicationObject.otherItems}">
 											  <tr>
 												  <td>其他费用描述：</td>
-												  <td th:text="otherItem.otherDesription"></td>
+												  <td th:text="${otherItem.otherDesription}"></td>
 												  <td>其他费用：</td>
-												  <td th:text="otherItem.otherFare"></td>
+												  <td th:text="${otherItem.otherFare}"></td>
 											  </tr>
 											</tbody>
 											<tbody th:if="${applicationObject.trafficAllowances != null}" th:each="trafficAllowance : ${applicationObject.trafficAllowances}">
 											  <tr>
 												  <td>补贴项目名称：</td>
-												  <td th:text="trafficAllowance.allowanceName"></td>
+												  <td th:text="${trafficAllowance.allowanceName}"></td>
 												   <td>补贴天数：</td>
-												  <td th:text="trafficAllowance.days"></td>
+												  <td th:text="${trafficAllowance.days}"></td>
 												  <td>补贴标准：</td>
-												  <td th:text="trafficAllowance.standard"></td>
+												  <td th:text="${trafficAllowance.standard}"></td>
 											  </tr>
-											  <tr class="col-md-4">
+											  <tr>
 												  <td>补贴金额：</td>
-												  <td th:text="trafficAllowance.money"></td>
+												  <td th:text="${trafficAllowance.money}"></td>
 											  </tr>
 											</tbody>
 											<tbody th:if="${applicationObject.abroadItems != null}" th:each="abroadItem : ${applicationObject.abroadItems}">
 											  <tr>
 												  <td>出国费用项目名称：</td>
-												  <td th:text="abroadItem.name"></td>
+												  <td th:text="${abroadItem.name}"></td>
 												   <td>天数：</td>
-												  <td th:text="abroadItem.days"></td>
+												  <td th:text="${abroadItem.days}"></td>
 												  <td>币别：</td>
-												  <td th:text="abroadItem.currency"></td>
+												  <td th:text="${abroadItem.currency}"></td>
 											  </tr>
 											  <tr>
 										          <td>标准：</td>
-												  <td th:text="abroadItem.standard"></td>
+												  <td th:text="${abroadItem.standard}"></td>
 												  <td>外汇金额：</td>
-												  <td th:text="abroadItem.foreignexchange"></td>
+												  <td th:text="${abroadItem.foreignexchange}"></td>
 												  <td>折算汇率：</td>
-												  <td th:text="abroadItem.exchangerate"></td>
+												  <td th:text="${abroadItem.exchangerate}"></td>
 											  </tr>
 											  <tr class="col-md-4">
 										          <td>折合人民币：</td>
-												  <td th:text="abroadItem.RNBNum"></td>
+												  <td th:text="${abroadItem.RNBNum】"></td>
 											  </tr>
 											</tbody>
 											<tbody th:if="${applicationObject.abroadOtherInfo != null}">
 											  <tr>
 												  <td>汇兑手续费(RNB)：</td>
-												  <td th:text="abroadOtherInfo.remittanceFeeRNB"></td>
+												  <td th:text="${abroadOtherInfo.remittanceFeeRNB}"></td>
 												   <td>汇兑损益：</td>
-												  <td th:text="abroadOtherInfo.remittancePLRNB"></td>
+												  <td th:text="${abroadOtherInfo.remittancePLRNB}"></td>
 												  <td>出国机票：</td>
-												  <td th:text="abroadOtherInfo.airTicketFeeRNB"></td>
+												  <td th:text="${abroadOtherInfo.airTicketFeeRNB}"></td>
 											  </tr>
-											  <tr class="col-md-8">
+											  <tr>
 										          <td>交通费及其他费用：</td>
-												  <td th:text="abroadOtherInfo.trafficOrOtherFeeRNB"></td>
+												  <td th:text="${abroadOtherInfo.trafficOrOtherFeeRNB}"></td>
 												  <td>备注：</td>
-												  <td th:text="abroadOtherInfo.description"></td>
+												  <td th:text="${abroadOtherInfo.description}"></td>
 											  </tr>
 											</tbody>
 										  <tbody>

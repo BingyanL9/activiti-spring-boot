@@ -16,7 +16,10 @@ public class OnboardTravelExpenseViewObject {
   private String onboardPaymode;
   private Payee payee;
   private Double total;
-  private String expenseType;
+  private String manager;
+  private String submitter;
+  private Application_Type application_Type;
+  
   public List<Voucher> getVouchers() {
     return vouchers;
   }
@@ -89,11 +92,23 @@ public class OnboardTravelExpenseViewObject {
   public void setTotal(Double total) {
     this.total = total;
   }
-  public String getExpenseType() {
-    return expenseType;
+  public Application_Type getApplication_Type() {
+    return application_Type;
   }
-  public void setExpenseType(String expenseType) {
-    this.expenseType = expenseType;
+  public void setApplication_Type(Application_Type application_Type) {
+    this.application_Type = application_Type;
+  }
+  public String getManager() {
+    return manager;
+  }
+  public void setManager(String manager) {
+    this.manager = manager;
+  }
+  public String getSubmitter() {
+    return submitter;
+  }
+  public void setSubmitter(String submitter) {
+    this.submitter = submitter;
   }
   
 }

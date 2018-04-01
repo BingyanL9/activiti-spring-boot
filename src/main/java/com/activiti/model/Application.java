@@ -61,6 +61,21 @@ public class Application {
   
   @Column(name = "travelreason", length = 100)
   private String travelReason;
+
+  @Column(name = "travelPersonName", length = 100)
+  private String travelPersonName;
+  
+  @Column(name = "travelPersonPosition", length = 100)
+  private String travelPersonPosition;
+  
+  @Column(name = "manager", length = 100)
+  private String manager;
+  
+  @Column(name = "submitter", length = 100)
+  private String submitter;
+  
+  @Column(name = "submitterTell", length = 100)
+  private String submitterTell;
   
   @OneToMany(mappedBy = "application", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<DocumentItem> documentItems;
@@ -337,6 +352,46 @@ public class Application {
 
   public void setAccommodationItems(List<AccommodationItem> accommodationItems) {
     this.accommodationItems = accommodationItems;
+  }
+
+  public String getTravelPersonName() {
+    return travelPersonName;
+  }
+
+  public void setTravelPersonName(String travelPersonName) {
+    this.travelPersonName = travelPersonName;
+  }
+
+  public String getTravelPersonPosition() {
+    return travelPersonPosition;
+  }
+
+  public void setTravelPersonPosition(String travelPersonPosition) {
+    this.travelPersonPosition = travelPersonPosition;
+  }
+
+  public String getManager() {
+    return manager;
+  }
+
+  public void setManager(String manager) {
+    this.manager = manager;
+  }
+
+  public String getSubmitter() {
+    return submitter;
+  }
+
+  public void setSubmitter(String submitter) {
+    this.submitter = submitter;
+  }
+
+  public String getSubmitterTell() {
+    return submitterTell;
+  }
+
+  public void setSubmitterTell(String submitterTell) {
+    this.submitterTell = submitterTell;
   }
 
 }
