@@ -75,332 +75,352 @@
 		   placeholder="请输入出差事由" required="required"/>
 		  </div>
 	    </div>
-	     
+	    
+	    <input type="hidden" class="form-control" th:name="|abroadItems[0].name|" th:value="伙食费"/>
+		  
 	    <div class="form-group required col-md-4">
-		  <label class="control-label col-md-5" for="">伙食费天数:</label>
+		  <label class="control-label col-md-5" for="days">伙食费天数:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="foodDay"
-		  name="foodDay" placeholder="请输入天数" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[0].days|"
+		  placeholder="请输入天数" required="required"/>
 		  </div>
 	    </div>
 	    
 	    <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">伙食费币种:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="foodcurrency"
-		  name="foodcurrency" placeholder="请输入币种" required="required"/>
+		  <input type="text" class="form-control" 
+		   placeholder="请输入币种" required="required" th:name="|abroadItems[0].currency|"/>
 		  </div>
 	    </div>
 	    
 	      <div class="form-group required col-md-4">
-		  <label class="control-label col-md-5" for="cardnum">伙食费标准:</label>
+		  <label class="control-label col-md-5" for="standard">伙食费标准:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="foodstandard"
-		  name="foodstandard" placeholder="请输入标准" required="required"/>
+		  <input type="text" class="form-control"  th:name="|abroadItems[0].standard|"
+		  placeholder="请输入标准" required="required"/>
 		  </div>
 	    </div>
 	    
 	     <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">伙食费外汇金额:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="foodamountofforeignexchange"
-		  name="foodamountofforeignexchange" placeholder="请输入外汇金额" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[0].foreignExchange|"
+		  placeholder="请输入外汇金额" required="required"/>
 		  </div>
 	    </div>
 	    
 	    <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">伙食费折算汇率:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="foodexchangerate"
-		  name="foodexchangerate" placeholder="请输入折算汇率" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[0].exchangeRate|"
+		  placeholder="请输入折算汇率" required="required"/>
 		  </div>
 	    </div>
 	    
 	    <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">伙食费折合RNB:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="foodexchangeRNB"
-		  name="foodexchangeRNB" placeholder="请输入折合RNB" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[0].RNBNum|"
+		  placeholder="请输入折合RNB" required="required"/>
 		  </div>
 	    </div>
 	    
-	    	    <div class="form-group required col-md-4">
+	    <input type="hidden" class="form-control" th:name="|abroadItems[1].name|" th:value="公杂费"/>
+	    
+	    <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="">公杂费天数:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="publicfeeDay"
-		  name="publicfeeDay" placeholder="请输入天数" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[1].days|"
+		  placeholder="请输入天数" required="required"/>
 		  </div>
 	    </div>
 	    
 	    <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">公杂费币种:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="publicfeecurrency"
-		  name="publicfeecurrency" placeholder="请输入币种" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[1].currency|"
+		  placeholder="请输入币种" required="required"/>
 		  </div>
 	    </div>
 	    
 	      <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">公杂费标准:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="publicfeestandard"
-		  name="publicfeestandard" placeholder="请输入标准" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[1].standard|"
+		  placeholder="请输入标准" required="required"/>
 		  </div>
 	    </div>
 	    
 	     <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">公杂费外汇金额:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="publicfeeamountofforeignexchange"
-		  name="publicfeeamountofforeignexchange" placeholder="请输入外汇金额" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[1].foreignExchange|"
+		  placeholder="请输入外汇金额" required="required"/>
 		  </div>
 	    </div>
 	    
 	    <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">公杂费折算汇率:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="publicfeeexchangerate"
-		  name="publicfeeexchangerate" placeholder="请输入折算汇率" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[1].exchangeRate|"
+		  placeholder="请输入折算汇率" required="required"/>
 		  </div>
 	    </div>
 	    
 	    <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">公杂费折合RNB:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="publicfeeexchangeRNB"
-		  name="publicfeeexchangeRNB" placeholder="请输入折合RNB" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[1].RNBNum|"
+		  placeholder="请输入折合RNB" required="required"/>
 		  </div>
 	    </div>
+	    
+	    <input type="hidden" class="form-control" th:name="|abroadItems[2].name|" th:value="住宿费"/>
 	    
 	   <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="">住宿费天数:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="accommodationDay"
-		  name="accommodationDay" placeholder="请输入天数" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[2].days|"
+		  placeholder="请输入天数" required="required"/>
 		  </div>
 	    </div>
 	    
 	    <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">住宿费币种:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="accommodationcurrency"
-		  name="accommodationcurrency" placeholder="请输入币种" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[2].currency|"
+		  placeholder="请输入币种" required="required"/>
 		  </div>
 	    </div>
 	    
 	      <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">住宿费标准:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="accommodationstandard"
-		  name="accommodationstandard" placeholder="请输入标准" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[2].standard|"
+		  placeholder="请输入标准" required="required"/>
 		  </div>
 	    </div>
 	    
 	     <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">住宿费外汇金额:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="accommodationamountofforeignexchange"
-		  name="accommodationamountofforeignexchange" placeholder="请输入外汇金额" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[2].foreignExchange|"
+		   placeholder="请输入外汇金额" required="required"/>
 		  </div>
 	    </div>
 	    
 	    <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">住宿费折算汇率:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="accommodationexchangerate"
-		  name="accommodationexchangerate" placeholder="请输入折算汇率" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[2].exchangeRate|"
+		  placeholder="请输入折算汇率" required="required"/>
 		  </div>
 	    </div>
 	    
 	    <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">住宿费折合RNB:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="accommodationexchangeRNB"
-		  name="accommodationexchangeRNB" placeholder="请输入折合RNB" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[2].RNBNum|"
+		  placeholder="请输入折合RNB" required="required"/>
 		  </div>
 	    </div>
+	    
+	    <input type="hidden" class="form-control" th:name="|abroadItems[3].name|" th:value="公务费"/>
 	    
 	    <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="">公务费天数:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="publicServiceFeeDay"
-		  name="publicServiceFeeDay" placeholder="请输入天数" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[3].days|"
+		  placeholder="请输入天数" required="required"/>
 		  </div>
 	    </div>
 	    
 	    <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">公务费币种:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="publicServiceFeecurrency"
-		  name="publicServiceFeecurrency" placeholder="请输入币种" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[3].currency|"
+		  placeholder="请输入币种" required="required"/>
 		  </div>
 	    </div>
 	    
 	      <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">公务费标准:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="publicServiceFeestandard"
-		  name="publicServiceFeestandard" placeholder="请输入标准" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[3].standard|"
+		  placeholder="请输入标准" required="required"/>
 		  </div>
 	    </div>
 	    
 	     <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">公务费外汇金额:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="publicServiceFeeamountofforeignexchange"
-		  name="publicServiceFeeamountofforeignexchange" placeholder="请输入外汇金额" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[3].foreignExchange|"
+		  placeholder="请输入外汇金额" required="required"/>
 		  </div>
 	    </div>
 	    
 	    <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">公务费折算汇率:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="publicServiceFeeexchangerate"
-		  name="publicServiceFeeexchangerate" placeholder="请输入折算汇率" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[3].exchangeRate|"
+		  placeholder="请输入折算汇率" required="required"/>
 		  </div>
 	    </div>
 	    
 	    <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">公务费折合RNB:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="publicServiceFeeexchangeRNB"
-		  name="publicServiceFeeexchangeRNB" placeholder="请输入折合RNB" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[3].RNBNum|"
+		  placeholder="请输入折合RNB" required="required"/>
 		  </div>
 	    </div>
+	    
+	    <input type="hidden" class="form-control" th:name="|abroadItems[4].name|" th:value="城市交通费"/>
 	    
 	    <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="">城市交通费天数:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="cityTrafficFeeDay"
-		  name="cityTrafficFeeDay" placeholder="请输入天数" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[4].days|"
+		  placeholder="请输入天数" required="required"/>
 		  </div>
 	    </div>
 	    
 	    <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">城市交通费币种:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="cityTrafficFeecurrency"
-		  name="cityTrafficFeeFeecurrency" placeholder="请输入币种" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[4].currency|"
+		  placeholder="请输入币种" required="required"/>
 		  </div>
 	    </div>
 	    
 	      <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">城市交通费标准:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="cityTrafficFeestandard"
-		  name="cityTrafficFeestandard" placeholder="请输入标准" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[4].standard|"
+		  placeholder="请输入标准" required="required"/>
 		  </div>
 	    </div>
 	    
 	     <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">城市交通费外汇金额:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="cityTrafficFeeamountofforeignexchange"
-		  name="cityTrafficFeeamountofforeignexchange" placeholder="请输入外汇金额" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[4].foreignExchange|"
+		  placeholder="请输入外汇金额" required="required"/>
 		  </div>
 	    </div>
 	    
 	    <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">城市交通费折算汇率:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="cityTrafficFeeexchangerate"
-		  name="cityTrafficFeeexchangerate" placeholder="请输入折算汇率" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[4].exchangeRate|"
+		  placeholder="请输入折算汇率" required="required"/>
 		  </div>
 	    </div>
 	    
 	    <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">城市交通费折合RNB:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="cityTrafficFeeexchangeRNB"
-		  name="cityTrafficFeeexchangeRNB" placeholder="请输入折合RNB" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[4].RNBNum|"
+		  placeholder="请输入折合RNB" required="required"/>
 		  </div>
 	    </div>
+	    
+	    <input type="hidden" class="form-control" th:name="|abroadItems[5].name|" th:value="其他费用"/>
 	    
 	    <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="">其他天数:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="otherDay"
-		  name="otherDay" placeholder="请输入天数" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[5].days|"
+		  placeholder="请输入天数" required="required"/>
 		  </div>
 	    </div>
 	    
 	    <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">其他币种:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="othercurrency"
-		  name="othercurrency" placeholder="请输入币种" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[5].currency|"
+		  placeholder="请输入币种" required="required"/>
 		  </div>
 	    </div>
 	    
 	      <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">其他标准:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="otherstandard"
-		  name="otherstandard" placeholder="请输入标准" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[5].standard|"
+		  placeholder="请输入标准" required="required"/>
 		  </div>
 	    </div>
 	    
 	     <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">其他外汇金额:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="otheramountofforeignexchange"
-		  name="otheramountofforeignexchange" placeholder="请输入外汇金额" required="required"/>
+		  <input type="text" class="form-control"  th:name="|abroadItems[5].foreignExchange|"
+		  placeholder="请输入外汇金额" required="required"/>
 		  </div>
 	    </div>
 	    
 	    <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">其他折算汇率:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="otherexchangerate"
-		  name="otherexchangerate" placeholder="请输入折算汇率" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[5].exchangeRate|"
+		  placeholder="请输入折算汇率" required="required"/>
 		  </div>
 	    </div>
 	    
 	    <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">其他折合RNB:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="otherexchangeRNB"
-		  name="otherexchangeRNB" placeholder="请输入折合RNB" required="required"/>
+		  <input type="text" class="form-control" th:name="|abroadItems[5].RNBNum|"
+		  placeholder="请输入折合RNB" required="required"/>
 		  </div>
 	    </div>
 	    
 	    <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">汇兑手续费（RNB）:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="Remittancefee"
-		  name="Remittancefee" placeholder="请输入汇兑手续费" required="required"/>
+		  <input type="text" class="form-control" th:field="*{abroadOtherInfo.remittanceFeeRNB}"
+		  placeholder="请输入汇兑手续费" required="required"/>
 		  </div>
 	    </div>
 	    
 	    <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">汇兑损益（收益用'-'表示/RNB）:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="RemittancePL"
-		  name="Remittancefee" placeholder="请输入汇兑损益" required="required"/>
+		  <input type="text" class="form-control" th:field="*{abroadOtherInfo.remittancePLRNB}"
+		  placeholder="请输入汇兑损益" required="required"/>
 		  </div>
 	    </div>
 	    
 	    <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">出国机票费（RNB）:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="Airticketfee"
-		  name="Airticketfee" placeholder="请输入出国机票费" required="required"/>
+		  <input type="text" class="form-control" th:field="*{abroadOtherInfo.airTicketFeeRNB}"
+		  placeholder="请输入出国机票费" required="required"/>
 		  </div>
 	    </div>
 	    
 	    <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">交通及其他费用（RNB）:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="TrafficorOtherfee"
-		  name="TrafficorOtherfee" placeholder="请输入交通及其他费用" required="required"/>
+		  <input type="text" class="form-control" th:field="*{abroadOtherInfo.trafficOrOtherFeeRNB}"
+		  placeholder="请输入交通及其他费用" required="required"/>
 		  </div>
 	    </div>
 	    
 	    <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">出国总费用（RNB）:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" id="sumofaboardfee"
-		  name="sumofaboardfee" placeholder="请输入出国总费用" required="required"/>
+		  <input type="text" class="form-control" th:field="*{abroadOtherInfo.}"
+		  placeholder="请输入出国总费用" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">说明:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" th:field="*{abroadOtherInfo.description}"
+		  placeholder="请输入说明"/>
 		  </div>
 	    </div>
 

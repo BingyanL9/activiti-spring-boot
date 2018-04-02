@@ -25,7 +25,7 @@ public class AbroadItem {
   private String currency;
   
   @Column(name = "standard")
-  private Double standard;
+  private String standard;
   
   @Column(name = "foreignexchange")
   private Double foreignExchange;
@@ -71,11 +71,11 @@ public class AbroadItem {
     this.currency = currency;
   }
 
-  public Double getStandard() {
+  public String getStandard() {
     return standard;
   }
 
-  public void setStandard(Double standard) {
+  public void setStandard(String standard) {
     this.standard = standard;
   }
 

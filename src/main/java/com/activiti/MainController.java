@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.activiti.model.Application;
 import com.activiti.model.CityTrafficExpenseViewObject;
 import com.activiti.model.DocumentExpenseViewObject;
+import com.activiti.model.OnboardTravelExpenseViewObject;
 import com.activiti.model.Role;
 import com.activiti.model.TravelExpenseViewObject;
 import com.activiti.model.User;
@@ -97,6 +98,7 @@ private void InitialGroup() {
     model.put("DocumentExpenseViewObject", new DocumentExpenseViewObject());
     model.put("CityTrafficExpenseViewObject", new CityTrafficExpenseViewObject());
     model.put("TravelExpenseViewObject", new TravelExpenseViewObject());
+    model.put("OnboardTravelExpenseViewObject", new OnboardTravelExpenseViewObject());
     model.put("menu", "apply");
     return "apply";
   }
