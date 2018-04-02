@@ -5,7 +5,8 @@
   <div th:fragment="onboard_travel_expense_form" id="onboard_travelExpenseFormBlock">
     <div class="container">
       <h3 class="text-center">临时出国人员报销单</h3>
-      <form class="form-horizontal" id="onboardTravelExpenseForm" method="POST" th:object="${OnboardTravelExpenseViewObject}">
+      <form class="form-horizontal" id="onboardTravelExpenseForm" method="POST" th:object="${OnboardTravelExpenseViewObject}"
+      th:action="@{apply/onbroadtravelexpense}">
 
 		<div>
 			<div th:replace="fragments/document_expense_form :: voucher_input(0)"></div>
@@ -411,7 +412,7 @@
 	    <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="cardnum">出国总费用（RNB）:</label>
 		  <div class="col-md-7">
-		  <input type="text" class="form-control" th:field="*{abroadOtherInfo.}"
+		  <input type="text" class="form-control" th:field="*{total}"
 		  placeholder="请输入出国总费用" required="required"/>
 		  </div>
 	    </div>
@@ -425,9 +426,9 @@
 	    </div>
 
 		<div class="form-group required col-md-4">
-			<label class="control-label col-md-5" for="paymode">付款方式:</label>
+			<label class="control-label col-md-5" for="onboardPaymode">付款方式:</label>
 			<div class="col-md-7">
-				<select class="form-control" th:field="*{paymode}"
+				<select class="form-control" th:field="*{onboardPaymode}"
 					onchange="showRequiredInfo(this.value);">
 					<option value=" "></option>
 					<option value="check">支票</option>
@@ -443,7 +444,7 @@
 			<div class="form-group required col-md-4">
 				<label class="control-label col-md-5" for="payee-name">收款单位名称:</label>
 				<div class="col-md-7">
-					<input type="text" class="form-control" id="payee-name"
+					<input type="text" class="form-control"
 						th:field="*{payee.payee_name}" placeholder="请输入收款单位名称" />
 				</div>
 			</div>

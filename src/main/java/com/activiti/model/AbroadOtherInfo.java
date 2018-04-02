@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -32,8 +31,7 @@ public class AbroadOtherInfo {
   @Column(name = "description", length = 100)
   private String description;
   
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "id")
+  @OneToOne(mappedBy = "abroadOtherInfo")
   private Application application;
 
   public Long getId() {
@@ -83,4 +81,14 @@ public class AbroadOtherInfo {
   public void setDescription(String description) {
     this.description = description;
   }
+
+  public Application getApplication() {
+    return application;
+  }
+
+  public void setApplication(Application application) {
+    this.application = application;
+  }
+  
+  
 }

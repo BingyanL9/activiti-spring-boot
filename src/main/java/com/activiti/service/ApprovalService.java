@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.activiti.model.AbroadOtherInfo;
 import com.activiti.model.Application;
 import com.activiti.model.Approval;
 import com.activiti.model.ClubUser;
@@ -27,6 +28,9 @@ public class ApprovalService {
   @Autowired
   private PayeeService payeeService;
   
+  @Autowired
+  private AbroadOtherInfoService abroadOtherInfoService;
+  
   private static final Logger logger = LoggerFactory.getLogger(ApplicationService.class);
   
   public void save(Approval approval) {
@@ -45,6 +49,24 @@ public class ApprovalService {
     approval.setApplication(application);
     payeeService.save(payee);
     save(approval);
+  }
+  
+  @Transactional
+  public void saveWhenCreate(Payee payee, Approval approval, Application application, AbroadOtherInfo abroadOtherInfo) {
+    logger.debug("Start to save applicaiton!");
+    
+    applicationService.save(application);
+    application.setPayee(payee);
+    application.setApproval(approval);
+    application.setAbroadOtherInfo(abroadOtherInfo);
+    applicationService.save(application);
+    payee.setApplication(application);
+    approval.setApplication(application);
+    abroadOtherInfo.setApplication(application);
+    payeeService.save(payee);
+    abroadOtherInfoService.save(abroadOtherInfo);
+    save(approval);
+    
   }
   
   public List<Approval> getApprovalByTeacherUser(String teacherUserName) {

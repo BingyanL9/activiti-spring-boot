@@ -98,7 +98,7 @@ public class Application {
   @OneToMany(mappedBy = "application", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<AbroadItem> abroadItems;
   
-  @OneToOne(mappedBy = "application", optional = true)
+  @OneToOne(fetch = FetchType.LAZY)
   private AbroadOtherInfo abroadOtherInfo;
   
   @OneToMany(mappedBy = "application", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

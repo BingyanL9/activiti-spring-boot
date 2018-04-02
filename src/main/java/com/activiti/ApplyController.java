@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.activiti.model.AbroadItem;
+import com.activiti.model.AbroadOtherInfo;
 import com.activiti.model.AccommodationItem;
 import com.activiti.model.Activity;
 import com.activiti.model.Application;
@@ -31,6 +33,7 @@ import com.activiti.model.CityTrafficExpenseViewObject;
 import com.activiti.model.CityTrafficItem;
 import com.activiti.model.DocumentExpenseViewObject;
 import com.activiti.model.DocumentItem;
+import com.activiti.model.OnboardTravelExpenseViewObject;
 import com.activiti.model.OtherItem;
 import com.activiti.model.Payee;
 import com.activiti.model.Project;
@@ -342,8 +345,7 @@ public class ApplyController {
     
     String payMode = tevo.getPaymode();
     application.setPaymode(payMode);
-    Payee payee = new Payee();
-    payee = tevo.getPayee();
+    Payee payee = tevo.getPayee();
     application.setManager(tevo.getManager());
     application.setSubmitter(tevo.getSubmitter());
     application.setSubmitterTell(tevo.getSubmitterTell());
@@ -354,6 +356,68 @@ public class ApplyController {
     Task t1 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
     taskService.complete(t1.getId(), variableMap);
     approvalService.saveWhenCreate(payee, approval, application);
+    return "redirect:/applylist";
+  }
+  
+  @RequestMapping(value = "/apply/onbroadtravelexpense", method = RequestMethod.POST)
+  public String createOnbroadTravelExpenseApplication( OnboardTravelExpenseViewObject otevo) {
+    Deployment dep = repositoryService.createDeployment().addClasspathResource("processes/CityTrafficExpense.bpmn")
+        .deploy();
+    Map<String, Object> variableMap = new HashMap<String, Object>();
+    
+    Application application = new Application();
+    application.setOwner(userService.getCurrentUser());
+    Approval approval = new Approval();
+    application.setDepartment(otevo.getDepartment());
+    application.setCreatetime(otevo.getCreatetime());
+    application.setCardNum(otevo.getCardnum());
+    application.setTravelStartDate(otevo.getStartTraveltime());
+    application.setTravelEndDate(otevo.getEndTraveltime());
+    application.setTravelReason(otevo.getOnboardReason());
+    
+    List<AbroadItem> abroadItems = new ArrayList<AbroadItem>();
+    for (AbroadItem abroadItem : otevo.getAbroadItems()) {
+      AbroadItem newAbroadItem = new AbroadItem();
+      newAbroadItem = abroadItem;
+      newAbroadItem.setApplication(application);
+      abroadItems.add(newAbroadItem);
+    }
+    application.setAbroadItems(abroadItems);
+    
+    List<Voucher> vouchers = new ArrayList<Voucher>();
+    for (Voucher voucher : otevo.getVouchers()) {
+      Voucher documentVoucher = new Voucher();
+      documentVoucher.setEnclosure(voucher.getEnclosure());
+      documentVoucher.setApplication(application);
+      vouchers.add(documentVoucher);
+    }
+    application.setVouchers(vouchers);
+    variableMap.put("Application_Type", otevo.getApplication_Type());
+    application.setApplication_type(otevo.getApplication_Type());
+    if (otevo.getApplication_Type() == Application_Type.DailyExpense) {
+      TeacherUser teacher = teacherUserService.findCurrentUser();
+      application.setApplication_teacher(teacher);
+      approval.setApproval_person(teacher.getLeader());
+      approval.setApproval_statu(Approval_status.pending);
+    }else {
+      Project project = projectService.findByCardNum(otevo.getCardnum());
+      application.setProject(project);
+      approval.setApproval_statu(Approval_status.pending);
+    }
+    
+    String payMode = otevo.getOnboardPaymode();
+    application.setPaymode(payMode);
+    Payee payee = otevo.getPayee();
+    
+    AbroadOtherInfo abroadOtherInfo = otevo.getAbroadOtherInfo();
+    application.setTotal(otevo.getTotal());
+    ProcessDefinition pd = repositoryService.createProcessDefinitionQuery()
+        .deploymentId(dep.getId()).singleResult();
+    ProcessInstance processInstance = runtimeService.startProcessInstanceById(pd.getId());
+    approval.setProcessInstanceId(processInstance.getId());
+    Task t1 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
+    taskService.complete(t1.getId(), variableMap);
+    approvalService.saveWhenCreate(payee, approval, application, abroadOtherInfo);
     return "redirect:/applylist";
     
   }
@@ -369,9 +433,9 @@ public class ApplyController {
       pictures.add(picture);
     }
     model.put("vouchers", pictures);
-    model.put("user", userService.getCurrentUser());
-    model.put("menu", "applyList");
-    return "applyInfo";
+//    model.put("user", userService.getCurrentUser());
+//    model.put("menu", "applyList");
+    return "fragments/applyDetail :: applyinfo";
   }
 
 

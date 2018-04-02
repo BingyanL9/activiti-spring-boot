@@ -111,7 +111,7 @@ private void InitialGroup() {
     List<Application> applications = applicationService.getApplicationsByUser(user.getUserName());
     model.put("applications", applications);
     model.put("menu", "applyList");
-    return "applylist";
+    return "applyDashboard";
   }
 
 }

@@ -297,4 +297,17 @@ function expenseTypeAction(expenseType) {
 	}
 }
 
- 
+function getApplication(id) {
+	$.ajax({
+		type: "GET",
+		url: "/applications/" + id,
+		success: function(responseHTML) {
+			var container = $("#applications");
+        	container.empty();
+        	$("#applications").prepend(responseHTML);
+        },
+        error: function(response, status) {
+            console.log("failed to get application" + id);
+        }
+	});
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<div th:fragment="applylist">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>操作</th>
+								<th>申请类型</th>
+								<th>申请时间</th>
+								<th>状态</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="application,applicationStat : ${applications}">
+								<td th:text="${applicationStat.index}"></td>
+								<td><a data-toggle="modal" data-target="#myModal" th:onclick="'javascript:getApplication(\''+${application.id}+'\');'"
+									th:text="查看"></a></td>
+								<td
+									th:if="${application.application_type.name() == 'ActivityExpense'}"
+									th:text="活动报销"></td>
+								<td
+									th:if="${application.application_type.name() == 'DailyExpense'}"
+									th:text="日常报销"></td>
+								<td
+									th:if="${application.application_type.name() == 'MedicalExpense'}"
+									th:text="医疗报销"></td>
+								<td
+									th:if="${application.application_type.name() == 'ProjectExpense'}"
+									th:text="项目报销"></td>
+								<td th:text="${application.createtime}"></td>
+								<td
+									th:if="${application.approval.approval_statu.name() == 'approval'}"
+									th:text="已审批"></td>
+								<td
+									th:if="${application.approval.approval_statu.name() == 'pending'}"
+									th:text="正在审批中"></td>
+								<td
+									th:if="${application.approval.approval_statu.name() == 'rejected'}"
+									th:text="请重新提交"></td>
+								<td
+									th:if="${application.approval.approval_statu.name() == 'level_1'}"
+									th:text="一级领导正在审批"></td>
+								<td
+									th:if="${application.approval.approval_statu.name() == 'level_2'}"
+									th:text="二级领导正在审批"></td>
+								<td
+									th:if="${application.approval.approval_statu.name() == 'level_3'}"
+									th:text="三级领导正在审批"></td>
+								<td
+									th:if="${application.approval.approval_statu.name() == 'level_4'}"
+									th:text="四级领导正在审批"></td>
+								<td
+									th:if="${application.approval.approval_statu.name() == 'level_5'}"
+									th:text="五级领导正在审批"></td>
+								<td
+									th:if="${application.approval.approval_statu.name() == 'level_6'}"
+									th:text="六级领导正在审批"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
