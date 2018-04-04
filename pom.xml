@@ -141,9 +141,20 @@
 			<version>1.0.0.Final</version>
 	   </dependency>
 	   
+	   <dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+		</dependency>  
+		<dependency>
+			<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib</artifactId>
+			<version>2.3</version>
+			<classifier>jdk15</classifier>
+	   </dependency>
 	   
 	</dependencies>
 
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -152,6 +163,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
 
 </project>

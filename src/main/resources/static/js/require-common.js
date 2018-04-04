@@ -11,6 +11,7 @@ require.config({
         "bootstrap": "bootstrap.min",
         "d3": "d3.v3.min",
         "c3": "c3.min",
+        "jqGrid": "jqGrid/jquery.jqgrid.min",
         "bootstrap_select":"bootstrap-select.min", 
         "bootstrap_datetimepicker":"bootstrap-datetimepicker",
         "bootstrap_fileupload":"bootstrap-fileupload"
@@ -45,6 +46,10 @@ require.config({
         },
         "c3": {
         	deps: ['d3']
+        },
+        "jqGrid": {
+            exports: "jqGrid",
+            deps: ['jquery']
         },
         "bootstrap_select": {
         	deps: ['bootstrap_select'],

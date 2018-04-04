@@ -18,6 +18,7 @@ import com.activiti.model.CityTrafficExpenseViewObject;
 import com.activiti.model.DocumentExpenseViewObject;
 import com.activiti.model.OnboardTravelExpenseViewObject;
 import com.activiti.model.Role;
+import com.activiti.model.TeacherUser;
 import com.activiti.model.TravelExpenseViewObject;
 import com.activiti.model.User;
 import com.activiti.service.ApplicationService;
@@ -46,14 +47,14 @@ public class MainController {
     model.put("user", userService.getCurrentUser());
     logger.debug("Welcome to home page.");
     
-    if (initialTime == 0) {
-      InitialGroup();
-      initialTime ++;
-    }
+//    if (initialTime == 0) {
+//      InitialGroup(userService.getCurrentUser());
+//      initialTime ++;
+//    }
     return "home";
   }
 
-private void InitialGroup() {
+private void InitialGroup(User user) {
     String ordinaryId = UUID.randomUUID().toString();
     Group ordinary = identityService.newGroup(ordinaryId);
     ordinary.setName("普通用户");
@@ -89,6 +90,7 @@ private void InitialGroup() {
       users.setName("用户");
       users.setType("users");
       identityService.saveGroup(users);
+      userService.saveAsActivityUser(user);
   }
 
   @RequestMapping(value = {"/apply"})
@@ -112,6 +114,26 @@ private void InitialGroup() {
     model.put("applications", applications);
     model.put("menu", "applyList");
     return "applyDashboard";
+  }
+  
+  @RequestMapping(value = {"/approval"})
+  public String approval(Map<String, Object> model) {
+    User user = userService.getCurrentUser();
+    model.put("user", user);
+    logger.debug("Start to show approval.");
+    List<Application> applications = applicationService.getApplicationsByUser(user.getUserName());
+    model.put("applications", applications);
+    model.put("menu", "approval");
+    return "approval";
+  }
+  
+  @RequestMapping(value = {"/admin"})
+  public String admin(Map<String, Object> model) {
+    User user = userService.getCurrentUser();
+    model.put("user", user);
+    logger.debug("Start to show admin page.");
+    model.put("menu", "admin");
+    return "admin";
   }
 
 }

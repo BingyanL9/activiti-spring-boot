@@ -1,15 +1,20 @@
 package com.activiti.service;
 
 import java.security.Principal;
+import java.util.List;
 
+import org.activiti.engine.IdentityService;
+import org.activiti.engine.identity.Group;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.activiti.model.StudentUser;
+import com.activiti.model.TeacherUser;
 import com.activiti.repository.StudentUserRepository;
 
 @Service
@@ -20,6 +25,8 @@ public class StudentUserService {
   @Autowired
   private StudentUserRepository studentUserRepository;
   
+  @Autowired
+  private IdentityService identityService;
   
   public StudentUser findByName(String userName) {
     return studentUserRepository.findByUserName(userName);
@@ -51,5 +58,42 @@ public class StudentUserService {
 
   public void save(StudentUser studentUser) {
     studentUserRepository.save(studentUser);
+    saveAsActivityUser(studentUser);
+  }
+  
+  public void update(StudentUser studentUser) {
+    studentUserRepository.save(studentUser);
+  }
+  
+  public void saveAsActivityUser(StudentUser studentUser) {
+    org.activiti.engine.identity.User activitiUser = identityService.newUser(studentUser.getUserName());
+    activitiUser.setEmail(studentUser.getEmail());
+    activitiUser.setLastName(studentUser.getDisplayName());
+    activitiUser.setPassword(studentUser.getPassword());
+    identityService.saveUser(activitiUser);
+    Group users = identityService.createGroupQuery().groupType("users").singleResult();
+    identityService.createMembership(activitiUser.getId(), users.getId());
+    Group g =
+        identityService.createGroupQuery().groupType(studentUser.getRole().toString()).singleResult();
+    identityService.createMembership(activitiUser.getId(), g.getId());
+  }
+  
+  public List<StudentUser> getAllStudentUser(){
+    return studentUserRepository.findAll();
+  }
+  
+  @Transactional
+  public void deleteStudentUsers(List<StudentUser> studentUsers) {
+    studentUserRepository.delete(studentUsers);
+    for (StudentUser studentUser : studentUsers) {
+      identityService.deleteUser(studentUser.getUserName());
+      List<Group> groups =
+          identityService.createGroupQuery().groupMember(studentUser.getUserName()).list();
+      if (!groups.isEmpty()) {
+        for (Group group : groups) {
+          identityService.deleteMembership(studentUser.getUserName(), group.getId());
+        }
+      }
+    }
   }
 }

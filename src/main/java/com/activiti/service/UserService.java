@@ -31,6 +31,10 @@ public class UserService {
   
   public void save(User user) {
     userRepository.save(user);
+    saveAsActivityUser(user);
+  }
+  
+  public void saveAsActivityUser(User user) {
     org.activiti.engine.identity.User activitiUser = identityService.newUser(user.getUserName());
     activitiUser.setEmail(user.getEmail());
     activitiUser.setLastName(user.getDisplayName());
@@ -42,7 +46,6 @@ public class UserService {
         identityService.createGroupQuery().groupType(user.getRole().toString()).singleResult();
     identityService.createMembership(activitiUser.getId(), g.getId());
   }
-  
   public User getCurrentUser() {
     return findByName(getCurrentUserName());
   }

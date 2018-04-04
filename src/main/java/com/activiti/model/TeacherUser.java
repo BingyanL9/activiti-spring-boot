@@ -13,8 +13,6 @@ import javax.persistence.OneToOne;
 @Entity
 public class TeacherUser extends User{
   
-  @Column(name = "college", nullable = false, length = 50) 
-  private String college;
   
   @Column(name = "title", length =32) 
   private String title;
@@ -36,14 +34,6 @@ public class TeacherUser extends User{
   
   @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
   private Project_respon project_respon;
-  
-  public String getCollege() {
-    return college;
-  }
-
-  public void setCollege(String college) {
-    this.college = college;
-  }
 
   public String getTitle() {
     return title;
@@ -99,6 +89,11 @@ public class TeacherUser extends User{
 
   public void setProject_respon(Project_respon project_respon) {
     this.project_respon = project_respon;
+  }
+
+  public TeacherUser() {
+    super();
+    // TODO Auto-generated constructor stub
   }
 
 }

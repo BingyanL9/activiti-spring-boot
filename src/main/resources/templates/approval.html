@@ -1,10 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<link th:include="fragments/header :: header"></link>
 </head>
 <body>
-
+	<div id="wrapper">
+		<div class="content-wrapper full-content-wrapper">
+			<!-- navigation start-->
+			<div th:replace="fragments/header :: nav"></div>
+			<!-- navigation end-->
+			<div id="page-wrapper">
+				<div id="page-inner">
+					<div class="row">
+						<div class="col-md-12">
+							<h2 class="page-head-line">-- 你的审批 --</h2>
+						</div>
+						<div class="col-md-12">
+							<ul id="myTab" class="nav nav-tabs">
+								<li class="active"><a href="#candidate" data-toggle="tab">
+										<label>代办的任务</label>
+								</a></li>
+								<li><a href="#assignee" data-toggle="tab"> <label>受理的任务</label></a></li>
+							</ul>
+							<div id="myTabContent" class="tab-content">
+								<div class="tab-pane fade in active" id="candidate"></div>
+								<div class="tab-pane fade" id="assignee"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div th:replace="fragments/footer :: footer"></div>
+		</div>
+	</div>
 </body>
 </html>

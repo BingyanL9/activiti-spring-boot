@@ -36,6 +36,9 @@ public class User{
   @Enumerated(EnumType.STRING)
   private Role role;
   
+  @Column(name = "college", nullable = false, length = 50) 
+  private String college;
+  
   @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Application> applications;
       
@@ -84,23 +87,28 @@ public class User{
     this.role = role;
   }
 
-  public String getCardnum() {
+  public String getCardNum() {
     return cardNum;
   }
 
-  public void setCardnum(String cardnum) {
-    this.cardNum = cardnum;
+  public void setCardNum(String cardNum) {
+    this.cardNum = cardNum;
   }
 
-  public User(String userName, String displayName, String password, String email,
-      String cardnum, Role role) {
-    super();
-    this.userName = userName;
-    this.displayName = displayName;
-    this.password = password;
-    this.email = email;
-    this.cardNum = cardnum;
-    this.role = role;
+  public String getCollege() {
+    return college;
+  }
+
+  public void setCollege(String college) {
+    this.college = college;
+  }
+
+  public List<Application> getApplications() {
+    return applications;
+  }
+
+  public void setApplications(List<Application> applications) {
+    this.applications = applications;
   }
 
   

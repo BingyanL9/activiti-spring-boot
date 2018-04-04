@@ -5,9 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.activiti.engine.IdentityService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.identity.Group;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
@@ -37,6 +39,7 @@ import com.activiti.model.OnboardTravelExpenseViewObject;
 import com.activiti.model.OtherItem;
 import com.activiti.model.Payee;
 import com.activiti.model.Project;
+import com.activiti.model.Role;
 import com.activiti.model.StudentUser;
 import com.activiti.model.TeacherUser;
 import com.activiti.model.TrafficAllowance;
@@ -47,6 +50,7 @@ import com.activiti.service.ActivityService;
 import com.activiti.service.ApplicationService;
 import com.activiti.service.ApprovalService;
 import com.activiti.service.ProjectService;
+import com.activiti.service.Project_responService;
 import com.activiti.service.StudentUserService;
 import com.activiti.service.TeacherUserService;
 import com.activiti.service.UserService;
@@ -83,6 +87,12 @@ public class ApplyController {
   
   @Autowired
   private TaskService taskService;
+  
+  @Autowired
+  private IdentityService identityService;
+  
+  @Autowired
+  private Project_responService project_responService;
   
   private static final Logger logger = LoggerFactory.getLogger(MainController.class);
   
@@ -154,13 +164,22 @@ public class ApplyController {
     application.setTotal(total);
     List<Voucher> vouchers = getVouchers(devo, application);
     application.setVouchers(vouchers);
+   
     variableMap.put("Application_Type", devo.getApplication_Type());
+    ProcessDefinition pd = repositoryService.createProcessDefinitionQuery()
+        .deploymentId(dep.getId()).singleResult();
+    ProcessInstance processInstance = runtimeService.startProcessInstanceById(pd.getId());
+    Task t1 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
+    approval.setProcessInstanceId(processInstance.getId());
     application.setApplication_type(devo.getApplication_Type());
     if (devo.getApplication_Type() == Application_Type.ActivityExpense) {
       Activity activity =
           activityService.findByCardNumAndActivityName(devo.getActivityName(), devo.getCardnum());
       application.setActivity(activity);
       approval.setApprocval_club(activity.getCharge_club());
+      taskService.complete(t1.getId(), variableMap);
+      Task t2 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
+      taskService.setAssignee(t2.getId(), activity.getCharge_club().getUserName());
       approval.setApproval_statu(Approval_status.level_1);
     }else if (devo.getApplication_Type() == Application_Type.MedicalExpense) {
       StudentUser studentUser = studentUserService.getCurrentUser();
@@ -168,27 +187,36 @@ public class ApplyController {
       application.setHospitalName(devo.getHospitalName());
       application.setIllnessName(devo.getIllnessName());
       approval.setApproval_statu(Approval_status.level_1);
+      Group g =identityService.createGroupQuery().groupType(Role.medical_group.toString()).singleResult();
+      taskService.complete(t1.getId(), variableMap);
+      Task t2 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
+      taskService.addCandidateGroup(t2.getId(), g.getId());
     }else if (devo.getApplication_Type() == Application_Type.DailyExpense) {
       TeacherUser teacher = teacherUserService.findCurrentUser();
       application.setApplication_teacher(teacher);
       approval.setApproval_person(teacher.getLeader());
       approval.setApproval_statu(Approval_status.pending);
+      taskService.complete(t1.getId(), variableMap);
+      Task t2 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
+      taskService.setAssignee(t2.getId(), teacher.getLeader().getUserName());
     }else {
       Project project = projectService.findByCardNum(devo.getCardnum());
       application.setProject(project);
       approval.setApproval_statu(Approval_status.pending);
+      List<TeacherUser> project_leaders = project_responService.getResponUsers(project.getId());
+      variableMap.put("project_leaders", project_leaders);
+      taskService.complete(t1.getId(), variableMap);
+      List<Task> tasks = taskService.createTaskQuery().processInstanceId(processInstance.getId()).list();
+      for(int i=0;i<tasks.size();i++) {
+        taskService.setAssignee(tasks.get(i).getId(), project_leaders.get(i).getUserName());
+      }
     }
     
     String payMode = devo.getPaymode();
     application.setPaymode(payMode);
     Payee payee = new Payee();
     payee = devo.getPayee();
-    ProcessDefinition pd = repositoryService.createProcessDefinitionQuery()
-        .deploymentId(dep.getId()).singleResult();
-    ProcessInstance processInstance = runtimeService.startProcessInstanceById(pd.getId());
-    approval.setProcessInstanceId(processInstance.getId());
-    Task t1 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
-    taskService.complete(t1.getId(), variableMap);
+   
     approvalService.saveWhenCreate(payee, approval, application);
     return "redirect:/applylist";
  }

@@ -77,6 +77,9 @@ public class Application {
   @Column(name = "submitterTell", length = 100)
   private String submitterTell;
   
+  @Column(name = "description", length = 100)
+  private String description;
+  
   @OneToMany(mappedBy = "application", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<DocumentItem> documentItems;
   
@@ -98,7 +101,7 @@ public class Application {
   @OneToMany(mappedBy = "application", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<AbroadItem> abroadItems;
   
-  @OneToOne(fetch = FetchType.LAZY)
+  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private AbroadOtherInfo abroadOtherInfo;
   
   @OneToMany(mappedBy = "application", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -119,7 +122,7 @@ public class Application {
   @ManyToOne(fetch = FetchType.LAZY)
   private Activity activity;
   
-  @OneToOne(fetch = FetchType.LAZY)
+  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private Approval approval;
 
   public Long getId() {
@@ -392,6 +395,14 @@ public class Application {
 
   public void setSubmitterTell(String submitterTell) {
     this.submitterTell = submitterTell;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 
 }

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<link th:include="fragments/header :: header"></link>
+<link rel="stylesheet" th:href="@{/css/lib/ui.jqgrid.css}" />
+<link rel="stylesheet" th:href="@{/css/lib/jquery-ui.css}" />
+<link rel="stylesheet" th:href="@{/css/lib/jquery-ui.theme.css}" />
+<link rel="stylesheet" th:href="@{/css/admin.css}" />
+</head>
+<body>
+	<div id="wrapper">
+		<div class="content-wrapper full-content-wrapper">
+			<!-- navigation start-->
+			<div th:replace="fragments/header :: nav"></div>
+			<!-- navigation end-->
+			<div id="page-wrapper">
+				<div id="page-inner">
+					<div class="row">
+						<div class="col-md-12">
+							<h1 class="page-head-line">-- 管理员 --</h1>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<ul id="myTab" class="nav nav-tabs">
+							<li class="active"><a href="#studentUser" data-toggle="tab">学生用户表</a></li>
+							<li><a href="#teacherUser" data-toggle="tab">教师用户表</a></li>
+							<li><a href="#clubUser" data-toggle="tab">社团用户表</a></li>
+							<li><a href="#activity" data-toggle="tab">活动表</a></li>
+							<li><a href="#project" data-toggle="tab">项目表</a></li>
+							<li><a href="#project_respon" data-toggle="tab">项目等级表</a></li>
+							<li><a href="#application" data-toggle="tab">申请表</a></li>
+							<li><a href="#feekback" data-toggle="tab">反馈表</a></li>
+						</ul>
+
+						<div id="myTabContent" class="tab-content">
+							<div class="row tab-pane fade  in active" id="studentUser">
+								<div class="col-md-12">
+										<br />
+										<table id="studentUserTable"></table>
+										<div id="studentUserTableDiv"></div>
+								</div>
+							</div>
+							<div class="row tab-pane fade  in active" id="teacherUser">
+								<div class="col-md-12">
+										<br />
+										<table id="teacherUserTable"></table>
+										<div id="teacherUserTableDiv"></div>
+								</div>
+							</div>
+							<div class="row tab-pane fade  in active" id="clubUser">
+								<div class="col-md-12">
+										<br />
+										<table id="clubUserTable"></table>
+										<div id="clubUserTableDiv"></div>
+								</div>
+							</div>
+							<div class="row tab-pane fade  in active" id="activity">
+								<div class="col-md-12">
+										<br />
+										<table id="activityTable"></table>
+										<div id="activityTableDiv"></div>
+								</div>
+							</div>
+							<div class="row tab-pane fade  in active" id="project">
+								<div class="col-md-12">
+										<br />
+										<table id="projectTable"></table>
+										<div id="projectTableDiv"></div>
+								</div>
+							</div>
+							<div class="row tab-pane fade  in active" id="project_respon">
+								<div class="col-md-12">
+										<br />
+										<table id="project_responTable"></table>
+										<div id="project_responTableDiv"></div>
+								</div>
+							</div>
+							<div class="row tab-pane fade  in active" id="application">
+								<div class="col-md-12">
+										<br />
+										<table id="applicationTable"></table>
+										<div id="applicationTableDiv"></div>
+								</div>
+							</div>
+							<div class="row tab-pane fade  in active" id="feekback">
+								<div class="col-md-12">
+										<br />
+										<table id="feekbackTable"></table>
+										<div id="feekbackTableDiv"></div>
+								</div>
+							</div>
+							<div class="modal fade" id="selectModal" tabindex="-1"
+									role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal"
+													aria-hidden="true">×</button>
+												<h4 class="modal-title" id="myModalLabel">Alert</h4>
+											</div>
+											<div class="modal-body">请选择一列!</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-default"
+													data-dismiss="modal">Cancel</button>
+											</div>
+										</div>
+										<!-- /.modal-content -->
+									</div>
+									<!-- /.modal-dialog -->
+								</div>
+								<div class="modal fade" id="deleteStudentUserModal" tabindex="-1"
+									role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal"
+													aria-hidden="true">×</button>
+												<h4 class="modal-title" id="myModalLabel">Alert</h4>
+											</div>
+											<div class="modal-body">Are you sure to delete them?</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-default"
+													data-dismiss="modal">Cancel</button>
+												<button type="button" class="btn btn-primary"
+													id="deleteBPMConfigRowDataBtn" th:text="#{common.button.ok}"></button>
+											</div>
+										</div>
+										<!-- /.modal-content -->
+									</div>
+									<!-- /.modal-dialog -->
+								</div>>
+								<!-- /.modal -->
+								
+						   
+						</div>
+					</div>
+				</div>
+			</div>
+			<div th:replace="fragments/footer :: footer"></div>
+		</div>
+	</div>
+</body>
+</html>

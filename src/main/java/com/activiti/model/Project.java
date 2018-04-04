@@ -103,5 +103,6 @@ public class Project {
   public void setDocumentApplications(List<Application> documentApplications) {
     this.documentApplications = documentApplications;
   }
+
   
 }
