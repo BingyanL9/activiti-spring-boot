@@ -94,7 +94,7 @@ public class ApplyController {
   @Autowired
   private Project_responService project_responService;
   
-  private static final Logger logger = LoggerFactory.getLogger(MainController.class);
+  private static final Logger logger = LoggerFactory.getLogger(ApplyController.class);
   
   @RequestMapping(value = "/apply/iteminput/{itemIndex}", method = RequestMethod.GET)
   public String getItemInput( @PathVariable("itemIndex")Long itemIndex, Map<String, Object> model) {

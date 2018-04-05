@@ -63,6 +63,7 @@ public class StudentUserService {
   
   public void update(StudentUser studentUser) {
     studentUserRepository.save(studentUser);
+    updateActivityUser(studentUser);
   }
   
   public void saveAsActivityUser(StudentUser studentUser) {
@@ -95,5 +96,13 @@ public class StudentUserService {
         }
       }
     }
+  }
+  
+  private void updateActivityUser(StudentUser studentUser) {
+    org.activiti.engine.identity.User activitiUser = identityService.createUserQuery().userId(studentUser.getUserName()).singleResult();
+    activitiUser.setEmail(studentUser.getEmail());
+    activitiUser.setLastName(studentUser.getDisplayName());
+    activitiUser.setPassword(studentUser.getPassword());
+    identityService.saveUser(activitiUser);
   }
 }

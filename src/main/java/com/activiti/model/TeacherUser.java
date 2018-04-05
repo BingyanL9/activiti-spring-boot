@@ -20,7 +20,7 @@ public class TeacherUser extends User{
   @Column(name = "budget")
   private double budget;
   
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @ManyToOne(fetch = FetchType.LAZY, optional = true)
   private TeacherUser leader;
   
   @OneToMany(mappedBy = "leader", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

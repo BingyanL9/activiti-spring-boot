@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class ClubUser extends User{
   
-  @ManyToOne(fetch = FetchType.LAZY,optional = false)
+  @ManyToOne(fetch = FetchType.LAZY,optional = true)
   private ClubUser leaderClub;
   
   @OneToMany(mappedBy = "chargeClub", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
