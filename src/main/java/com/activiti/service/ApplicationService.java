@@ -25,4 +25,12 @@ public class ApplicationService {
   public Application findById(Long applicationId) {
     return applicationRepository.findById(applicationId);
   }
+  
+  public List<Application> getAllApplication(){
+    return applicationRepository.findAll();
+  }
+  
+  public void deleteApplications(List<Application> applications) {
+    applicationRepository.delete(applications);
+  }
 }

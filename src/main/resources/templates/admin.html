@@ -28,7 +28,6 @@
 							<li><a href="#clubUser" data-toggle="tab">社团用户表</a></li>
 							<li><a href="#activity" data-toggle="tab">活动表</a></li>
 							<li><a href="#project" data-toggle="tab">项目表</a></li>
-							<li><a href="#project_respon" data-toggle="tab">项目等级表</a></li>
 							<li><a href="#application" data-toggle="tab">申请表</a></li>
 							<li><a href="#feekback" data-toggle="tab">反馈表</a></li>
 						</ul>
@@ -67,13 +66,6 @@
 										<br />
 										<table id="projectTable"></table>
 										<div id="projectTableDiv"></div>
-								</div>
-							</div>
-							<div class="row tab-pane fade" id="project_respon">
-								<div class="col-md-12">
-										<br />
-										<table id="project_responTable"></table>
-										<div id="project_responTableDiv"></div>
 								</div>
 							</div>
 							<div class="row tab-pane fade" id="application">
@@ -131,6 +123,26 @@
 									<!-- /.modal-dialog -->
 								</div>
 								<!-- /.modal -->
+
+							<div class="modal fade" id="applicationModal" tabindex="-1" role="dialog"
+								aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content" style="width: 1000px;">
+										<div class="modal-header">
+											<h4 class="modal-title" id="myApplicationLabel">申请单详细信息</h4>
+										</div>
+										<div class="modal-body">
+											<div id="applicationInfo" class="col-md-12"></div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default"
+												data-dismiss="modal">关闭</button>
+										</div>
+									</div>
+									<!-- /.modal-content -->
+								</div>
+								<!-- /.modal -->
+							</div>
 						</div>
 					</div>
 				</div>

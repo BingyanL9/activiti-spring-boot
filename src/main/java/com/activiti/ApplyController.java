@@ -22,12 +22,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.activiti.model.AbroadItem;
 import com.activiti.model.AbroadOtherInfo;
 import com.activiti.model.AccommodationItem;
 import com.activiti.model.Activity;
 import com.activiti.model.Application;
+import com.activiti.model.ApplicationViewObject;
 import com.activiti.model.Application_Type;
 import com.activiti.model.Approval;
 import com.activiti.model.Approval_status;
@@ -54,6 +56,8 @@ import com.activiti.service.Project_responService;
 import com.activiti.service.StudentUserService;
 import com.activiti.service.TeacherUserService;
 import com.activiti.service.UserService;
+
+import net.sf.json.JSONObject;
 @Controller
 @ComponentScan("com.activiti.service")
 public class ApplyController {
@@ -172,6 +176,7 @@ public class ApplyController {
     Task t1 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
     approval.setProcessInstanceId(processInstance.getId());
     application.setApplication_type(devo.getApplication_Type());
+    String applicationType = "";
     if (devo.getApplication_Type() == Application_Type.ActivityExpense) {
       Activity activity =
           activityService.findByCardNumAndActivityName(devo.getActivityName(), devo.getCardnum());
@@ -181,6 +186,7 @@ public class ApplyController {
       Task t2 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
       taskService.setAssignee(t2.getId(), activity.getCharge_club().getUserName());
       approval.setApproval_statu(Approval_status.level_1);
+      applicationType = "活动报销";
     }else if (devo.getApplication_Type() == Application_Type.MedicalExpense) {
       StudentUser studentUser = studentUserService.getCurrentUser();
       application.setApplication_student(studentUser);
@@ -191,6 +197,7 @@ public class ApplyController {
       taskService.complete(t1.getId(), variableMap);
       Task t2 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
       taskService.addCandidateGroup(t2.getId(), g.getId());
+      applicationType = "医疗报销";
     }else if (devo.getApplication_Type() == Application_Type.DailyExpense) {
       TeacherUser teacher = teacherUserService.findCurrentUser();
       application.setApplication_teacher(teacher);
@@ -199,6 +206,7 @@ public class ApplyController {
       taskService.complete(t1.getId(), variableMap);
       Task t2 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
       taskService.setAssignee(t2.getId(), teacher.getLeader().getUserName());
+      applicationType = "日常报销";
     }else {
       Project project = projectService.findByCardNum(devo.getCardnum());
       application.setProject(project);
@@ -210,13 +218,14 @@ public class ApplyController {
       for(int i=0;i<tasks.size();i++) {
         taskService.setAssignee(tasks.get(i).getId(), project_leaders.get(i).getUserName());
       }
+      applicationType = "项目报销";
     }
     
     String payMode = devo.getPaymode();
     application.setPaymode(payMode);
     Payee payee = new Payee();
     payee = devo.getPayee();
-   
+    application.setDescription(application.getOwner().getDisplayName() + '的' +applicationType);
     approvalService.saveWhenCreate(payee, approval, application);
     return "redirect:/applylist";
  }
@@ -266,17 +275,20 @@ public class ApplyController {
     application.setVouchers(vouchers);
     variableMap.put("Application_Type", ctevo.getApplication_Type());
     application.setApplication_type(ctevo.getApplication_Type());
+    String applicationType = "";
     if (ctevo.getApplication_Type() == Application_Type.DailyExpense) {
       TeacherUser teacher = teacherUserService.findCurrentUser();
       application.setApplication_teacher(teacher);
       approval.setApproval_person(teacher.getLeader());
       approval.setApproval_statu(Approval_status.pending);
+      applicationType = "日常报销";
     }else {
       Project project = projectService.findByCardNum(ctevo.getCardnum());
       application.setProject(project);
       approval.setApproval_statu(Approval_status.pending);
+      applicationType = "项目报销";
     }
-    
+    application.setDescription(application.getOwner().getDisplayName() + '的' +applicationType);
     String payMode = ctevo.getPaymode();
     application.setPaymode(payMode);
     Payee payee = new Payee();
@@ -359,18 +371,21 @@ public class ApplyController {
     }
     application.setVouchers(vouchers);
     variableMap.put("Application_Type", tevo.getApplication_Type());
+    String applicationType = "";
     application.setApplication_type(tevo.getApplication_Type());
     if (tevo.getApplication_Type() == Application_Type.DailyExpense) {
       TeacherUser teacher = teacherUserService.findCurrentUser();
       application.setApplication_teacher(teacher);
       approval.setApproval_person(teacher.getLeader());
       approval.setApproval_statu(Approval_status.pending);
+      applicationType = "日常报销";
     }else {
       Project project = projectService.findByCardNum(tevo.getCardnum());
       application.setProject(project);
       approval.setApproval_statu(Approval_status.pending);
+      applicationType = "项目报销";
     }
-    
+    application.setDescription(application.getOwner().getDisplayName() + '的' +applicationType);
     String payMode = tevo.getPaymode();
     application.setPaymode(payMode);
     Payee payee = tevo.getPayee();
@@ -421,22 +436,25 @@ public class ApplyController {
     }
     application.setVouchers(vouchers);
     variableMap.put("Application_Type", otevo.getApplication_Type());
+    String applicationType = "";
     application.setApplication_type(otevo.getApplication_Type());
     if (otevo.getApplication_Type() == Application_Type.DailyExpense) {
       TeacherUser teacher = teacherUserService.findCurrentUser();
       application.setApplication_teacher(teacher);
       approval.setApproval_person(teacher.getLeader());
       approval.setApproval_statu(Approval_status.pending);
+      applicationType = "日常报销";
     }else {
       Project project = projectService.findByCardNum(otevo.getCardnum());
       application.setProject(project);
       approval.setApproval_statu(Approval_status.pending);
+      applicationType = "项目报销";
     }
     
     String payMode = otevo.getOnboardPaymode();
     application.setPaymode(payMode);
     Payee payee = otevo.getPayee();
-    
+    application.setDescription(application.getOwner().getDisplayName() + '的' +applicationType);
     AbroadOtherInfo abroadOtherInfo = otevo.getAbroadOtherInfo();
     application.setTotal(otevo.getTotal());
     ProcessDefinition pd = repositoryService.createProcessDefinitionQuery()
@@ -466,6 +484,40 @@ public class ApplyController {
     return "fragments/applyDetail :: applyinfo";
   }
 
+  @RequestMapping(value = "/applications", method = RequestMethod.GET)
+  public @ResponseBody List<ApplicationViewObject> getAllApplication() {
+    logger.debug("Start to get all projects!");
+    
+    List<Application> applications = applicationService.getAllApplication();
+    List<ApplicationViewObject> applicationViewObjects = new ArrayList<ApplicationViewObject>();
+    for (Application application : applications) {
+      ApplicationViewObject applicationViewObject = new ApplicationViewObject();
+      applicationViewObject.setId(application.getId());
+      applicationViewObject.setCreatetime(application.getCreatetime());
+      applicationViewObject.setDescription(application.getDescription());
+      applicationViewObjects.add(applicationViewObject);
+    }
+    return applicationViewObjects;
+  }
+  
+  @ResponseBody
+  @RequestMapping(value = "/applications/{applicationIds}", method = RequestMethod.DELETE)
+  public String deleteActivities(@PathVariable Long[] applicationIds) {
 
+    logger.debug("Start to delete applications! " + applicationIds);
+    JSONObject jsonObj = new JSONObject();
+    List<Application> deletedApplications = new ArrayList<Application>();
+    for (int index = 0; index < applicationIds.length; index++) {
+      Application application = applicationService.findById(applicationIds[index]);
+      deletedApplications.add(application);
+    }
+    try {
+      applicationService.deleteApplications(deletedApplications);
+      jsonObj.put("result", "Delete Success!");
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      jsonObj.put("result", "Delete Failed!");
+    }
+    return jsonObj.toString();
+  }
 }
- 

@@ -1,5 +1,7 @@
 package com.activiti.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,18 @@ public class ProjectService {
   
   public void save(Project project) {
     projectRepository.save(project);
+  }
+  
+  public List<Project> getAllProjects(){
+    return projectRepository.findAll();
+  }
+  
+  public Project findById(Long id) {
+    return projectRepository.findOne(id);
+  }
+  
+  public void deleteProjects(List<Project> projects) {
+    projectRepository.delete(projects);
   }
   
 }
