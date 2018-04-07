@@ -7,8 +7,8 @@ public class ActivityViewObject {
   private Long id;
   private String activityName;
   private double budget;
-  private Date starting_date;
-  private Date end_time;
+  private String starting_date;
+  private String end_time;
   private String chargeClub;
   public Long getId() {
     return id;
@@ -28,16 +28,17 @@ public class ActivityViewObject {
   public void setBudget(double budget) {
     this.budget = budget;
   }
-  public Date getStarting_date() {
+
+  public String getStarting_date() {
     return starting_date;
   }
-  public void setStarting_date(Date starting_date) {
+  public void setStarting_date(String starting_date) {
     this.starting_date = starting_date;
   }
-  public Date getEnd_time() {
+  public String getEnd_time() {
     return end_time;
   }
-  public void setEnd_time(Date end_time) {
+  public void setEnd_time(String end_time) {
     this.end_time = end_time;
   }
   public String getChargeClub() {

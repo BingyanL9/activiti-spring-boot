@@ -1,6 +1,13 @@
  spring:
   thymeleaf:
     cache: false
+  mail:
+    port: 25
+    username: bingyanl@126.com
+    host: smtp.126.com
+    password: LBY951104
+    protocol: smtp
+    defaultEncoding: UTF-8
   application:
     name: activiti-spring-boot
   datasource:
@@ -24,11 +31,11 @@
       maxOpenPreparedStatements: 100
   activiti:
     check-process-definitions: false
-    mailServerHost: smtp.163.com
+    mailServerHost: smtp.126.com
     mailServerPost: 25
     mailServerDefaultFrom: bingyanl@126.com
     mailServerUsername: bingyanl@126.com
-    mailServerPassword: lby951104
+    mailServerPassword: LBY951104
   jpa:
     show-sql: true
     hibernate.ddl-auto: update
@@ -41,6 +48,4 @@
   basic:
     enabled: false
     
-# server:
-#   context-path: /expense
- 
+  spring.jmx.enabled: false

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<link th:include="fragments/header :: header"></link>
+</head>
+<body>
+	<div id="wrapper">
+
+		<div class="content-wrapper full-content-wrapper">
+			<!-- navigation start-->
+			<div th:replace="fragments/header :: nav"></div>
+			<!-- navigation end-->
+			<div id="page-wrapper">
+				<div id="page-inner">
+					<div class="row">
+						<div class="col-md-12">
+							<h1 class="page-head-line">-- 预算管理 --</h1>
+						</div>
+					</div>
+					<!-- /. ROW  -->
+					<div class="row">
+						<div class="col-md-12">
+							<ul id="myTab" class="nav nav-tabs">
+								<li class="active"><a href="#medicalBudget" data-toggle="tab">
+										<label>医疗预算</label>
+								</a></li>
+								<li><a href="#dailyBudget" data-toggle="tab"> <label>日常预算</label></a></li>
+							</ul>
+							<div id="myTabContent" class="tab-content">
+								<div class="tab-pane fade in active" id="medicalBudget" >
+								 <div th:replace="fragments/medicalBudget :: medicalBudget"></div>
+								</div>
+								<div class="tab-pane fade" id="dailyBudget">
+								  <div th:replace="fragments/dailyBudget :: dailyBudget"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div th:replace="fragments/footer :: footer"></div>
+		</div>
+	</div>
+
+
+</body>
+</html>

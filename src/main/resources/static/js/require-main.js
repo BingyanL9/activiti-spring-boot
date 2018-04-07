@@ -6,4 +6,6 @@ requirejs(['./require-common'], function (common) {
 	requirejs(['/js/home.js']);
 	requirejs(['/js/issue.js']);
 	requirejs(['/js/projectDashBoard.js']);
+	requirejs(['/js/budget.js']);
+	requirejs(['/js/activityApplication.js']);
 });

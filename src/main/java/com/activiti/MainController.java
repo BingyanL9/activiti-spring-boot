@@ -1,5 +1,6 @@
 package com.activiti;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -13,17 +14,28 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.activiti.model.Activity;
+import com.activiti.model.ActivityBudgetApply;
 import com.activiti.model.Application;
 import com.activiti.model.CityTrafficExpenseViewObject;
 import com.activiti.model.DocumentExpenseViewObject;
 import com.activiti.model.Message;
 import com.activiti.model.OnboardTravelExpenseViewObject;
+import com.activiti.model.Project;
 import com.activiti.model.Role;
+import com.activiti.model.StudentUser;
 import com.activiti.model.TeacherUser;
 import com.activiti.model.TravelExpenseViewObject;
 import com.activiti.model.User;
+import com.activiti.service.ActivityBudgetApplyService;
+import com.activiti.service.ActivityService;
 import com.activiti.service.ApplicationService;
+import com.activiti.service.ClubUserService;
+import com.activiti.service.MailService;
 import com.activiti.service.MessageService;
+import com.activiti.service.ProjectService;
+import com.activiti.service.StudentUserService;
+import com.activiti.service.TeacherUserService;
 import com.activiti.service.UserService;
 
 
@@ -45,6 +57,21 @@ public class MainController {
   @Autowired
   private MessageService messageService;
   
+  @Autowired
+  private StudentUserService studentUserService;
+  
+  @Autowired
+  private ClubUserService clubUserService;
+  
+  @Autowired
+  private TeacherUserService teacherUserService;
+  
+  @Autowired
+  private MailService mailService;
+  
+  @Autowired
+  private ActivityBudgetApplyService activityBudgetApplyService;
+  
   private int initialTime = 0;
   
   @RequestMapping(value = {"/", "/home"})
@@ -56,9 +83,17 @@ public class MainController {
     if(messageService.getPageSize() == 1 || messageService.getPageSize() == 0) {
       model.put("pagelast", "true");
     }
+    if(clubUserService.findByName(userService.getCurrentUser().getUserName()) != null) {
+      model.put("isClub", "true");
+    }
     
     logger.debug("Welcome to home page.");
-    
+//    logger.debug("strat to send emial.");
+//    String[] to = {"bingyanl@126.com"};
+//    Map<String, Object> model1 = new HashMap<String, Object>();
+//    model1.put("message", "您有一份申请单需要审批!");
+//    model1.put("sendDate", "2018");
+//    mailService.mail(to, "Notifation", model1, "fragments/Email");
 //    if (initialTime == 0) {
 //      InitialGroup(userService.getCurrentUser());
 //      initialTime ++;
@@ -108,6 +143,9 @@ private void InitialGroup(User user) {
   @RequestMapping(value = {"/apply"})
   public String apply(Map<String, Object> model) {
     model.put("user", userService.getCurrentUser());
+    if(clubUserService.findByName(userService.getCurrentUser().getUserName()) != null) {
+      model.put("isClub", "true");
+    }
     logger.debug("Start to apply an expense");
     model.put("DocumentExpenseViewObject", new DocumentExpenseViewObject());
     model.put("CityTrafficExpenseViewObject", new CityTrafficExpenseViewObject());
@@ -121,6 +159,9 @@ private void InitialGroup(User user) {
   public String applyList(Map<String, Object> model) {
     User user = userService.getCurrentUser();
     model.put("user", user);
+    if(clubUserService.findByName(userService.getCurrentUser().getUserName()) != null) {
+      model.put("isClub", "true");
+    }
     logger.debug("Start to show apply list.");
     List<Application> applications = applicationService.getApplicationsByUser(user.getUserName());
     model.put("applications", applications);
@@ -132,6 +173,9 @@ private void InitialGroup(User user) {
   public String approval(Map<String, Object> model) {
     User user = userService.getCurrentUser();
     model.put("user", user);
+    if(clubUserService.findByName(userService.getCurrentUser().getUserName()) != null) {
+      model.put("isClub", "true");
+    }
     logger.debug("Start to show approval.");
     List<Application> applications = applicationService.getApplicationsByUser(user.getUserName());
     model.put("applications", applications);
@@ -143,6 +187,9 @@ private void InitialGroup(User user) {
   public String admin(Map<String, Object> model) {
     User user = userService.getCurrentUser();
     model.put("user", user);
+    if(clubUserService.findByName(userService.getCurrentUser().getUserName()) != null) {
+      model.put("isClub", "true");
+    }
     logger.debug("Start to show admin page.");
     model.put("menu", "admin");
     return "admin";
@@ -152,6 +199,9 @@ private void InitialGroup(User user) {
   public String project(Map<String, Object> model) {
     User user = userService.getCurrentUser();
     model.put("user", user);
+    if(clubUserService.findByName(userService.getCurrentUser().getUserName()) != null) {
+      model.put("isClub", "true");
+    }
     logger.debug("Start to show project page.");
     model.put("menu", "project");
     return "projectDashboard";
@@ -162,15 +212,60 @@ private void InitialGroup(User user) {
     User user = userService.getCurrentUser();
     model.put("user", user);
     logger.debug("Start to show admin page.");
+    if(clubUserService.findByName(userService.getCurrentUser().getUserName()) != null) {
+      model.put("isClub", "true");
+    }
     model.put("menu", "issue");
     model.put("message", new Message());
     List<Message> messages =  messageService.getMessages(0, messageService.PAZESIZE);
     model.put("messages", messages);
     model.put("pagefirst", "true");
-    if(messageService.getPageSize() == 1) {
+    if(messageService.getPageSize() == 1 || messageService.getPageSize() == 0) {
       model.put("pagelast", "true");
     }
     return "issue";
+  }
+  
+  @RequestMapping(value = {"/budget"})
+  public String budget(Map<String, Object> model) {
+    User user = userService.getCurrentUser();
+    model.put("user", user);
+    logger.debug("Start to show budget page.");
+    if(clubUserService.findByName(userService.getCurrentUser().getUserName()) != null) {
+      model.put("isClub", "true");
+    }
+    model.put("menu", "budget");
+    List<StudentUser> studentUsers =  studentUserService.getStudentUsers(0, studentUserService.PAZESIZE);
+    List<TeacherUser> teacherUsers =  teacherUserService.getTeacherUsers(0, teacherUserService.PAZESIZE);
+    model.put("studentUsers", studentUsers);
+    model.put("studentUser", new StudentUser());
+    model.put("teacherUsers", teacherUsers);
+    model.put("teacherUser", new TeacherUser());
+    model.put("medicalpagefirst", "true");
+    model.put("dailypagefirst", "true");
+    model.put("projectpagefirst", "true");
+    model.put("activitypagefirst", "true");
+    if(studentUserService.getPageSize() == 1 || studentUserService.getPageSize() == 0) {
+      model.put("medicalpagelast", "true");
+    }
+    if(teacherUserService.getPageSize() == 1 || teacherUserService.getPageSize() == 0) {
+      model.put("dailypagelast", "true");
+    }
+    return "budget";
+  }
+  
+  @RequestMapping(value = {"/activityapplication"})
+  public String activityApplication(Map<String, Object> model) {
+    User user = userService.getCurrentUser();
+    model.put("user", user);
+    logger.debug("Start to show activityapplication page.");
+    model.put("menu", "activityapplication");
+    String clubUserName = user.getUserName();
+    model.put("isClub", "true");
+    List<ActivityBudgetApply> activityBudgetApplys = activityBudgetApplyService.getActivityBudgetByClubName(clubUserName);
+    model.put("activityBudgetApplys", activityBudgetApplys);
+    model.put("activityBudgetApply", new ActivityBudgetApply());
+    return "activityapplication";
   }
 
 }

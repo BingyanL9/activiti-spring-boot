@@ -108,7 +108,7 @@ define(["jquery", "bootstrap", "jqGrid","bootstrap_datetimepicker"], function($,
 		        });
 				loadProjectsData();
 		        $('#projectInfoTable').jqGrid('navGrid', "#projectInfoTableDiv", {
-		            search: false, // show search button on the toolbar
+		            search: true, // show search button on the toolbar
 		            refresh: false,
 		            add: false,
 		            edit: false,
@@ -343,7 +343,7 @@ define(["jquery", "bootstrap", "jqGrid","bootstrap_datetimepicker"], function($,
 	        });
 			loadProjectResponsData();
 	        $('#projectResponTable').jqGrid('navGrid', "#projectResponTableDiv", {
-	            search: false, // show search button on the toolbar
+	            search: true, // show search button on the toolbar
 	            refresh: false,
 	            add: false,
 	            edit: false,

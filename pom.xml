@@ -93,6 +93,11 @@
 		</dependency>
 		
 		<dependency>
+		  <groupId>org.springframework.boot</groupId>
+		  <artifactId>spring-boot-starter-mail</artifactId>
+	   </dependency>
+		
+		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity4</artifactId>
 		</dependency>
@@ -152,6 +157,10 @@
 			<classifier>jdk15</classifier>
 	   </dependency>
 	   
+	   <dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+		</dependency>
 	</dependencies>
 
 	

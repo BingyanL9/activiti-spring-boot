@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<div th:fragment="dailyBudget">
+	
+		<div class="panel panel-default">
+			<div class="panel-body">
+			<div class="col-md-12">
+				<div class="form-group required col-md-4">
+					<label class="control-label col-md-3" for="cardnum">工号:</label>
+					<div class="col-md-6">
+						<input type="text" class="form-control" id="teacherId"
+							placeholder="请输入工号" required="required"/>
+					</div>
+					<div class="col-md-2">
+					  <a class="btn btn-primary" onclick="searchDailyBudget();"><span class="glyphicon glyphicon-search"></span></a>
+					</div>
+				</div>
+				
+			</div>
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>工号</th>
+								<th>姓名</th>
+								<th>职位</th>
+								<th>学院</th>
+								<th>预算</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tr th:each="teacherUser,teacherUserStat : ${teacherUsers}">
+						<td th:text="${teacherUser.userName}"></td>
+						<td th:text="${teacherUser.displayName}"></td>
+						<td th:text="${teacherUser.title}"></td>
+						<td th:text="${teacherUser.college}"></td>
+						<td th:text="${teacherUser.budget}"></td>
+						<td><a data-toggle="modal" data-target="#teacherModal" th:href="@{'/teacherusers/' + ${teacherUser.userName}}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+						</tr>
+					</table>
+
+					<nav aria-label="...">
+						<ul class="pager">
+							<li class="previous"
+								th:classappend="${dailypagefirst == 'true' ? 'disabled' : ''}">
+								<a onclick="preDailyBudget();"><span aria-hidden="true">&larr;</span>
+									Newer</a></li>
+							<li class="next"
+								th:classappend="${dailypagelast == 'true' ? 'disabled' : ''}">
+								<a onclick="nextDailyBudget();">Older <span aria-hidden="true">&rarr;</span></a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade" id="teacherModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div th:replace="fragments/teacherForm :: teacherUserForm"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

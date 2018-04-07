@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<div th:fragment="activityBudgetApplyForm" th:remove="tag">
+		<form class="form-horizontal" id="activityBudgetApplyForm" th:method="POST"
+			th:object="${activityBudgetApply}" th:action="@{'/activitybudget'}">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">提交活动预算申请</h4>
+				</div>
+				<div class="modal-body row">
+					<div class="form-group col-md-4">
+						<label class="col-md-5 control-label">活动名称:</label>
+						<div class="col-md-7">
+							<input type="text" class="form-control" th:field="*{activityName}" required="required"/>
+						</div>
+					</div>
+					
+					<div class="form-group required col-md-4">
+						<label class="col-md-5 control-label">开始时间:</label>
+						<div class="col-md-7">
+						<div class='input-group date form_date'
+							data-date-format="yyyy-mm-dd">
+							<input type='text' class="form-control" readonly="readonly"
+								th:name="|starting_date|" required="required" /> <span class="input-group-addon"> <i
+								class="glyphicon glyphicon-calendar"></i>
+							</span>
+						</div>
+					</div>
+					</div>
+					
+					<div class="form-group required col-md-4">
+						<label class="col-md-5 control-label">结束时间:</label>
+						<div class="col-md-7">
+						<div class='input-group date form_date'
+							data-date-format="yyyy-mm-dd">
+							<input type='text' class="form-control" readonly="readonly"
+								th:name="|end_time|" required="required" /> <span class="input-group-addon"> <i
+								class="glyphicon glyphicon-calendar"></i>
+							</span>
+						</div>
+					</div>
+					</div>
+					
+				<div>
+					<div th:replace="fragments/document_expense_form :: item_input(0)"></div>
+					<button type="button" class="btn btn-info pull-left"
+						id="add-item-button" onclick="addItem();" style="margin-left: 4px">
+						<span class="glyphicon glyphicon-plus"></span>
+					</button>
+				</div>
+					
+					<div class="form-group col-md-4 required">
+						<label class="col-md-5 control-label">预算:</label>
+						<div class="col-md-7">
+							<input type="text" class="form-control" th:field="*{budget}" required="required"/>
+						</div>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary" >提交</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				</div>
+		</form>
+	</div>
+</body>
+</html>

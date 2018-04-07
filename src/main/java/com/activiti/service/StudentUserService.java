@@ -8,11 +8,13 @@ import org.activiti.engine.identity.Group;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.activiti.model.Project;
 import com.activiti.model.StudentUser;
 import com.activiti.model.TeacherUser;
 import com.activiti.repository.StudentUserRepository;
@@ -27,6 +29,8 @@ public class StudentUserService {
   
   @Autowired
   private IdentityService identityService;
+  
+  public static final int PAZESIZE = 10;
   
   public StudentUser findByName(String userName) {
     return studentUserRepository.findByUserName(userName);
@@ -105,4 +109,17 @@ public class StudentUserService {
     activitiUser.setPassword(studentUser.getPassword());
     identityService.saveUser(activitiUser);
   }
+  
+  public List<StudentUser> getStudentUsers(int offset, int limit) {
+    return studentUserRepository.findStudentUsers(new PageRequest(offset, limit));
+  }
+  
+  public int getPageSize() {
+    return (getAllStudentUser().size()  +  PAZESIZE  - 1) / PAZESIZE; 
+  }
+  
+  public StudentUser findStudentUserByName(String userName) {
+    return studentUserRepository.findByUserName(userName);
+  }
+
 }

@@ -26,6 +26,9 @@ public class DocumentItem {
   
   @ManyToOne(fetch = FetchType.LAZY)
   private Application application;
+  
+  @ManyToOne(fetch = FetchType.LAZY)
+  private ActivityBudgetApply activityBudgetApply;
 
   public Long getId() {
     return id;

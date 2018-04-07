@@ -97,7 +97,7 @@ define(["jquery", "bootstrap", "jqGrid"], function($, bootstrap, jqGrid){
 	        });
 	        loadStudentUsersData();
 	        $('#studentUserTable').jqGrid('navGrid', "#studentUserTableDiv", {
-	            search: false, // show search button on the toolbar
+	            search: true, // show search button on the toolbar
 	            refresh: false,
 	            add: false,
 	            edit: false,
@@ -377,7 +377,7 @@ define(["jquery", "bootstrap", "jqGrid"], function($, bootstrap, jqGrid){
 	        });
 	        loadTeacherUsersData();
 	        $('#teacherUserTable').jqGrid('navGrid', "#teacherUserTableDiv", {
-	            search: false, // show search button on the toolbar
+	            search: true, // show search button on the toolbar
 	            refresh: false,
 	            add: false,
 	            edit: false,
@@ -668,7 +668,7 @@ define(["jquery", "bootstrap", "jqGrid"], function($, bootstrap, jqGrid){
 	        });
 	        loadClubUsersData();
 	        $('#clubUserTable').jqGrid('navGrid', "#clubUserTableDiv", {
-	            search: false, // show search button on the toolbar
+	            search: true, // show search button on the toolbar
 	            refresh: false,
 	            add: false,
 	            edit: false,
@@ -924,7 +924,7 @@ define(["jquery", "bootstrap", "jqGrid"], function($, bootstrap, jqGrid){
 	        });
 			loadActivitesData();
 	        $('#activityTable').jqGrid('navGrid', "#activityTableDiv", {
-	            search: false, // show search button on the toolbar
+	            search: true, // show search button on the toolbar
 	            refresh: false,
 	            add: false,
 	            edit: false,
@@ -1059,7 +1059,7 @@ define(["jquery", "bootstrap", "jqGrid"], function($, bootstrap, jqGrid){
 	        });
 			loadProjectsData();
 	        $('#projectTable').jqGrid('navGrid', "#projectTableDiv", {
-	            search: false, // show search button on the toolbar
+	            search: true, // show search button on the toolbar
 	            refresh: false,
 	            add: false,
 	            edit: false,
@@ -1188,7 +1188,7 @@ define(["jquery", "bootstrap", "jqGrid"], function($, bootstrap, jqGrid){
 	        });
 			loadApplicationsData();
 	        $('#applicationTable').jqGrid('navGrid', "#applicationTableDiv", {
-	            search: false, // show search button on the toolbar
+	            search: true, // show search button on the toolbar
 	            refresh: false,
 	            add: false,
 	            edit: false,
@@ -1333,7 +1333,7 @@ define(["jquery", "bootstrap", "jqGrid"], function($, bootstrap, jqGrid){
 	        });
 			loadFeedbacksData();
 	        $('#feedbackTable').jqGrid('navGrid', "#feedbackTableDiv", {
-	            search: false, // show search button on the toolbar
+	            search: true, // show search button on the toolbar
 	            refresh: false,
 	            add: false,
 	            edit: false,

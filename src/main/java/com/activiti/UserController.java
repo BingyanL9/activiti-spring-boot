@@ -2,6 +2,7 @@ package com.activiti;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -88,6 +89,16 @@ public class UserController {
   public @ResponseBody List<StudentUser> getAllStudentUser() {
     List<StudentUser> studentUsers = studentUserService.getAllStudentUser();
     return studentUsers;
+  }
+  
+  @RequestMapping(value = "/studentusers/{userName}", method = RequestMethod.GET)
+  public String getStudentUser(Map<String, Object> model,
+      @PathVariable("userName") String userName) {
+    logger.debug("Start get a student user by user name: " + userName);
+
+    StudentUser studentUser = studentUserService.findByName(userName);
+    model.put("studentUser", studentUser);
+    return "fragments/studentForm :: studentUserForm";
   }
 
   @ResponseBody
@@ -207,6 +218,16 @@ public class UserController {
       teacherUserViewObjects.add(teacherUserViewObject);
     }
     return teacherUserViewObjects;
+  }
+  
+  @RequestMapping(value = "/teacherusers/{userName}", method = RequestMethod.GET)
+  public String getteacher(Map<String, Object> model,
+      @PathVariable("userName") String userName) {
+    logger.debug("Start get a teacher user by user name: " + userName);
+
+    TeacherUser teacherUser = teacherUserService.findByName(userName);
+    model.put("teacherUser", teacherUser);
+    return "fragments/teacherForm :: teacherUserForm";
   }
 
   @ResponseBody

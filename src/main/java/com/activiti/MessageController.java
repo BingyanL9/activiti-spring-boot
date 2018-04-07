@@ -53,7 +53,6 @@ private static final Logger logger = LoggerFactory.getLogger(MessageController.c
     model.put("messages", messages);
     if(page == 0) {
       model.put("pagefirst", "true");
-      model.put("pagelast", "true");
     }
     if(messageService.getPageSize()-1 == page) {
       model.put("pagelast", "true");

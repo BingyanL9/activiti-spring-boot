@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<div th:fragment="medicalBudget">
+	
+		<div class="panel panel-default">
+			<div class="panel-body">
+			<div class="col-md-12">
+				<div class="form-group required col-md-4">
+					<label class="control-label col-md-3" for="cardnum">学号:</label>
+					<div class="col-md-6">
+						<input type="text" class="form-control" id="studentId"
+							placeholder="请输入学号" required="required"/>
+					</div>
+					<div class="col-md-2">
+					  <a class="btn btn-primary" onclick="searchMedicalBudget();"><span class="glyphicon glyphicon-search"></span></a>
+					</div>
+				</div>
+				
+			</div>
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>学号</th>
+								<th>名字</th>
+								<th>学院</th>
+								<th>预算</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tr th:each="studentUser,studentUserStat : ${studentUsers}">
+						<td th:text="${studentUser.userName}"></td>
+						<td th:text="${studentUser.displayName}"></td>
+						<td th:text="${studentUser.college}"></td>
+						<td th:text="${studentUser.budget}"></td>
+						<td><a data-toggle="modal" data-target="#studentModal" th:href="@{'/studentusers/' + ${studentUser.userName}}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+						</tr>
+					</table>
+
+					<nav aria-label="...">
+						<ul class="pager">
+							<li class="previous"
+								th:classappend="${medicalpagefirst == 'true' ? 'disabled' : ''}">
+								<a onclick="preMedicalBudget();"><span aria-hidden="true">&larr;</span>
+									Newer</a></li>
+							<li class="next"
+								th:classappend="${medicalpagelast == 'true' ? 'disabled' : ''}">
+								<a onclick="nextMedicalBudget();">Older <span aria-hidden="true">&rarr;</span></a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade" id="studentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div th:replace="fragments/studentForm :: studentUserForm"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

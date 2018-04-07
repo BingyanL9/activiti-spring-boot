@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>WARNING</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body style="margin: 0; padding: 0;">
+	<div id="mailsub" class="notification" align="center">
+		<div style="height: 40px; line-height: 60px; font-size: 10px;"></div>
+		<font face="Arial, Helvetica, sans-serif" size="5" color="#57697e"
+			style="font-size: 34px;"> <span
+			style="font-family: Arial, Helvetica, sans-serif; font-size: 34px; color: #FF0000">
+				Notification!</span></font>
+		<div style="height: 40px; line-height: 60px; font-size: 10px;"></div>
+		<div align="center" bgcolor="#ffffff">
+			<table width="80%" border="0px" cellspacing="0px" cellpadding="0"
+				bgcolor="#eff3f8">
+				<tr>
+					<td align="center">
+						<div style="height: 40px; line-height: 80px; font-size: 10px;"></div>
+						<div style="line-height: 20px;"></div>
+					</td>
+				</tr>
+				<tr align="center"
+					style="line-height: 24px; font-family: Arial, Helvetica, sans-serif; font-size: 20px; color: #57697e;">
+					<td th:text="${message}"></td>
+				</tr>
+
+				<tr>
+					<td align="left">
+						<div style="height: 40px; line-height: 100px; font-size: 10px;"></div>
+						<div style="line-height: 20px;"></div>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<!--footer -->
+		<div class="iage_footer" align="center" bgcolor="#ffffff">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td align="center"
+						style="padding: 20px; flaot: left; width: 100%; text-align: center;">
+						<font face="Arial, Helvetica, sans-serif" size="3" color="#96a5b5"
+						style="font-size: 13px;"> <span
+							style="font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #96a5b5;">
+								&copy; Copyright Echo Liang. 2017, <font th:text="${sendDate}"></font>.
+								All rights reserved.
+						</span></font>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

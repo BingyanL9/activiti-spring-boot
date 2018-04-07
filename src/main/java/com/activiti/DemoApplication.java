@@ -10,10 +10,12 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import com.activiti.service.MailService;
 import com.alibaba.druid.pool.DruidDataSource;
 
 @SpringBootApplication
 @ComponentScan("com.activiti")
+@ComponentScan("com.activiti.service")
 public class DemoApplication {
   
    @Autowired
@@ -21,7 +23,7 @@ public class DemoApplication {
    
    @Autowired
    DruidDataSource druidDataSource;
-
+   
    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
      return application.sources(DemoApplication.class);
    }
@@ -29,6 +31,7 @@ public class DemoApplication {
 	public static void main(String[] args) {
 	    startH2Server();
 		SpringApplication.run(DemoApplication.class, args);
+
 	}
 	
 	 private static void startH2Server() {

@@ -27,10 +27,10 @@ public class Activity {
   private double budget;
   
   @Column(name = "starting_date")
-  private Date starting_date;
+  private String starting_date;
   
   @Column(name = "end_time")
-  private Date end_time;
+  private String end_time;
   
   @ManyToOne(fetch = FetchType.LAZY)
   private ClubUser chargeClub;
@@ -61,20 +61,20 @@ public class Activity {
   public void setBudget(double budget) {
     this.budget = budget;
   }
-
-  public Date getStarting_date() {
+  
+  public String getStarting_date() {
     return starting_date;
   }
 
-  public void setStarting_date(Date starting_date) {
+  public void setStarting_date(String starting_date) {
     this.starting_date = starting_date;
   }
 
-  public Date getEnd_time() {
+  public String getEnd_time() {
     return end_time;
   }
 
-  public void setEnd_time(Date end_time) {
+  public void setEnd_time(String end_time) {
     this.end_time = end_time;
   }
 
