@@ -1,6 +1,5 @@
 package com.activiti.model;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,33 +10,42 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Project {
-  
+
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
-  
+
   @Column(name = "project_name", nullable = false, length = 100)
   private String project_name;
-  
+
   @Column(name = "budget")
   private double budget;
-  
+
   @Column(name = "cardNum")
   private String cardNum;
-  
+
+  public String getCardNum() {
+    return cardNum;
+  }
+
+  public void setCardNum(String cardNum) {
+    this.cardNum = cardNum;
+  }
+
   @Column(name = "starting_date")
-  private Date starting_date;
-  
+  private String starting_date;
+
   @Column(name = "end_time")
-  private Date end_time;
-  
-  @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-  private List<Project_respon> project_respons;
-  
-  @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+  private String end_time;
+
+  @OneToOne(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private Project_respon project_respon;
+
+  @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Application> documentApplications;
 
   public Long getId() {
@@ -64,36 +72,28 @@ public class Project {
     this.budget = budget;
   }
 
-  public String getCardnum() {
-    return cardNum;
-  }
-
-  public void setCardnum(String cardnum) {
-    this.cardNum = cardnum;
-  }
-
-  public Date getStarting_date() {
+  public String getStarting_date() {
     return starting_date;
   }
 
-  public void setStarting_date(Date starting_date) {
+  public void setStarting_date(String starting_date) {
     this.starting_date = starting_date;
   }
 
-  public Date getEnd_time() {
+  public String getEnd_time() {
     return end_time;
   }
 
-  public void setEnd_time(Date end_time) {
+  public void setEnd_time(String end_time) {
     this.end_time = end_time;
   }
 
-  public List<Project_respon> getProject_respons() {
-    return project_respons;
+  public Project_respon getProject_respon() {
+    return project_respon;
   }
 
-  public void setProject_respons(List<Project_respon> project_respons) {
-    this.project_respons = project_respons;
+  public void setProject_respon(Project_respon project_respon) {
+    this.project_respon = project_respon;
   }
 
   public List<Application> getDocumentApplications() {
@@ -104,5 +104,5 @@ public class Project {
     this.documentApplications = documentApplications;
   }
 
-  
+
 }

@@ -65,10 +65,10 @@
                         <a href="#" id="financeManager"><i class="fa fa-desktop "></i>财务管理<span class="glyphicon glyphicon-chevron-down pull-right"></span></a>
                          <ul class="nav nav-second-level collapse in" id="userFunctionList">
                              <li>
-                                <a href="typography"><i class="glyphicon glyphicon-usd"></i>预算管理</a>
-                                <a href="typography"><i class="glyphicon glyphicon-usd"></i>项目管理</a>
                                 <a href="typography"><i class=" glyphicon glyphicon-check"></i>财务审批</a>
-                                <a href="typography"><i class=" glyphicon glyphicon-list-alt"></i>发布信息</a>
+                                <a href="typography"><i class="glyphicon glyphicon-usd"></i>预算管理</a>
+                                <a th:href="@{'/project'}" th:classappend="${menu == 'project' ? 'active-menu' : ''}"><i class="glyphicon glyphicon-cog"></i>项目管理</a>
+                                <a th:href="@{'/issue'}" th:classappend="${menu == 'issue' ? 'active-menu' : ''}"><i class=" glyphicon glyphicon-list-alt"></i>消息管理</a>
                             </li>  
                         </ul>
                     </li>

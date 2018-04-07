@@ -71,8 +71,8 @@ public class UserController {
     } else {
       try {
         StudentUser newUser = studentUserService.findByName(userName);
-        newUser.setUserName(userName);
         newUser = studentUser;
+        newUser.setUserName(userName);
         studentUserService.update(newUser);
         jsonObj.put("result", "Edit Success!");
       } catch (Exception e) {

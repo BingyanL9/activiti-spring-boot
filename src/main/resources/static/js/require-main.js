@@ -3,4 +3,7 @@ requirejs(['./require-common'], function (common) {
 	requirejs(['/js/header.js']);
 	requirejs(['/js/apply.js']);
 	requirejs(['/js/admin.js']);
+	requirejs(['/js/home.js']);
+	requirejs(['/js/issue.js']);
+	requirejs(['/js/projectDashBoard.js']);
 });

@@ -1,6 +1,5 @@
 package com.activiti.model;
 
-import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,13 +16,13 @@ public class Feedback {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private long fno;
+  private long id;
   
   @Column(name = "feedback_time", nullable = false)
-  private Date feedback_time;
+  private String feedback_time;
   
   @Column(name = "iscorrect", nullable = false, length = 1)
-  private byte isCorrect;
+  private boolean isCorrect;
   
   @Lob
   @Column(name = "suggest", length = 1024)
@@ -32,27 +31,27 @@ public class Feedback {
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
   private Application application;
 
-  public long getFno() {
-    return fno;
+  public long getId() {
+    return id;
   }
 
-  public void setFno(long fno) {
-    this.fno = fno;
+  public void setId(long id) {
+    this.id = id;
   }
 
-  public Date getFeedback_time() {
+  public String getFeedback_time() {
     return feedback_time;
   }
 
-  public void setFeedback_time(Date feedback_time) {
+  public void setFeedback_time(String feedback_time) {
     this.feedback_time = feedback_time;
   }
 
-  public byte getIsCorrect() {
+  public boolean isCorrect() {
     return isCorrect;
   }
 
-  public void setIsCorrect(byte isCorrect) {
+  public void setCorrect(boolean isCorrect) {
     this.isCorrect = isCorrect;
   }
 
@@ -69,16 +68,6 @@ public class Feedback {
   }
 
   public void setApplication(Application application) {
-    this.application = application;
-  }
-
-  public Feedback(long fno, Date feedback_time, byte isCorrect, String suggest,
-      Application application) {
-    super();
-    this.fno = fno;
-    this.feedback_time = feedback_time;
-    this.isCorrect = isCorrect;
-    this.suggest = suggest;
     this.application = application;
   }
 

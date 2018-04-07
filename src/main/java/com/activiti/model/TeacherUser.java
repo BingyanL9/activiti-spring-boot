@@ -32,7 +32,7 @@ public class TeacherUser extends User{
   @OneToMany(mappedBy = "approval_person", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Approval> approvals;
   
-  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+  @OneToOne(mappedBy = "charge", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private Project_respon project_respon;
 
   public String getTitle() {
@@ -83,12 +83,12 @@ public class TeacherUser extends User{
     this.approvals = approvals;
   }
 
-  public Project_respon getProject_respon() {
+  public Project_respon getProject_respons() {
     return project_respon;
   }
 
-  public void setProject_respon(Project_respon project_respon) {
-    this.project_respon = project_respon;
+  public void setProject_respons(Project_respon project_respons) {
+    this.project_respon = project_respons;
   }
 
   public TeacherUser() {

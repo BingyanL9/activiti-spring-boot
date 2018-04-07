@@ -16,12 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.activiti.model.Application;
 import com.activiti.model.CityTrafficExpenseViewObject;
 import com.activiti.model.DocumentExpenseViewObject;
+import com.activiti.model.Message;
 import com.activiti.model.OnboardTravelExpenseViewObject;
 import com.activiti.model.Role;
 import com.activiti.model.TeacherUser;
 import com.activiti.model.TravelExpenseViewObject;
 import com.activiti.model.User;
 import com.activiti.service.ApplicationService;
+import com.activiti.service.MessageService;
 import com.activiti.service.UserService;
 
 
@@ -40,11 +42,21 @@ public class MainController {
   @Autowired
   private ApplicationService applicationService;
   
+  @Autowired
+  private MessageService messageService;
+  
   private int initialTime = 0;
   
   @RequestMapping(value = {"/", "/home"})
   public String home(Map<String, Object> model) {
     model.put("user", userService.getCurrentUser());
+    List<Message> messages =  messageService.getMessages(0, messageService.PAZESIZE);
+    model.put("messages", messages);
+    model.put("pagefirst", "true");
+    if(messageService.getPageSize() == 1 || messageService.getPageSize() == 0) {
+      model.put("pagelast", "true");
+    }
+    
     logger.debug("Welcome to home page.");
     
 //    if (initialTime == 0) {
@@ -134,6 +146,31 @@ private void InitialGroup(User user) {
     logger.debug("Start to show admin page.");
     model.put("menu", "admin");
     return "admin";
+  }
+  
+  @RequestMapping(value = {"/project"})
+  public String project(Map<String, Object> model) {
+    User user = userService.getCurrentUser();
+    model.put("user", user);
+    logger.debug("Start to show project page.");
+    model.put("menu", "project");
+    return "projectDashboard";
+  }
+  
+  @RequestMapping(value = {"/issue"})
+  public String issue(Map<String, Object> model) {
+    User user = userService.getCurrentUser();
+    model.put("user", user);
+    logger.debug("Start to show admin page.");
+    model.put("menu", "issue");
+    model.put("message", new Message());
+    List<Message> messages =  messageService.getMessages(0, messageService.PAZESIZE);
+    model.put("messages", messages);
+    model.put("pagefirst", "true");
+    if(messageService.getPageSize() == 1) {
+      model.put("pagelast", "true");
+    }
+    return "issue";
   }
 
 }

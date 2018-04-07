@@ -26,26 +26,30 @@
                                 <i class="fa fa-bell fa-fw"></i>Message Box
                             </div>
 
-                            <div class="panel-body">
-                                <div class="list-group">
-
-                                    <a href="#" class="list-group-item">
-                                        <i class="fa fa-warning fa-fw"></i>Server Rebooted
-                                    <span class="pull-right text-muted small"><em>11:32 AM</em>
-                                    </span>
-                                    </a>
-                                   
-                                </div>
-                                <!-- /.list-group -->
-                                <nav aria-label="...">
-                                   <ul class="pager">
-                                     <li class="previous disabled"><a href="#"><span aria-hidden="true">&larr;</span> Newer</a></li>
-                                     <li class="next"><a href="#">Older <span aria-hidden="true">&rarr;</span></a></li>
-                                   </ul>
-                               </nav>
-                            </div>
-
-                        </div>
+								<div class="panel-body"  id="messageList">
+                                    <div th:replace="fragments/messageInfo :: message_list"></div>
+								</div>
+								<div class="modal fade" id="myContent" tabindex="-1" role="dialog"
+									aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content" style="width: 1000px;">
+											<div class="modal-header">
+												<h4 class="modal-title" id="myLabel">消息详细内容</h4>
+											</div>
+											<div class="modal-body">
+												<div id="message" class="col-md-12">
+												</div>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-default"
+													data-dismiss="modal">关闭</button>
+											</div>
+										</div>
+										<!-- /.modal-content -->
+									</div>
+									<!-- /.modal -->
+								</div>
+							</div>
                     </div>
                 </div>
             </div>
@@ -54,5 +58,9 @@
         <div th:replace="fragments/footer :: footer"></div>
 	</div>
 </div>
+
 </body>
+
 </html>
+
+	

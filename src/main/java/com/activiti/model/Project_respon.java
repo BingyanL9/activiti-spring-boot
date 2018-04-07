@@ -1,14 +1,12 @@
 package com.activiti.model;
 
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -19,13 +17,13 @@ public class Project_respon {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
   
-  @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+  @OneToOne(fetch = FetchType.LAZY, optional=true)
   private Project project;
   
-  @OneToOne(mappedBy = "project_respon", fetch = FetchType.LAZY)
+  @OneToOne(fetch = FetchType.LAZY, optional=true)
   private TeacherUser charge;
   
-  @Column(name = "level", length =32) 
+  @Column(name = "level", length=32, nullable = false)
   private String level;
 
   public Long getId() {
@@ -59,5 +57,5 @@ public class Project_respon {
   public void setLevel(String level) {
     this.level = level;
   }
-  
+
 }

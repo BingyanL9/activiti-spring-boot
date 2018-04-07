@@ -6,7 +6,7 @@ define(["jquery", "bootstrap", "jqGrid"], function($, bootstrap, jqGrid){
 		var allActivity = [];
 		var allProject = [];
 		var allApplication = [];
-		var allFeekback = [];
+		var allFeedback = [];
 		
 		var loadStudentUsersTable = function() {
 			$('#studentUserTable').jqGrid({
@@ -1280,6 +1280,133 @@ define(["jquery", "bootstrap", "jqGrid"], function($, bootstrap, jqGrid){
 	    
 	    if ($("#applicationTable").length) {
 	    	loadApplicationTable();
+        }
+	    
+	    var loadFeedbackTable = function() {
+			$('#feedbackTable').jqGrid({
+	            datatype: "local",
+	            colNames: [ '编号','反馈日期','是否正确','意见','申请单编号'],
+	            colModel: [
+	                {
+	                    name: 'id',
+	                    index: 'id',
+	                    sorttype: 'text',
+	                    width: 150,
+	                    align: 'center'
+	                },
+	                {
+	                    name: 'feedback_time',
+	                    index: 'feedback_time',
+	                    width: 150,
+	                    align: 'center'
+	                },
+	                {
+	                    name: 'isCorrect',
+	                    index: 'isCorrect',
+	                    width: 150,
+	                    align: 'center'
+	                },
+	                {
+	                    name: 'suggest',
+	                    index: 'suggest',
+	                    width: 150,
+	                    align: 'center'
+	                },
+	                {
+	                    name: 'applicationId',
+	                    index: 'applicationId',
+	                    width: 150,
+	                    align: 'center'
+	                },
+	           
+	            ],
+	            viewrecords: true, // show the current page, data rang and total records on the toolbar
+	            height: 400,
+	            rowNum: 15,
+	            rownumbers: true,
+	            autowidth: false,
+	            shrinkToFit: true,
+	            gridview: true,
+	            multiselect: true,
+	            pager: "#feedbackTableDiv",
+	            rowList: [15, 30, 60],
+	        });
+			loadFeedbacksData();
+	        $('#feedbackTable').jqGrid('navGrid', "#feedbackTableDiv", {
+	            search: false, // show search button on the toolbar
+	            refresh: false,
+	            add: false,
+	            edit: false,
+	            del: false
+	        });
+	        $("#feedbackTable").jqGrid('navButtonAdd', "#feedbackTableDiv", {
+	            caption: "",
+	            title: "刷新",
+	            buttonicon: "ui-icon-refresh",
+	            onClickButton: function() {
+	            	loadFeedbacksData();
+	            }
+	        });
+	        $("#feedbackTable").navButtonAdd('#feedbackTableDiv', {
+	            caption: "",
+	            buttonicon: "ui-icon-trash",
+	            onClickButton: deleteFeedbackRow,
+	            position: "last",
+	            title: "删除申请单",
+	            cursor: "pointer"
+	        });
+		};
+		
+		var loadFeedbacksData = function() {
+			$.ajax({
+				type: "GET",
+				url: "/feedbacks",
+				success: function(data) {
+					console.log("success to load feedbacks!");
+					$('#feedbackTable').jqGrid("clearGridData");
+					allFeedback = data;
+		            for (var i in allFeedback) {
+		            	allFeedback[i].rowId = i + 1;
+		                $('#feedbackTable').jqGrid('addRowData',allFeedback[i].id, allFeedback[i]);
+		            }
+		            $('#feedbackTable').trigger("reloadGrid");
+		        },
+		        error: function(data, status) {
+		            console.log("failed to load feedbacks!");
+		        }
+			});
+	    };
+	    
+	    var deleteFeedbackRow = function() {
+	        var selectedRowIds = $("#feedbackTable").jqGrid("getGridParam", "selarrrow");
+	        var feedbacks = [];
+	        if (selectedRowIds && selectedRowIds.length > 0) {
+	        	for (var i=0;i<selectedRowIds.length;i++) {
+	    	    	var row = $("#feedbackTable").jqGrid("getRowData", selectedRowIds[i]);	    	   
+	    	    	if (row.id){
+	    	    		feedbacks.push(row.id);
+	    	    	}
+	    	    }
+	        console.log("id" + feedbacks);
+	        $.ajax({
+				type: "DELETE",
+				url: '/feedbacks/' + feedbacks,
+				success: function(data) {
+					var obj = JSON.parse(data);
+                    alert(obj.result);
+                    loadFeedbacksData();
+		        },
+		        error: function(data, status) {
+		            console.log("failed to delete feedback!");
+		        }
+			});
+	        }else{
+	        	$('#selectModal').modal('show');	
+	        }
+	    };
+	    
+	    if ($("#feedbackTable").length) {
+	    	loadFeedbackTable();
         }
 	});
 });
