@@ -1156,7 +1156,7 @@ define(["jquery", "bootstrap", "jqGrid"], function($, bootstrap, jqGrid){
 	                {
 	                    name: 'description',
 	                    index: 'description',
-	                    width: 200,
+	                    width: 300,
 	                    align: 'center'
 	                },
 	                {

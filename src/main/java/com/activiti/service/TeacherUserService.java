@@ -1,5 +1,6 @@
 package com.activiti.service;
 
+import java.io.Serializable;
 import java.security.Principal;
 import java.util.List;
 
@@ -17,8 +18,10 @@ import com.activiti.model.TeacherUser;
 import com.activiti.repository.TeacherUserRepository;
 
 @Service
-public class TeacherUserService {
+public class TeacherUserService implements Serializable {
   
+  private static final long serialVersionUID = 1L;
+
   @Autowired
   private TeacherUserRepository teacherRepository;
   

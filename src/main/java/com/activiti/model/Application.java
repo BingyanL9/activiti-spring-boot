@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.activiti.engine.delegate.DelegateExecution;
+
 @Entity
 public class Application {
   
@@ -382,5 +384,6 @@ public class Application {
   public void setDescription(String description) {
     this.description = description;
   }
+
 
 }

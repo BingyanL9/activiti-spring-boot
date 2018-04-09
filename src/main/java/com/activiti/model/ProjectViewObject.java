@@ -1,5 +1,6 @@
 package com.activiti.model;
 
+import javax.persistence.Column;
 
 public class ProjectViewObject {
   private Long id;
@@ -8,6 +9,8 @@ public class ProjectViewObject {
   private String cardNum;
   private String starting_date;
   private String end_time;
+  private double cash;
+  
   public Long getId() {
     return id;
   }
@@ -44,5 +47,10 @@ public class ProjectViewObject {
   public void setEnd_time(String end_time) {
     this.end_time = end_time;
   }
-
+  public double getCash() {
+    return cash;
+  }
+  public void setCash(double cash) {
+    this.cash = cash;
+  }
 }

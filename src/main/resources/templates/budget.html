@@ -26,6 +26,7 @@
 										<label>医疗预算</label>
 								</a></li>
 								<li><a href="#dailyBudget" data-toggle="tab"> <label>日常预算</label></a></li>
+								<li><a href="#activityBudget" data-toggle="tab"> <label>活动预算</label></a></li>
 							</ul>
 							<div id="myTabContent" class="tab-content">
 								<div class="tab-pane fade in active" id="medicalBudget" >
@@ -33,6 +34,9 @@
 								</div>
 								<div class="tab-pane fade" id="dailyBudget">
 								  <div th:replace="fragments/dailyBudget :: dailyBudget"></div>
+								</div>
+								<div class="tab-pane fade" id="activityBudget">
+								  <div th:replace="fragments/activityBudget :: activityBudget"></div>
 								</div>
 							</div>
 						</div>

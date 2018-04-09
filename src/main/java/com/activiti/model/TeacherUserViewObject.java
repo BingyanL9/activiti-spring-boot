@@ -3,6 +3,7 @@ package com.activiti.model;
 public class TeacherUserViewObject extends User {
   private String title;
   private double budget;
+  private double cash;
   private String leader_userName;
   public String getTitle() {
     return title;
@@ -22,5 +23,11 @@ public class TeacherUserViewObject extends User {
   public void setLeader_userName(String leader_userName) {
     this.leader_userName = leader_userName;
   }
-
+  public double getCash() {
+    return cash;
+  }
+  public void setCash(double cash) {
+    this.cash = cash;
+  }
+  
 }

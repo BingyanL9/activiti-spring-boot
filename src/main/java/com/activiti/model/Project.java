@@ -24,6 +24,9 @@ public class Project {
 
   @Column(name = "budget")
   private double budget;
+  
+  @Column(name = "cash", nullable = true)
+  private double cash;
 
   @Column(name = "cardNum")
   private String cardNum;
@@ -42,8 +45,8 @@ public class Project {
   @Column(name = "end_time")
   private String end_time;
 
-  @OneToOne(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  private Project_respon project_respon;
+  @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<Project_respon> project_respons;
 
   @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Application> documentApplications;
@@ -88,12 +91,12 @@ public class Project {
     this.end_time = end_time;
   }
 
-  public Project_respon getProject_respon() {
-    return project_respon;
+  public List<Project_respon> getProject_respons() {
+    return project_respons;
   }
 
-  public void setProject_respon(Project_respon project_respon) {
-    this.project_respon = project_respon;
+  public void setProject_respons(List<Project_respon> project_respons) {
+    this.project_respons = project_respons;
   }
 
   public List<Application> getDocumentApplications() {
@@ -104,5 +107,12 @@ public class Project {
     this.documentApplications = documentApplications;
   }
 
+  public double getCash() {
+    return cash;
+  }
+
+  public void setCash(double cash) {
+    this.cash = cash;
+  }
 
 }

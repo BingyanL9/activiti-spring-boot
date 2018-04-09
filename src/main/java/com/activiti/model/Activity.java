@@ -23,8 +23,11 @@ public class Activity {
   @Column(name = "activityname", nullable = false, length = 100)
   private String activityName;
   
-  @Column(name = "budget")
+  @Column(name = "budget", nullable = true)
   private double budget;
+  
+  @Column(name = "cash")
+  private double cash;
   
   @Column(name = "starting_date")
   private String starting_date;
@@ -94,4 +97,12 @@ public class Activity {
     this.applications = applications;
   }
 
+  public double getCash() {
+    return cash;
+  }
+
+  public void setCash(double cash) {
+    this.cash = cash;
+  }
+  
 }

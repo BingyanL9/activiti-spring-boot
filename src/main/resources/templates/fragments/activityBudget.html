@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<div th:fragment="activityBudget">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+							    <th>负责社团</th>
+								<th>活动名称</th>
+								<th>开始时间</th>
+								<th>结束时间</th>
+								<th>预算</th>
+								<th>未领取金额</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="activity,activityStat : ${activitys}">
+							    <td th:text="${activity.chargeClub.displayName}"></td>
+								<td th:text="${activity.activityName}"></td>
+								<td th:text="${activity.starting_date}"></td>
+								<td th:text="${activity.end_time}"></td>
+								<td th:text="${activity.budget}"></td>
+								<td th:text="${activity.cash}"></td>
+								<td><a data-toggle="modal" data-target="#activityModal" th:href="@{'/activities/' + ${activity.id}}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+							</tr>
+						</tbody>
+					</table>
+					<nav aria-label="...">
+						<ul class="pager">
+							<li class="previous"
+								th:classappend="${activitypagefirst == 'true' ? 'disabled' : ''}">
+								<a onclick="preActivityBudgetFinance();"><span aria-hidden="true">&larr;</span>
+									Newer</a>
+							</li>
+							<li class="next"
+								th:classappend="${activitypagelast == 'true' ? 'disabled' : ''}">
+								<a onclick="nextActivityBudgetFinance();">Older <span
+									aria-hidden="true">&rarr;</span></a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+		 <div class="modal fade" id="activityModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div th:replace="fragments/activityForm :: activityForm"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+

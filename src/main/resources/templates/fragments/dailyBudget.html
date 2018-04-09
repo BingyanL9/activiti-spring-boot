@@ -28,6 +28,7 @@
 								<th>职位</th>
 								<th>学院</th>
 								<th>预算</th>
+								<th>未领取现金</th>
 								<th>操作</th>
 							</tr>
 						</thead>
@@ -37,6 +38,7 @@
 						<td th:text="${teacherUser.title}"></td>
 						<td th:text="${teacherUser.college}"></td>
 						<td th:text="${teacherUser.budget}"></td>
+						<td th:text="${teacherUser.cash}"></td>
 						<td><a data-toggle="modal" data-target="#teacherModal" th:href="@{'/teacherusers/' + ${teacherUser.userName}}"><span class="glyphicon glyphicon-pencil"></span></a></td>
 						</tr>
 					</table>

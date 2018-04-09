@@ -254,18 +254,24 @@ private void InitialGroup(User user) {
     model.put("menu", "budget");
     List<StudentUser> studentUsers =  studentUserService.getStudentUsers(0, studentUserService.PAZESIZE);
     List<TeacherUser> teacherUsers =  teacherUserService.getTeacherUsers(0, teacherUserService.PAZESIZE);
+    List<Activity> activities =  activityService.getActivities(0, teacherUserService.PAZESIZE);
     model.put("studentUsers", studentUsers);
     model.put("studentUser", new StudentUser());
     model.put("teacherUsers", teacherUsers);
     model.put("teacherUser", new TeacherUser());
+    model.put("activitys", activities);
+    model.put("activity", new Activity());
     model.put("medicalpagefirst", "true");
     model.put("dailypagefirst", "true");
-    model.put("projectpagefirst", "true");
+    model.put("activitypagefirst", "true");
     if(studentUserService.getPageSize() == 1 || studentUserService.getPageSize() == 0) {
       model.put("medicalpagelast", "true");
     }
     if(teacherUserService.getPageSize() == 1 || teacherUserService.getPageSize() == 0) {
       model.put("dailypagelast", "true");
+    }
+    if(activityService.getTotalPageSize() == 1 || activityService.getTotalPageSize() == 0) {
+      model.put("activitypagelast", "true");
     }
     return "budget";
   }

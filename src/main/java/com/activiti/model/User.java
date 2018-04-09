@@ -13,8 +13,11 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+@JsonIgnoreProperties(value={"applications","approvals"}) 
 public class User{
 
   @Id

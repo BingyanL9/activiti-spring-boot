@@ -1,5 +1,6 @@
 package com.activiti.service;
 
+import java.io.Serializable;
 import java.security.Principal;
 
 import org.activiti.engine.IdentityService;

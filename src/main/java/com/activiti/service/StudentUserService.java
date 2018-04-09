@@ -1,5 +1,5 @@
 package com.activiti.service;
-
+import java.io.Serializable;
 import java.security.Principal;
 import java.util.List;
 
@@ -14,13 +14,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.activiti.model.Project;
 import com.activiti.model.StudentUser;
-import com.activiti.model.TeacherUser;
 import com.activiti.repository.StudentUserRepository;
 
 @Service
-public class StudentUserService {
+public class StudentUserService implements Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   private static final Logger logger = LoggerFactory.getLogger(StudentUserService.class);
   

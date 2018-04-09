@@ -1,6 +1,7 @@
 package com.activiti.service;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
@@ -20,7 +21,9 @@ import com.activiti.model.Mail;
 
 
 @Service
-public class MailService {
+public class MailService implements Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   private final static String from = "bingyanl@126.com";
 

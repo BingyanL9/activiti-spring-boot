@@ -21,8 +21,8 @@ public class TrafficAllowance {
   @Column(name = "days")
   private int days;
   
-  @Column(name = "standard")
-  private Double standard;
+  @Column(name = "standard", length=32)
+  private String standard;
   
   @Column(name = "money")
   private Double money;
@@ -54,11 +54,11 @@ public class TrafficAllowance {
     this.days = days;
   }
 
-  public Double getStandard() {
+  public String getStandard() {
     return standard;
   }
 
-  public void setStandard(Double standard) {
+  public void setStandard(String standard) {
     this.standard = standard;
   }
 

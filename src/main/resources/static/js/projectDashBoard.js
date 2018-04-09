@@ -6,7 +6,7 @@ define(["jquery", "bootstrap", "jqGrid","bootstrap_datetimepicker"], function($,
 		 var loadProjectTable = function() {
 				$('#projectInfoTable').jqGrid({
 		            datatype: "local",
-		            colNames: [ '编号', '项目名', '预算','经费卡号','开始日期', '结束日期'],
+		            colNames: [ '编号', '项目名', '预算','经费卡号','未领取现金','开始日期', '结束日期'],
 		            colModel: [
 		                {
 		                    name: 'id',
@@ -35,6 +35,14 @@ define(["jquery", "bootstrap", "jqGrid","bootstrap_datetimepicker"], function($,
 		                {
 		                    name: 'cardNum',
 		                    index: 'cardNum',
+		                    editable: true,
+		                    edittype: "text",
+		                    width: 150,
+		                    align: 'center',
+		                },
+		                {
+		                    name: 'cash',
+		                    index: 'cash',
 		                    editable: true,
 		                    edittype: "text",
 		                    width: 150,
@@ -129,6 +137,7 @@ define(["jquery", "bootstrap", "jqGrid","bootstrap_datetimepicker"], function($,
 		            title: "增加项目",
 		            cursor: "pointer",
 		            onClickButton: function() {
+		              $("#projectInfoTable").jqGrid('setColProp', 'cash', {editable:false});
 		                addProjectRow();
 		            },
 		        });
@@ -138,6 +147,7 @@ define(["jquery", "bootstrap", "jqGrid","bootstrap_datetimepicker"], function($,
 		            title: "修改项目",
 		            cursor: "pointer",
 		            onClickButton: function() {
+		            	$("#projectInfoTable").jqGrid('setColProp', 'cash', {editable:true});
 		            	editProjectRow();
 		            },
 		        });
@@ -222,7 +232,7 @@ define(["jquery", "bootstrap", "jqGrid","bootstrap_datetimepicker"], function($,
 			    				type: "PUT",
 			    				url: '/projects/' + postdata.projectInfoTable_id + '/?project_name=' + postdata.project_name
 			    				+ '&cardNum=' + postdata.cardNum + '&budget=' + postdata.budget + '&starting_date=' 
-			    				+ postdata.starting_date + '&end_time=' + postdata.end_time,
+			    				+ postdata.starting_date + '&end_time=' + postdata.end_time + '&cash=' + postdata.cash,
 			    				success: function(data) {
 			    					var obj = JSON.parse(data);
 			                        alert(obj.result);

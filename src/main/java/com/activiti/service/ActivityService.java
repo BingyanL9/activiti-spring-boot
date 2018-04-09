@@ -1,5 +1,6 @@
 package com.activiti.service;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,9 @@ import com.activiti.repository.ActivityRepository;
 import com.activiti.repository.ClubUserRepository;
 
 @Service
-public class ActivityService {
+public class ActivityService implements Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   @Autowired
   private ActivityRepository activityRepository;
@@ -55,9 +58,9 @@ public class ActivityService {
     return activityRepository.findActivitys(new PageRequest(offset, limit));
   }
   
-//  public int getPageSize() {
-//    return (getAllActivity().size()  +  PAZESIZE  - 1) / PAZESIZE; 
-//  }
+  public int getTotalPageSize() {
+    return (getAllActivity().size()  +  PAZESIZE  - 1) / PAZESIZE; 
+  }
   
   public int getPageSize(String userName) {
     return (activityRepository.findActivitysByClub(userName).size()  +  PAZESIZE  - 1) / PAZESIZE; 

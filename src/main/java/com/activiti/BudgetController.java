@@ -44,16 +44,16 @@ public class BudgetController {
 
   @Autowired
   private UserService userService;
-  
+
   @Autowired
   private ClubUserService clubUserService;
-  
+
   @Autowired
   private ActivityService activityService;
-  
+
   @Autowired
   private MailService mailService;
-  
+
   @Autowired
   private ActivityBudgetApplyService activityBudgetApplyService;
 
@@ -69,7 +69,7 @@ public class BudgetController {
     if (page == 0) {
       model.put("medicalpagefirst", "true");
     }
-    if (studentUserService.getPageSize() -1  == page) {
+    if (studentUserService.getPageSize() - 1 == page) {
       model.put("medicalpagelast", "true");
     }
     model.put("studentUser", new StudentUser());
@@ -90,18 +90,19 @@ public class BudgetController {
     model.put("studentUser", new StudentUser());
     return "fragments/medicalBudget :: medicalBudget";
   }
-  
+
   @RequestMapping(value = "/medicalbudget/{userName}", method = RequestMethod.PUT)
   public String updateMedicalBudget(@ModelAttribute StudentUser studentUser,
-      @PathVariable("userName") String userName ) {
+      @PathVariable("userName") String userName) {
     logger.debug("Start edit a student user's budget by user name: " + userName);
 
     StudentUser newStudentUser = studentUserService.findByName(userName);
     newStudentUser.setBudget(studentUser.getBudget());
+    newStudentUser.setCash(studentUser.getCash());
     studentUserService.update(newStudentUser);
     return "redirect:/budget";
   }
-  
+
   @RequestMapping(value = "/dailybudget/page/{page}", method = RequestMethod.GET)
   public String getTeacherUsers(Map<String, Object> model, @PathVariable("page") int page) {
     logger.debug("Start get a student user daily budget by page no : " + page);
@@ -112,7 +113,7 @@ public class BudgetController {
     if (page == 0) {
       model.put("dailypagefirst", "true");
     }
-    if (teacherUserService.getPageSize() -1  == page) {
+    if (teacherUserService.getPageSize() - 1 == page) {
       model.put("dailypagelast", "true");
     }
     model.put("teacherUser", new TeacherUser());
@@ -133,17 +134,18 @@ public class BudgetController {
     model.put("teacherUser", new TeacherUser());
     return "fragments/dailyBudget :: dailyBudget";
   }
-  
+
   @RequestMapping(value = "/dailybudget/{userName}", method = RequestMethod.PUT)
   public String updateDailyBudget(@ModelAttribute TeacherUser teacherUser,
-      @PathVariable("userName") String userName ) {
+      @PathVariable("userName") String userName) {
     logger.debug("Start edit a teacher user's budget by user name: " + userName);
     TeacherUser newteacherUser = teacherUserService.findByName(userName);
     newteacherUser.setBudget(teacherUser.getBudget());
+    newteacherUser.setCash(teacherUser.getCash());
     teacherUserService.update(newteacherUser);
     return "redirect:/budget";
   }
-  
+
   @RequestMapping(value = "/activitybudget", method = RequestMethod.POST)
   public String createActivityBudget(@ModelAttribute ActivityBudgetApply activityBudgetApply) {
     logger.debug("Start create a avtivity budget!");
@@ -165,21 +167,21 @@ public class BudgetController {
     mailService.mail(to, "报销系统提示", model, "fragments/Email");
     return "redirect:/activityapplication";
   }
-  
+
   @RequestMapping(value = "/activitybudget/{id}/{position}", method = RequestMethod.GET)
-  public String getActivityBudget(Map<String, Object> model,
-      @PathVariable("id") Long id, @PathVariable("position") String position) {
+  public String getActivityBudget(Map<String, Object> model, @PathVariable("id") Long id,
+      @PathVariable("position") String position) {
     logger.debug("Start get a activity budget by id: " + id);
     ActivityBudgetApply activityBudgetApply = activityBudgetApplyService.getActivityBudgetApply(id);
     model.put("activityBudgetApply", activityBudgetApply);
-    if(position.equals("info")) {
+    if (position.equals("info")) {
       return "fragments/activityInfo :: activityInfo";
-    }else {
+    } else {
       return "fragments/activityInfo :: rejectForm";
     }
-    
+
   }
-  
+
   @RequestMapping(value = "/activitybudget/{id}", method = RequestMethod.PUT)
   public String updateActivityBudget(@ModelAttribute ActivityBudgetApply activityBudgetApply,
       @PathVariable("id") Long id) {
@@ -197,7 +199,7 @@ public class BudgetController {
     activityBudgetApplyService.delete(newActivityBudgetApply);
     return "redirect:/activityapplication";
   }
-  
+
   @RequestMapping(value = "/activitybudget/{id}", method = RequestMethod.DELETE)
   public String approvalActivityBudget(@PathVariable("id") Long id) {
     logger.debug("Start approval an activity budget by id: " + id);
@@ -224,22 +226,38 @@ public class BudgetController {
     activity.setEnd_time(newActivityBudgetApply.getEnd_time());
     activityService.save(activity);
   }
-  
-  @RequestMapping(value = "/activitybudget/page/{page}", method = RequestMethod.GET)
-  public String getActivitybudgets(Map<String, Object> model, @PathVariable("page") int page) {
-    logger.debug("Start get a activity budget by page no : " + page);
 
-    User user = userService.getCurrentUser();
-    ClubUser clubUser = clubUserService.findByName(user.getUserName());
-    List<Activity> activitys = activityService.findActivitysByClub(clubUser.getUserName(), page, activityService.PAZESIZE);
+  @RequestMapping(value = "/activitybudget/page/{page}/{position}", method = RequestMethod.GET)
+  public String getActivitybudgets(Map<String, Object> model, @PathVariable("page") int page,
+      @PathVariable("position") String position) {
+    logger.debug("Start get a activity budget by page no : " + page);
+    List<Activity> activitys = new ArrayList<Activity>();
+    int pageSize = 0;
+    if (position.equals("club")) {
+      User user = userService.getCurrentUser();
+      ClubUser clubUser = clubUserService.findByName(user.getUserName());
+      activitys = activityService.findActivitysByClub(clubUser.getUserName(), page,
+          activityService.PAZESIZE);
+      pageSize = activityService.getPageSize(clubUser.getUserName());
+    } else {
+      activitys = activityService.getActivities(page, activityService.PAZESIZE);
+      pageSize = activityService.getTotalPageSize();
+      model.put("activity", new Activity());
+    }
     model.put("activitys", activitys);
     if (page == 0) {
       model.put("activitypagefirst", "true");
-    }
-    if (activityService.getPageSize(clubUser.getUserName()) -1  == page) {
       model.put("activitypagelast", "true");
     }
-    return "fragments/activityInfo :: activityBudget";
+    if (pageSize - 1 == page) {
+      model.put("activitypagelast", "true");
+    }
+    
+    if (position.equals("club")) {
+      return "fragments/activityInfo :: activityBudget";
+    } else {
+      return "fragments/activityBudget :: activityBudget";
+    }
   }
 
 }

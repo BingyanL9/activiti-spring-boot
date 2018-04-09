@@ -27,6 +27,7 @@
 								<th>名字</th>
 								<th>学院</th>
 								<th>预算</th>
+								<th>未领取现金</th>
 								<th>操作</th>
 							</tr>
 						</thead>
@@ -35,6 +36,7 @@
 						<td th:text="${studentUser.displayName}"></td>
 						<td th:text="${studentUser.college}"></td>
 						<td th:text="${studentUser.budget}"></td>
+						<td th:text="${studentUser.cash}"></td>
 						<td><a data-toggle="modal" data-target="#studentModal" th:href="@{'/studentusers/' + ${studentUser.userName}}"><span class="glyphicon glyphicon-pencil"></span></a></td>
 						</tr>
 					</table>

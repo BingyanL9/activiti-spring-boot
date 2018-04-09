@@ -2,56 +2,49 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <body>
-	<div th:fragment="teacherUserForm" th:remove="tag">
-		<form class="form-horizontal" id="teacherUserForm" th:method="PUT"
-			th:object="${teacherUser}" th:action="@{'dailybudget/' + ${teacherUser.userName}}">
+	<div th:fragment="activityForm" th:remove="tag">
+		<form class="form-horizontal" id="studentUserForm" th:method="PUT"
+			th:object="${activity}" th:action="@{'activities/' + ${activity.id}}">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title" id="myModalLabel">修改日常预算</h4>
+					<h4 class="modal-title" id="myModalLabel">活动预算</h4>
 				</div>
 				<div class="modal-body">
 					<div class="form-group required">
-						<label class="col-md-4 control-label">工号:</label>
+						<label class="col-md-4 control-label">活动名称:</label>
 						<div class="col-lg-8">
-							<input type="text" th:field="*{userName}" readOnly = "readOnly"/>
+							<input type="text" class="form-control" th:field="*{activityName}" readOnly = "readOnly"/>
 						</div>
 					</div>
 					
 					<div class="form-group required">
-						<label class="col-md-4 control-label">姓名:</label>
+						<label class="col-md-4 control-label">开始时间:</label>
 						<div class="col-lg-8">
-							<input type="text" th:field="*{displayName}" readOnly = "readOnly"/>
+							<input type="text" class="form-control" th:field="*{starting_date}" readOnly = "readOnly"/>
 						</div>
 					</div>
 					
 					<div class="form-group required">
-						<label class="col-md-4 control-label">职位:</label>
+						<label class="col-md-4 control-label">结束时间:</label>
 						<div class="col-lg-8">
-							<input type="text" th:field="*{title}" readOnly = "readOnly"/>
-						</div>
-					</div>
-					
-					<div class="form-group required">
-						<label class="col-md-4 control-label">学院:</label>
-						<div class="col-lg-8">
-							<input type="text" th:field="*{college}" readOnly = "readOnly"/>
+							<input type="text" class="form-control" th:field="*{end_time}" readOnly = "readOnly"/>
 						</div>
 					</div>
 					
 					<div class="form-group required">
 						<label class="col-md-4 control-label">预算:</label>
 						<div class="col-lg-8">
-							<input type="text" th:field="*{budget}" required="required"/>
+							<input type="text" class="form-control" th:field="*{budget}" required="required"/>
 						</div>
 					</div>
 					
 					<div class="form-group required">
 						<label class="col-md-4 control-label">未领取现金:</label>
 						<div class="col-lg-8">
-							<input type="text" th:field="*{cash}" required="required"/>
+							<input type="text" class="form-control" th:field="*{cash}" required="required"/>
 						</div>
 					</div>
 

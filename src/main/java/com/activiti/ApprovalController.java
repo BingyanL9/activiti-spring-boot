@@ -121,10 +121,9 @@ public class ApprovalController {
     String processInstanceId = approval.getProcessInstanceId();
     Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
     String taskName = task.getName();
-
     Map<String, Object> variableMap = new HashMap<String, Object>();
     variableMap.put("operation", "approval");
-
+   System.out.println(taskName);
     if (taskName.equals("medical_group_approval") || taskName.equals("clubCharge approval")) {
       Group group = identityService.createGroupQuery().groupType(Role.finance_group.toString())
           .singleResult();
@@ -134,7 +133,7 @@ public class ApprovalController {
     } else if (taskName.equals("finance_approval")) {
       approvalService.expenseTranser(approval, variableMap);
 
-    } else if (taskName.equals("project_leader_approval")) {
+    } else if (taskName.equals("project_leaders_approval")) {
       String temp = approvalService.projectLeaderApproval(approval);
       if (temp.equals(approval.getApproval_statu().name())) {
         approvalService.specialApproval(approval, variableMap);

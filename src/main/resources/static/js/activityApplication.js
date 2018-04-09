@@ -3,7 +3,7 @@ function preActivityBudget(){
 	page = page - 1;
 	$.ajax({
 		type: "GET",
-		url: "/activitybudget/page/" + page,
+		url: "/activitybudget/page/" + page + "/club",
 		success: function(responseHTML) {
 			var container = $("#activitybudget");
         	container.empty();
@@ -19,7 +19,7 @@ function nextActivityBudget(){
 	page = page + 1;
 	$.ajax({
 		type: "GET",
-		url: "/activitybudget/page/" + page,
+		url: "/activitybudget/page/" + page + "/club",
 		success: function(responseHTML) {
 			var container = $("#activitybudget");
         	container.empty();

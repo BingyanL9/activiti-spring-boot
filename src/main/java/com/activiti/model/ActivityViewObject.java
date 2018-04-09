@@ -7,6 +7,7 @@ public class ActivityViewObject {
   private Long id;
   private String activityName;
   private double budget;
+  private double cash;
   private String starting_date;
   private String end_time;
   private String chargeClub;
@@ -46,6 +47,12 @@ public class ActivityViewObject {
   }
   public void setChargeClub(String chargeClub) {
     this.chargeClub = chargeClub;
+  }
+  public double getCash() {
+    return cash;
+  }
+  public void setCash(double cash) {
+    this.cash = cash;
   }
   
 }

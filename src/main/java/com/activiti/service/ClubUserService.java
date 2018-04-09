@@ -1,5 +1,6 @@
 package com.activiti.service;
 
+import java.io.Serializable;
 import java.security.Principal;
 import java.util.List;
 
@@ -17,7 +18,9 @@ import com.activiti.model.ClubUser;
 import com.activiti.model.TeacherUser;
 import com.activiti.repository.ClubUserRepository;
 @Service
-public class ClubUserService {
+public class ClubUserService implements Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   private static final Logger logger = LoggerFactory.getLogger(ClubUserService.class);
   

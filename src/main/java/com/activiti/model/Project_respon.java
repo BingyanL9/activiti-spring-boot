@@ -7,6 +7,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -17,10 +18,10 @@ public class Project_respon {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
   
-  @OneToOne(fetch = FetchType.LAZY, optional=true)
+  @ManyToOne(fetch = FetchType.LAZY, optional=true)
   private Project project;
   
-  @OneToOne(fetch = FetchType.LAZY, optional=true)
+  @ManyToOne(fetch = FetchType.LAZY, optional=true)
   private TeacherUser charge;
   
   @Column(name = "level", length=32, nullable = false)

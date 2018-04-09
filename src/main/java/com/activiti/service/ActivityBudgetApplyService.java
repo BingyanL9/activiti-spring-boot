@@ -1,5 +1,6 @@
 package com.activiti.service;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,9 @@ import com.activiti.model.ActivityBudgetApply;
 import com.activiti.repository.ActivityBudgetApplyRepository;
 
 @Service
-public class ActivityBudgetApplyService {
+public class ActivityBudgetApplyService implements Serializable {
+  
+  private static final long serialVersionUID = 1L;
   
   @Autowired
   private ActivityBudgetApplyRepository activityBudgetApplyRepository;

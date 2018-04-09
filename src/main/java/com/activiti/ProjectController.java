@@ -52,6 +52,7 @@ public class ProjectController {
       projectViewObject.setCardNum(project.getCardNum());
       projectViewObject.setId(project.getId());
       projectViewObject.setProject_name(project.getProject_name());
+      projectViewObject.setCash(project.getCash());
       projectViewObject.setStarting_date(project.getStarting_date());
       projectViewObject.setEnd_time(project.getEnd_time());
       projectViewObjects.add(projectViewObject);
@@ -127,6 +128,7 @@ public class ProjectController {
         newProject.setBudget(projectViewObject.getBudget());
         newProject.setCardNum(projectViewObject.getCardNum());
         newProject.setEnd_time(projectViewObject.getEnd_time());
+        newProject.setCash(projectViewObject.getCash());
         newProject.setStarting_date(projectViewObject.getStarting_date());
         newProject.setProject_name(projectViewObject.getProject_name());
         newProject.setId(projectId);
@@ -246,7 +248,7 @@ public class ProjectController {
   }
 
   private boolean checkLevelWhenAdd(Project_responViewObject project_responVO) {
-    Long projectId = Long.getLong(project_responVO.getProjectName());
+    Long projectId = Long.valueOf(project_responVO.getProjectName());
     int maxLevel = project_responService.getMaxLevel(projectId);
     if (maxLevel + 1 == Integer.valueOf(project_responVO.getLevel())) {
       return false;

@@ -101,5 +101,38 @@ function searchDailyBudget() {
 }
 
 
+var page2 = 0;
+function preActivityBudgetFinance(){
+	page2 = page2 - 1;
+	$.ajax({
+		type: "GET",
+		url: "/activitybudget/page/" + page2 + "/finance",
+		success: function(responseHTML) {
+			var container = $("#activityBudget");
+        	container.empty();
+        	$("#activityBudget").prepend(responseHTML);
+        },
+        error: function(response, status) {
+            console.log("failed to get activity budget page" + page2);
+        }
+	}); 
+}
+
+function nextActivityBudgetFinance(){
+	page2 = page2 + 1;
+	$.ajax({
+		type: "GET",
+		url: "/activitybudget/page/" + page2 + "/finance",
+		success: function(responseHTML) {
+			var container = $("#activityBudget");
+        	container.empty();
+        	$("#activityBudget").prepend(responseHTML);
+        },
+        error: function(response, status) {
+            console.log("failed to get activity budget page" + page2);
+        }
+	}); 
+}
+
 
 	 

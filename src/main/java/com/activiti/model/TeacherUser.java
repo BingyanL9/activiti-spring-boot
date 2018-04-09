@@ -19,6 +19,9 @@ public class TeacherUser extends User {
 
   @Column(name = "budget")
   private double budget;
+  
+  @Column(name = "cash", nullable = true)
+  private double cash;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = true)
   private TeacherUser leader;
@@ -26,8 +29,8 @@ public class TeacherUser extends User {
   @OneToMany(mappedBy = "leader", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<TeacherUser> subordinates;
 
-  @OneToOne(mappedBy = "charge", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  private Project_respon project_respon;
+  @OneToMany(mappedBy = "charge", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<Project_respon> project_respons;
 
   public String getTitle() {
     return title;
@@ -60,13 +63,22 @@ public class TeacherUser extends User {
   public void setBudget(double budget) {
     this.budget = budget;
   }
-
-  public Project_respon getProject_respons() {
-    return project_respon;
+  
+  public double getCash() {
+    return cash;
   }
 
-  public void setProject_respons(Project_respon project_respons) {
-    this.project_respon = project_respons;
+  public void setCash(double cash) {
+    this.cash = cash;
+  }
+
+  
+  public List<Project_respon> getProject_respons() {
+    return project_respons;
+  }
+
+  public void setProject_respons(List<Project_respon> project_respons) {
+    this.project_respons = project_respons;
   }
 
   public TeacherUser() {
