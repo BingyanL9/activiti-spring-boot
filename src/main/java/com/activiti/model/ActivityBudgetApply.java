@@ -127,5 +127,5 @@ public class ActivityBudgetApply {
   public void setStatus(Approval_status status) {
     this.status = status;
   }
-
+  
 }

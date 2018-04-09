@@ -11,9 +11,9 @@ import com.activiti.model.Approval;
 public interface ApprovalRepository extends JpaRepository<Approval, Long> {
   
   @Query("select a from Approval a where a.approval_person.userName = ?1")
-  List<Approval> getApprovalByTeacherUser(String teacherUserName);
+  List<Approval> getApprovalByUser(String teacherUserName);
   
-  @Query("select a from Approval a where a.approval_club.userName = ?1")
-  List<Approval> getApprovalByClubUser(String clubUserName);
+  @Query("select a from Approval a where a.approval_group_id = ?1")
+  List<Approval> getApprovalByGroupId(String groupId);
 
 }

@@ -8,4 +8,5 @@ requirejs(['./require-common'], function (common) {
 	requirejs(['/js/projectDashBoard.js']);
 	requirejs(['/js/budget.js']);
 	requirejs(['/js/activityApplication.js']);
+	requirejs(['/js/approval.js']);
 });

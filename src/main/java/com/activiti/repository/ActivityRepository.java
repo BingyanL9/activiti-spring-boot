@@ -19,4 +19,10 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
   
   @Query("select a from Activity a order by a.chargeClub.userName")
   List<Activity> findActivitys(Pageable pageable);
+  
+  @Query("select a from Activity a where a.chargeClub.userName = ?1 order by a.starting_date asc")
+  List<Activity> findActivitysByClub(String userName, Pageable pageable);
+  
+  @Query("select a from Activity a where a.chargeClub.userName = ?1")
+  List<Activity> findActivitysByClub(String userName);
 }

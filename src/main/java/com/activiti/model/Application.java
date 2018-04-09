@@ -111,18 +111,12 @@ public class Application {
   private Double total;
   
   @ManyToOne(fetch = FetchType.LAZY)
-  private TeacherUser application_teacher;
-  
-  @ManyToOne(fetch = FetchType.LAZY)
-  private StudentUser application_student;
-  
-  @ManyToOne(fetch = FetchType.LAZY)
   private Project project;
   
   @ManyToOne(fetch = FetchType.LAZY)
   private Activity activity;
   
-  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
   private Approval approval;
 
   public Long getId() {
@@ -267,22 +261,6 @@ public class Application {
 
   public void setTotal(Double total) {
     this.total = total;
-  }
-
-  public TeacherUser getApplication_teacher() {
-    return application_teacher;
-  }
-
-  public void setApplication_teacher(TeacherUser application_teacher) {
-    this.application_teacher = application_teacher;
-  }
-
-  public StudentUser getApplication_student() {
-    return application_student;
-  }
-
-  public void setApplication_student(StudentUser application_student) {
-    this.application_student = application_student;
   }
 
   public Project getProject() {

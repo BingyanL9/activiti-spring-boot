@@ -70,20 +70,12 @@ public class DocumentItem {
     this.item_description = item_description;
   }
 
-  public DocumentItem(Long id, String item_name, double item_money, String item_description,
-      Application application) {
-    super();
-    this.id = id;
-    this.item_name = item_name;
-    this.item_money = item_money;
-    this.item_description = item_description;
-    this.application = application;
+  public ActivityBudgetApply getActivityBudgetApply() {
+    return activityBudgetApply;
   }
 
-  public DocumentItem() {
-    super();
-    // TODO Auto-generated constructor stub
+  public void setActivityBudgetApply(ActivityBudgetApply activityBudgetApply) {
+    this.activityBudgetApply = activityBudgetApply;
   }
-
 
 }

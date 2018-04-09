@@ -12,5 +12,5 @@ public enum Approval_status {
    * rejected:000;
    * approval:100;
    */
-  pending,level_1,level_2,level_3,level_4,level_5,level_6,rejected,approval
+  pending,level_1,level_2,level_3,level_4,level_5,level_6,level_7,rejected,approval
 }

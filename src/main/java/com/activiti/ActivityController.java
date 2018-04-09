@@ -40,7 +40,7 @@ public class ActivityController {
       activityViewObject.setStarting_date(activity.getStarting_date());
       activityViewObject.setEnd_time(activity.getEnd_time());
       String chargeClub = activity.getChargeClub().getCollege();
-      chargeClub += activity.getCharge_club().getDisplayName();
+      chargeClub += activity.getChargeClub().getDisplayName();
       activityViewObject.setChargeClub(chargeClub);
       activityViewObjects.add(activityViewObject);
     }

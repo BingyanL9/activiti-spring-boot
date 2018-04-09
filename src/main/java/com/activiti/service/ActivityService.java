@@ -55,7 +55,15 @@ public class ActivityService {
     return activityRepository.findActivitys(new PageRequest(offset, limit));
   }
   
-  public int getPageSize() {
-    return (getAllActivity().size()  +  PAZESIZE  - 1) / PAZESIZE; 
+//  public int getPageSize() {
+//    return (getAllActivity().size()  +  PAZESIZE  - 1) / PAZESIZE; 
+//  }
+  
+  public int getPageSize(String userName) {
+    return (activityRepository.findActivitysByClub(userName).size()  +  PAZESIZE  - 1) / PAZESIZE; 
+  }
+  
+  public List<Activity> findActivitysByClub(String userName, int offset, int limit){
+    return activityRepository.findActivitysByClub(userName, new PageRequest(offset, limit));
   }
 }

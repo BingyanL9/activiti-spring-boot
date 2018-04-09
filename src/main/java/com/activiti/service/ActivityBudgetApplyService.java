@@ -18,6 +18,14 @@ public class ActivityBudgetApplyService {
     activityBudgetApplyRepository.save(activityBudgetApply);
   }
   
+  public void delete(ActivityBudgetApply activityBudgetApply) {
+    activityBudgetApplyRepository.delete(activityBudgetApply);
+  }
+  
+  public ActivityBudgetApply getActivityBudgetApply(Long id) {
+    return activityBudgetApplyRepository.findOne(id);
+  }
+  
   public List<ActivityBudgetApply> getActivityBudgetByClubName(String clubUserName) {
     return activityBudgetApplyRepository.getActivityBudgetByClubName(clubUserName);
   }
@@ -25,5 +33,5 @@ public class ActivityBudgetApplyService {
   public List<ActivityBudgetApply> getActivityBudgetByApprovalUserName(String approvalUserName) {
     return activityBudgetApplyRepository.getActivityBudgetByApprovalUserName(approvalUserName);
   }
-
+  
 }

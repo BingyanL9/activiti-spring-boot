@@ -16,5 +16,8 @@ public interface Project_responRepository extends JpaRepository<Project_respon, 
   
   @Query("select p.level from Project_respon p where p.project.id = ?1 ")
   List<String> getLevels(Long projectId);
+  
+  @Query("select p.charge from Project_respon p where p.project.id = ?1 and p.level = ?2")
+  TeacherUser getResponUser(Long projectId, String level);
 
 }

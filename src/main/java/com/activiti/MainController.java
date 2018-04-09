@@ -1,5 +1,6 @@
 package com.activiti;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.activiti.model.Activity;
 import com.activiti.model.ActivityBudgetApply;
 import com.activiti.model.Application;
+import com.activiti.model.Approval;
 import com.activiti.model.CityTrafficExpenseViewObject;
 import com.activiti.model.DocumentExpenseViewObject;
 import com.activiti.model.Message;
@@ -27,9 +29,11 @@ import com.activiti.model.StudentUser;
 import com.activiti.model.TeacherUser;
 import com.activiti.model.TravelExpenseViewObject;
 import com.activiti.model.User;
+import com.activiti.model.Voucher;
 import com.activiti.service.ActivityBudgetApplyService;
 import com.activiti.service.ActivityService;
 import com.activiti.service.ApplicationService;
+import com.activiti.service.ApprovalService;
 import com.activiti.service.ClubUserService;
 import com.activiti.service.MailService;
 import com.activiti.service.MessageService;
@@ -55,6 +59,9 @@ public class MainController {
   private ApplicationService applicationService;
   
   @Autowired
+  private ApprovalService approvalService;
+  
+  @Autowired
   private MessageService messageService;
   
   @Autowired
@@ -71,6 +78,9 @@ public class MainController {
   
   @Autowired
   private ActivityBudgetApplyService activityBudgetApplyService;
+  
+  @Autowired
+  private ActivityService activityService;
   
   private int initialTime = 0;
   
@@ -94,10 +104,10 @@ public class MainController {
 //    model1.put("message", "您有一份申请单需要审批!");
 //    model1.put("sendDate", "2018");
 //    mailService.mail(to, "Notifation", model1, "fragments/Email");
-//    if (initialTime == 0) {
-//      InitialGroup(userService.getCurrentUser());
-//      initialTime ++;
-//    }
+//      if (initialTime == 0) {
+//        InitialGroup(userService.getCurrentUser());
+//        initialTime ++;
+//      }
     return "home";
   }
 
@@ -177,9 +187,16 @@ private void InitialGroup(User user) {
       model.put("isClub", "true");
     }
     logger.debug("Start to show approval.");
-    List<Application> applications = applicationService.getApplicationsByUser(user.getUserName());
-    model.put("applications", applications);
+    List<Group> groups = identityService.createGroupQuery().groupMember(user.getUserName()).list();
+    List<Approval> candidateApprovals = new ArrayList<Approval>();
+    for (Group g :groups) {
+      candidateApprovals.addAll(approvalService.getApprovalByGroupId(g.getId()));
+    }
+    List<Approval> assignApprovals = approvalService.getApprovalByUser(user.getUserName());
+    model.put("assignApprovals", assignApprovals);
+    model.put("candidateApprovals", candidateApprovals);
     model.put("menu", "approval");
+    model.put("approval", new Approval());
     return "approval";
   }
   
@@ -244,7 +261,6 @@ private void InitialGroup(User user) {
     model.put("medicalpagefirst", "true");
     model.put("dailypagefirst", "true");
     model.put("projectpagefirst", "true");
-    model.put("activitypagefirst", "true");
     if(studentUserService.getPageSize() == 1 || studentUserService.getPageSize() == 0) {
       model.put("medicalpagelast", "true");
     }
@@ -262,10 +278,33 @@ private void InitialGroup(User user) {
     model.put("menu", "activityapplication");
     String clubUserName = user.getUserName();
     model.put("isClub", "true");
-    List<ActivityBudgetApply> activityBudgetApplys = activityBudgetApplyService.getActivityBudgetByClubName(clubUserName);
+    List<ActivityBudgetApply> activityBudgetApplys =
+        activityBudgetApplyService.getActivityBudgetByClubName(clubUserName);
     model.put("activityBudgetApplys", activityBudgetApplys);
+    List<Activity> activitys =
+        activityService.findActivitysByClub(user.getUserName(), 0, activityService.PAZESIZE);
+    model.put("activitys", activitys);
+    model.put("activitypagefirst", "true");
+    if (activityService.getPageSize(user.getUserName()) == 1
+        || activityService.getPageSize(user.getUserName()) == 0) {
+      model.put("activitypagelast", "true");
+    }
     model.put("activityBudgetApply", new ActivityBudgetApply());
     return "activityapplication";
+  }
+  
+  @RequestMapping(value = {"/activityapproval"})
+  public String activityApproval(Map<String, Object> model) {
+    User user = userService.getCurrentUser();
+    model.put("user", user);
+    logger.debug("Start to show activityapproval page.");
+    model.put("menu", "activityapproval");
+    String clubUserName = user.getUserName();
+    model.put("isClub", "true");
+    List<ActivityBudgetApply> activityBudgetApplys = activityBudgetApplyService.getActivityBudgetByApprovalUserName(clubUserName);
+    model.put("activityBudgetApplys", activityBudgetApplys);
+    model.put("activityBudgetApply", new ActivityBudgetApply());
+    return "activityapproval";
   }
 
 }

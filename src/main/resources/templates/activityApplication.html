@@ -3,12 +3,9 @@
 
 <head>
 <link th:include="fragments/header :: header"></link>
-<link rel="stylesheet" th:href="@{/css/lib/bootstrap-datetimepicker.css}" />
-
 </head>
 <body>
 	<div id="wrapper">
-
 		<div class="content-wrapper full-content-wrapper">
 			<!-- navigation start-->
 			<div th:replace="fragments/header :: nav"></div>
@@ -17,55 +14,74 @@
 				<div id="page-inner">
 					<div class="row">
 						<div class="col-md-12">
-							<h1 class="page-head-line">-- 活动预算申请 --</h1>
+							<h2 class="page-head-line">-- 活动预算 --</h2>
 						</div>
-					</div>
-					<!-- /. ROW  -->
-					<div class="col-md-12">
-						<div class="panel panel-default">
-							<div class="panel-body">
-								<div class="col-md-12">
-									<a class="btn btn-primary pull-right" data-toggle="modal"
-										data-target="#activityApplicationModal"> <span>提交活动预算申请</span></a>
+						<div class="col-md-12">
+							<ul id="myTab" class="nav nav-tabs">
+								<li class="active"><a href="#apply" data-toggle="tab">
+										<label>活动预算申请表</label>
+								</a></li>
+								<li><a href="#activitybudget" data-toggle="tab"> <label>活动预算表</label></a></li>
+							</ul>
+							<div id="myTabContent" class="tab-content">
+								<div class="tab-pane fade in active" id="apply">
+									<div class="col-md-12">
+										<div class="panel panel-default">
+											<div class="panel-body">
+												<div class="col-md-12">
+													<a class="btn btn-primary pull-right" data-toggle="modal"
+														data-target="#activityApplicationModal"> <span>提交活动预算申请</span></a>
+
+												</div>
+
+												<div class="table-responsive">
+													<table class="table table-striped">
+														<thead>
+															<tr>
+																<th>活动名称</th>
+																<th>开始时间</th>
+																<th>结束时间</th>
+																<th>预算</th>
+																<th>状态</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr
+																th:each="activityBudgetApply,activityBudgetApplyStat : ${activityBudgetApplys}">
+																<td th:text="${activityBudgetApply.activityName}"></td>
+																<td th:text="${activityBudgetApply.starting_date}"></td>
+																<td th:text="${activityBudgetApply.end_time}"></td>
+																<td th:text="${activityBudgetApply.budget}"></td>
+																<td
+																	th:if="${activityBudgetApply.status.name() == 'approval'}"
+																	th:text="已审批"></td>
+																<td
+																	th:if="${activityBudgetApply.status.name() == 'pending'}"
+																	th:text="正在审批中"></td>
+																<td
+																	th:if="${activityBudgetApply.status.name() == 'rejected'}"
+																	th:text="请重新提交"></td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+										<div class="modal fade" id="activityApplicationModal"
+											tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+											<div class="modal-dialog" role="document"
+												style="width: 1000px">
+												<div class="modal-content">
+													<div
+														th:replace="fragments/activityBudgetApplyForm :: activityBudgetApplyForm"></div>
+												</div>
+											</div>
+										</div>
+									</div>
 
 								</div>
-
-								<div class="table-responsive">
-									<table class="table table-striped">
-										<thead>
-											<tr>
-												<th>活动名称</th>
-												<th>开始时间</th>
-												<th>结束时间</th>
-												<th>预算</th>
-												<th>状态</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr th:each="activityBudgetApply,activityBudgetApplyStat : ${activityBudgetApplys}">
-												<td th:text="${activityBudgetApply.activityName}"></td>
-												<td th:text="${activityBudgetApply.starting_date}"></td>
-												<td th:text="${activityBudgetApply.end_time}"></td>
-												<td th:text="${activityBudgetApply.budget}"></td>
-												<td
-													th:if="${activityBudgetApply.status.name() == 'approval'}"
-													th:text="已审批"></td>
-												<td th:if="${activityBudgetApply.status.name() == 'pending'}"
-													th:text="正在审批中"></td>
-												<td
-													th:if="${activityBudgetApply.status.name() == 'rejected'}"
-													th:text="请重新提交"></td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-						<div class="modal fade" id="activityApplicationModal" tabindex="-1"
-							role="dialog" aria-labelledby="myModalLabel">
-							<div class="modal-dialog" role="document" style="width:1000px">
-								<div class="modal-content">
-									<div th:replace="fragments/activityBudgetApplyForm :: activityBudgetApplyForm"></div>
+								<div class="tab-pane fade" id="activitybudget">
+										<div th:replace="fragments/activityInfo :: activityBudget"></div>
 								</div>
 							</div>
 						</div>
@@ -75,6 +91,5 @@
 			<div th:replace="fragments/footer :: footer"></div>
 		</div>
 	</div>
-
 </body>
 </html>

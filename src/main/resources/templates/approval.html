@@ -24,15 +24,126 @@
 								<li><a href="#assignee" data-toggle="tab"> <label>受理的任务</label></a></li>
 							</ul>
 							<div id="myTabContent" class="tab-content">
-								<div class="tab-pane fade in active" id="candidate"></div>
-								<div class="tab-pane fade" id="assignee"></div>
+								<div class="tab-pane fade in active" id="candidate">
+									<div class="col-md-12">
+										<div class="panel panel-default">
+											<div class="panel-body">
+												<div class="table-responsive">
+													<table class="table table-striped">
+														<thead>
+															<tr>
+																<th>标题</th>
+																<th>申请时间</th>
+																<th>操作</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr
+																th:each="candidateApproval,candidateApprovalStat : ${candidateApprovals}">
+																<td
+																	th:text="${candidateApproval.application.description}"></td>
+																<td
+																	th:text="${candidateApproval.application.createtime}"></td>
+																<td><a class="btn btn-primary btn-xs"
+																	data-toggle="modal" data-target="#applicationInfoModal"
+																	data-placement="bottom" title="查看"
+																	th:onclick="'javascript:getApplicationById(\''+${candidateApproval.application.id}+'\');'">
+																		<span class="glyphicon glyphicon-zoom-in"></span>
+																</a> <a class="btn btn-primary btn-xs"
+																	th:onclick="|$('#candidateForm${candidateApproval.id}').submit();return false;|">
+																		<span>领取</span>
+																</a>
+																	<form th:id="|candidateForm${candidateApproval.id}|"
+																		th:action="@{'/approval/'+${candidateApproval.id} + '/assignee'}"
+																		th:method="PUT"></form></td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+								<div class="tab-pane fade" id="assignee">
+									<div class="col-md-12">
+										<div class="panel panel-default">
+											<div class="panel-body">
+												<div class="table-responsive">
+													<table class="table table-striped">
+														<thead>
+															<tr>
+																<th>标题</th>
+																<th>申请时间</th>
+																<th>操作</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr
+																th:each="assignApproval,assignApprovalStat : ${assignApprovals}">
+																<td th:text="${assignApproval.application.description}"></td>
+																<td th:text="${assignApproval.application.createtime}"></td>
+																<td><a class="btn btn-primary btn-xs"
+																	data-toggle="modal" data-target="#applicationInfoModal"
+																	data-placement="bottom" title="查看"
+																	th:onclick="'javascript:getApplicationById(\''+${assignApproval.application.id}+'\');'">
+																		<span class="glyphicon glyphicon-zoom-in"></span>
+																</a> <a class="btn btn-primary btn-xs"
+																	th:onclick="|$('#candidateForm${assignApproval.id}').submit();return false;|">
+																		<span>批准</span>
+																</a><a class="btn btn-primary btn-xs" style="margin-left: 5px"
+																       data-toggle="modal" data-target="#expenseRejectModal" data-placement="bottom"
+																	   th:href="@{'/approval/'+${assignApproval.id}}">
+																		<span>拒绝</span>
+																</a>
+																	<form th:id="|candidateForm${assignApproval.id}|"
+																		th:action="@{'/approval/'+${assignApproval.id} + '/approval'}"
+																		th:method="PUT"></form></td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
+							<div class="modal fade" id="applicationInfoModal" tabindex="-1"
+								role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content" style="width: 1000px;">
+										<div class="modal-header">
+											<h4 class="modal-title" id="myModalLabel">申请单详细信息</h4>
+										</div>
+										<div class="modal-body row">
+											<div id="applicationInfoInApproval" class="col-md-12">
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default"
+												data-dismiss="modal">关闭</button>
+										</div>
+									</div>
+									<!-- /.modal-content -->
+								</div>
+								<!-- /.modal -->
+							</div>
+							
+							<div class="modal fade" id="expenseRejectModal" tabindex="-1"
+							role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div th:replace="fragments/activityInfo :: expenseRejectForm"></div>
+								<!-- /.modal-content -->
+							</div>
+							<!-- /.modal -->
 						</div>
+						</div>
+
 					</div>
 				</div>
 			</div>
-			<div th:replace="fragments/footer :: footer"></div>
 		</div>
 	</div>
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.activiti;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,15 +15,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.activiti.model.Activity;
 import com.activiti.model.ActivityBudgetApply;
 import com.activiti.model.Approval_status;
 import com.activiti.model.ClubUser;
+import com.activiti.model.DocumentItem;
 import com.activiti.model.StudentUser;
 import com.activiti.model.TeacherUser;
 import com.activiti.model.User;
 import com.activiti.service.ActivityBudgetApplyService;
 import com.activiti.service.ActivityService;
 import com.activiti.service.ClubUserService;
+import com.activiti.service.MailService;
 import com.activiti.service.ProjectService;
 import com.activiti.service.StudentUserService;
 import com.activiti.service.TeacherUserService;
@@ -43,6 +47,12 @@ public class BudgetController {
   
   @Autowired
   private ClubUserService clubUserService;
+  
+  @Autowired
+  private ActivityService activityService;
+  
+  @Autowired
+  private MailService mailService;
   
   @Autowired
   private ActivityBudgetApplyService activityBudgetApplyService;
@@ -128,7 +138,6 @@ public class BudgetController {
   public String updateDailyBudget(@ModelAttribute TeacherUser teacherUser,
       @PathVariable("userName") String userName ) {
     logger.debug("Start edit a teacher user's budget by user name: " + userName);
-
     TeacherUser newteacherUser = teacherUserService.findByName(userName);
     newteacherUser.setBudget(teacherUser.getBudget());
     teacherUserService.update(newteacherUser);
@@ -143,8 +152,94 @@ public class BudgetController {
     activityBudgetApply.setChargeUserName(clubUser.getUserName());
     activityBudgetApply.setApprovalUserName(clubUser.getLeaderClub().getUserName());
     activityBudgetApply.setStatus(Approval_status.pending);
+    List<DocumentItem> items = activityBudgetApply.getItems();
+    for (DocumentItem documentItem : items) {
+      documentItem.setActivityBudgetApply(activityBudgetApply);
+    }
     activityBudgetApplyService.save(activityBudgetApply);
+    logger.debug("strat to send emial to notify approval user.");
+    String[] to = {clubUser.getLeaderClub().getEmail()};
+    Map<String, Object> model = new HashMap<String, Object>();
+    model.put("message", "您有一份" + clubUser.getDisplayName() + "的活动预算申请单需要审批!");
+    model.put("sendDate", "2018");
+    mailService.mail(to, "报销系统提示", model, "fragments/Email");
     return "redirect:/activityapplication";
+  }
+  
+  @RequestMapping(value = "/activitybudget/{id}/{position}", method = RequestMethod.GET)
+  public String getActivityBudget(Map<String, Object> model,
+      @PathVariable("id") Long id, @PathVariable("position") String position) {
+    logger.debug("Start get a activity budget by id: " + id);
+    ActivityBudgetApply activityBudgetApply = activityBudgetApplyService.getActivityBudgetApply(id);
+    model.put("activityBudgetApply", activityBudgetApply);
+    if(position.equals("info")) {
+      return "fragments/activityInfo :: activityInfo";
+    }else {
+      return "fragments/activityInfo :: rejectForm";
+    }
+    
+  }
+  
+  @RequestMapping(value = "/activitybudget/{id}", method = RequestMethod.PUT)
+  public String updateActivityBudget(@ModelAttribute ActivityBudgetApply activityBudgetApply,
+      @PathVariable("id") Long id) {
+    logger.debug("Start get a reject reason of an activity budget by id: " + id);
+    ActivityBudgetApply newActivityBudgetApply =
+        activityBudgetApplyService.getActivityBudgetApply(id);
+    ClubUser clubUser = clubUserService.findByName(newActivityBudgetApply.getChargeUserName());
+    logger.debug("strat to send emial when activity approval be rejected.");
+    String[] to = {clubUser.getEmail()};
+    Map<String, Object> model = new HashMap<String, Object>();
+    model.put("message", "您的" + newActivityBudgetApply.getActivityName() + "活动预算申请 被拒绝！拒绝理由为："
+        + activityBudgetApply.getDisApprovalReason() + "。");
+    model.put("sendDate", "2018");
+    mailService.mail(to, "报销系统提示", model, "fragments/Email");
+    activityBudgetApplyService.delete(newActivityBudgetApply);
+    return "redirect:/activityapplication";
+  }
+  
+  @RequestMapping(value = "/activitybudget/{id}", method = RequestMethod.DELETE)
+  public String approvalActivityBudget(@PathVariable("id") Long id) {
+    logger.debug("Start approval an activity budget by id: " + id);
+    ActivityBudgetApply newActivityBudgetApply =
+        activityBudgetApplyService.getActivityBudgetApply(id);
+    ClubUser clubUser = clubUserService.findByName(newActivityBudgetApply.getChargeUserName());
+    logger.debug("strat to send emial when activity approval be rejected.");
+    String[] to = {clubUser.getEmail()};
+    Map<String, Object> model = new HashMap<String, Object>();
+    model.put("message", "您的" + newActivityBudgetApply.getActivityName() + "活动预算申请 已批准！");
+    model.put("sendDate", "2018");
+    mailService.mail(to, "报销系统提示", model, "fragments/Email");
+    createActivity(newActivityBudgetApply, clubUser);
+    activityBudgetApplyService.delete(newActivityBudgetApply);
+    return "redirect:/activityapplication";
+  }
+
+  private void createActivity(ActivityBudgetApply newActivityBudgetApply, ClubUser clubUser) {
+    Activity activity = new Activity();
+    activity.setActivityName(newActivityBudgetApply.getActivityName());
+    activity.setBudget(newActivityBudgetApply.getBudget());
+    activity.setChargeClub(clubUser);
+    activity.setStarting_date(newActivityBudgetApply.getStarting_date());
+    activity.setEnd_time(newActivityBudgetApply.getEnd_time());
+    activityService.save(activity);
+  }
+  
+  @RequestMapping(value = "/activitybudget/page/{page}", method = RequestMethod.GET)
+  public String getActivitybudgets(Map<String, Object> model, @PathVariable("page") int page) {
+    logger.debug("Start get a activity budget by page no : " + page);
+
+    User user = userService.getCurrentUser();
+    ClubUser clubUser = clubUserService.findByName(user.getUserName());
+    List<Activity> activitys = activityService.findActivitysByClub(clubUser.getUserName(), page, activityService.PAZESIZE);
+    model.put("activitys", activitys);
+    if (page == 0) {
+      model.put("activitypagefirst", "true");
+    }
+    if (activityService.getPageSize(clubUser.getUserName()) -1  == page) {
+      model.put("activitypagelast", "true");
+    }
+    return "fragments/activityInfo :: activityBudget";
   }
 
 }

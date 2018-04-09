@@ -41,6 +41,9 @@ public class User{
   
   @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<Application> applications;
+  
+  @OneToMany(mappedBy = "approval_person", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<Approval> approvals;
       
   public User() {
     super();
@@ -111,5 +114,12 @@ public class User{
     this.applications = applications;
   }
 
-  
+  public List<Approval> getApprovals() {
+    return approvals;
+  }
+
+  public void setApprovals(List<Approval> approvals) {
+    this.approvals = approvals;
+  }
+
 }

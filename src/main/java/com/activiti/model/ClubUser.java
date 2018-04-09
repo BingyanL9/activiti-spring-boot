@@ -19,9 +19,6 @@ public class ClubUser extends User{
   @OneToMany(mappedBy = "chargeClub", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<Activity> activities;
   
-  @OneToMany(mappedBy = "approval_club", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  private List<Approval> approvals;
-  
   public ClubUser getLeaderClub() {
     return leaderClub;
   }

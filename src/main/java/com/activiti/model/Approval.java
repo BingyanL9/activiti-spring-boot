@@ -1,9 +1,6 @@
 package com.activiti.model;
 
 
-import java.util.Date;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -28,10 +25,7 @@ public class Approval {
   private Application application;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  private TeacherUser approval_person;
-  
-  @ManyToOne(fetch = FetchType.LAZY)
-  private ClubUser approval_club;
+  private User approval_person;
   
   @Column(name = "approval_statu", nullable = false)
   @Enumerated(EnumType.STRING)
@@ -39,6 +33,9 @@ public class Approval {
   
   @Column(name = "disapproval_reason", length = 200 )
   private String disapproval_reason;
+  
+  @Column(name = "approval_group_id", length = 64)
+  private String approval_group_id;
   
   @Column(name = "processInstanceId", nullable = false)
   private String processInstanceId;
@@ -57,22 +54,6 @@ public class Approval {
 
   public void setApplication(Application application) {
     this.application = application;
-  }
-
-  public TeacherUser getApproval_person() {
-    return approval_person;
-  }
-
-  public void setApproval_person(TeacherUser approval_person) {
-    this.approval_person = approval_person;
-  }
-
-  public ClubUser getApprocval_club() {
-    return approval_club;
-  }
-
-  public void setApprocval_club(ClubUser approcval_club) {
-    this.approval_club = approcval_club;
   }
 
   public Approval_status getApproval_statu() {
@@ -97,6 +78,22 @@ public class Approval {
 
   public void setProcessInstanceId(String processInstanceId) {
     this.processInstanceId = processInstanceId;
+  }
+
+  public User getApproval_person() {
+    return approval_person;
+  }
+
+  public void setApproval_person(User approval_person) {
+    this.approval_person = approval_person;
+  }
+
+  public String getApproval_group_id() {
+    return approval_group_id;
+  }
+
+  public void setApproval_group_id(String approval_group_id) {
+    this.approval_group_id = approval_group_id;
   }
   
 }

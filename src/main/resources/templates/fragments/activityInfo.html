@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<div th:fragment="activityInfo" class="col-md-12">
+		<div class="modal-content" style="width: 800px;">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">清单详细</h4>
+			</div>
+			<div class="modal-body row">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>小项名称</th>
+										<th>小项金额</th>
+										<th>小项说明</th>
+									</tr>
+									<tr th:each="item,itemStat : ${activityBudgetApply.items}">
+										<td th:text="${item.item_name}"></td>
+										<td th:text="${item.item_money}"></td>
+										<td th:text="${item.item_description}"></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</thead>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal"
+					onclick="window.location.reload();">关闭</button>
+			</div>
+		</div>
+	</div>
+
+	<div th:fragment="rejectForm" class="col-md-12">
+		<div class="modal-content" style="width: 400px;">
+			<form class="form-horizontal" id="rejectForm" th:method="PUT"
+				th:object="${activityBudgetApply}"
+				th:action="@{'activitybudget/' + ${activityBudgetApply.id}}">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel">拒绝理由</h4>
+				</div>
+				<div class="modal-body row">
+
+
+					<div class="form-group required row">
+						<div class="col-md-12">
+							<textarea class="form-control" rows="10"
+								th:field="*{disApprovalReason}" required="required"></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-default">确定</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal"
+						onclick="window.location.reload();">关闭</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+		<div th:fragment="expenseRejectForm" class="col-md-12">
+		<div class="modal-content" style="width: 400px;">
+			<form class="form-horizontal" id="expenseRejectForm" th:method="PUT"
+				th:object="${approval}" th:action="@{'approval/' + ${approval.id} + '/rejected'}">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel">拒绝理由</h4>
+				</div>
+				<div class="modal-body row">
+
+
+					<div class="form-group required row">
+						<div class="col-md-12">
+							<textarea class="form-control" rows="10"
+								th:field="*{disapproval_reason}" required="required"></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-default">确定</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal"
+						onclick="window.location.reload();">关闭</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div th:fragment="activityBudget" class="col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>活动名称</th>
+								<th>开始时间</th>
+								<th>结束时间</th>
+								<th>预算</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="activity,activityStat : ${activitys}">
+								<td th:text="${activity.activityName}"></td>
+								<td th:text="${activity.starting_date}"></td>
+								<td th:text="${activity.end_time}"></td>
+								<td th:text="${activity.budget}"></td>
+							</tr>
+						</tbody>
+					</table>
+					<nav aria-label="...">
+						<ul class="pager">
+							<li class="previous"
+								th:classappend="${activitypagefirst == 'true' ? 'disabled' : ''}">
+								<a onclick="preActivityBudget();"><span aria-hidden="true">&larr;</span>
+									Newer</a>
+							</li>
+							<li class="next"
+								th:classappend="${activitypagelast == 'true' ? 'disabled' : ''}">
+								<a onclick="nextActivityBudget();">Older <span
+									aria-hidden="true">&rarr;</span></a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>

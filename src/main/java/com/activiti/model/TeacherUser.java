@@ -11,27 +11,21 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-public class TeacherUser extends User{
-  
-  
-  @Column(name = "title", length =32) 
+public class TeacherUser extends User {
+
+
+  @Column(name = "title", length = 32)
   private String title;
-  
+
   @Column(name = "budget")
   private double budget;
-  
+
   @ManyToOne(fetch = FetchType.LAZY, optional = true)
   private TeacherUser leader;
-  
+
   @OneToMany(mappedBy = "leader", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<TeacherUser> subordinates;
-  
-  @OneToMany(mappedBy = "application_teacher", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  private List<Application> documentApplications;
-  
-  @OneToMany(mappedBy = "approval_person", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  private List<Approval> approvals;
-  
+
   @OneToOne(mappedBy = "charge", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private Project_respon project_respon;
 
@@ -59,28 +53,12 @@ public class TeacherUser extends User{
     this.subordinates = subordinates;
   }
 
-  public List<Application> getDocumentApplications() {
-    return documentApplications;
-  }
-
-  public void setDocumentApplications(List<Application> documentApplications) {
-    this.documentApplications = documentApplications;
-  }
-
   public double getBudget() {
     return budget;
   }
 
   public void setBudget(double budget) {
     this.budget = budget;
-  }
-
-  public List<Approval> getApprovals() {
-    return approvals;
-  }
-
-  public void setApprovals(List<Approval> approvals) {
-    this.approvals = approvals;
   }
 
   public Project_respon getProject_respons() {

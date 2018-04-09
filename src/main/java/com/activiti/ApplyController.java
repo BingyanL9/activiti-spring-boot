@@ -10,6 +10,8 @@ import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.identity.Group;
+import org.activiti.engine.identity.User;
+import org.activiti.engine.identity.UserQuery;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
@@ -35,6 +37,7 @@ import com.activiti.model.Approval;
 import com.activiti.model.Approval_status;
 import com.activiti.model.CityTrafficExpenseViewObject;
 import com.activiti.model.CityTrafficItem;
+import com.activiti.model.ClubUser;
 import com.activiti.model.DocumentExpenseViewObject;
 import com.activiti.model.DocumentItem;
 import com.activiti.model.OnboardTravelExpenseViewObject;
@@ -51,6 +54,7 @@ import com.activiti.model.Voucher;
 import com.activiti.service.ActivityService;
 import com.activiti.service.ApplicationService;
 import com.activiti.service.ApprovalService;
+import com.activiti.service.MailService;
 import com.activiti.service.ProjectService;
 import com.activiti.service.Project_responService;
 import com.activiti.service.StudentUserService;
@@ -94,6 +98,9 @@ public class ApplyController {
   
   @Autowired
   private IdentityService identityService;
+  
+  @Autowired
+  private MailService mailService;
   
   @Autowired
   private Project_responService project_responService;
@@ -156,6 +163,7 @@ public class ApplyController {
     application.setDepartment(devo.getDepartment());
     application.setCreatetime(devo.getCreatetime());
     application.setCardNum(devo.getCardnum());
+    
     List<DocumentItem> items = new ArrayList<DocumentItem>();
     for (DocumentItem item: devo.getItems()) {
       DocumentItem documentItem = new DocumentItem();
@@ -165,7 +173,9 @@ public class ApplyController {
       items.add(documentItem);
     }
     application.setDocumentItems(items);
+    
     application.setTotal(total);
+    
     List<Voucher> vouchers = getVouchers(devo, application);
     application.setVouchers(vouchers);
    
@@ -177,55 +187,83 @@ public class ApplyController {
     approval.setProcessInstanceId(processInstance.getId());
     application.setApplication_type(devo.getApplication_Type());
     String applicationType = "";
+    
+    Map<String, Object> model = new HashMap<String, Object>();
+    List<String> to = new ArrayList<String> ();
     if (devo.getApplication_Type() == Application_Type.ActivityExpense) {
+      taskService.complete(t1.getId(), variableMap);
+      
+      Task t2 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
       Activity activity =
           activityService.findByCardNumAndActivityName(devo.getActivityName(), devo.getCardnum());
       application.setActivity(activity);
-      approval.setApprocval_club(activity.getCharge_club());
-      taskService.complete(t1.getId(), variableMap);
-      Task t2 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
-      taskService.setAssignee(t2.getId(), activity.getCharge_club().getUserName());
+      ClubUser approvalClubUser = activity.getChargeClub();
+      approval.setApproval_person(approvalClubUser);
+      taskService.setAssignee(t2.getId(), approvalClubUser.getUserName());
       approval.setApproval_statu(Approval_status.level_1);
       applicationType = "活动报销";
+      
+      to.add(approvalClubUser.getEmail());
+      model.put("message", "您有一份"+ approvalClubUser.getDisplayName() +"的活动报销申请需要审批!");
+      
     }else if (devo.getApplication_Type() == Application_Type.MedicalExpense) {
-      StudentUser studentUser = studentUserService.getCurrentUser();
-      application.setApplication_student(studentUser);
+      taskService.complete(t1.getId(), variableMap);
+      
       application.setHospitalName(devo.getHospitalName());
       application.setIllnessName(devo.getIllnessName());
-      approval.setApproval_statu(Approval_status.level_1);
-      Group g =identityService.createGroupQuery().groupType(Role.medical_group.toString()).singleResult();
-      taskService.complete(t1.getId(), variableMap);
-      Task t2 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
-      taskService.addCandidateGroup(t2.getId(), g.getId());
-      applicationType = "医疗报销";
-    }else if (devo.getApplication_Type() == Application_Type.DailyExpense) {
-      TeacherUser teacher = teacherUserService.findCurrentUser();
-      application.setApplication_teacher(teacher);
-      approval.setApproval_person(teacher.getLeader());
       approval.setApproval_statu(Approval_status.pending);
+      applicationType = "医疗报销";
+      
+      Task t2 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
+      Group g =identityService.createGroupQuery().groupType(Role.medical_group.toString()).singleResult();
+      taskService.addCandidateGroup(t2.getId(), g.getId());
+      approval.setApproval_group_id(g.getId());
+      List<User> medicalGroupUser = identityService.createUserQuery().memberOfGroup(g.getId()).list();
+      for (User user : medicalGroupUser) {
+        to.add(user.getEmail());
+      }
+      model.put("message", "您有一份"+ userService.getCurrentUserDisplayName() +"的医疗报销申请需要认领!");
+  
+    }else if (devo.getApplication_Type() == Application_Type.DailyExpense) {
       taskService.complete(t1.getId(), variableMap);
+      
+      TeacherUser teacher = teacherUserService.findCurrentUser();
+      approval.setApproval_person(teacher.getLeader());
+      approval.setApproval_statu(Approval_status.level_1);
+      applicationType = "日常报销";
+      
       Task t2 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
       taskService.setAssignee(t2.getId(), teacher.getLeader().getUserName());
-      applicationType = "日常报销";
+      
+      to.add(teacher.getLeader().getEmail());
+      model.put("message", "您有一份"+ teacher.getDisplayName() +"的日常报销申请需要审批!");
     }else {
       Project project = projectService.findByCardNum(devo.getCardnum());
       application.setProject(project);
-      approval.setApproval_statu(Approval_status.pending);
+      applicationType = "项目报销";
+      
       List<TeacherUser> project_leaders = project_responService.getResponUsers(project.getId());
       variableMap.put("project_leaders", project_leaders);
       taskService.complete(t1.getId(), variableMap);
-      List<Task> tasks = taskService.createTaskQuery().processInstanceId(processInstance.getId()).list();
-      for(int i=0;i<tasks.size();i++) {
-        taskService.setAssignee(tasks.get(i).getId(), project_leaders.get(i).getUserName());
-      }
-      applicationType = "项目报销";
+      Task t2 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
+      approval.setApproval_statu(Approval_status.level_1);
+      TeacherUser projectLeader = project_responService.getResponUser(project.getId(),"1");
+      taskService.setAssignee(t2.getId(), projectLeader.getUserName());
+      approval.setApproval_person(projectLeader);
+      
+      to.add(projectLeader.getEmail());
+      model.put("message", "您有一份"+ userService.getCurrentUserDisplayName() +"的项目申请需要审批!");
     }
+    
+    model.put("sendDate", "2018");
+    logger.debug("strat to send emial.");
+    mailService.mail(to.toArray(new String[0]), "报销系统提示", model, "fragments/Email");
     
     String payMode = devo.getPaymode();
     application.setPaymode(payMode);
     Payee payee = new Payee();
     payee = devo.getPayee();
-    application.setDescription(application.getOwner().getDisplayName() + '的' +applicationType);
+    application.setDescription(userService.getCurrentUserDisplayName() + '的' +applicationType);
     approvalService.saveWhenCreate(payee, approval, application);
     return "redirect:/applylist";
  }
@@ -278,7 +316,6 @@ public class ApplyController {
     String applicationType = "";
     if (ctevo.getApplication_Type() == Application_Type.DailyExpense) {
       TeacherUser teacher = teacherUserService.findCurrentUser();
-      application.setApplication_teacher(teacher);
       approval.setApproval_person(teacher.getLeader());
       approval.setApproval_statu(Approval_status.pending);
       applicationType = "日常报销";
@@ -375,7 +412,6 @@ public class ApplyController {
     application.setApplication_type(tevo.getApplication_Type());
     if (tevo.getApplication_Type() == Application_Type.DailyExpense) {
       TeacherUser teacher = teacherUserService.findCurrentUser();
-      application.setApplication_teacher(teacher);
       approval.setApproval_person(teacher.getLeader());
       approval.setApproval_statu(Approval_status.pending);
       applicationType = "日常报销";
@@ -440,7 +476,6 @@ public class ApplyController {
     application.setApplication_type(otevo.getApplication_Type());
     if (otevo.getApplication_Type() == Application_Type.DailyExpense) {
       TeacherUser teacher = teacherUserService.findCurrentUser();
-      application.setApplication_teacher(teacher);
       approval.setApproval_person(teacher.getLeader());
       approval.setApproval_statu(Approval_status.pending);
       applicationType = "日常报销";

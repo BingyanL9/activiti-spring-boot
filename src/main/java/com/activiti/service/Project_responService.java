@@ -52,4 +52,12 @@ public class Project_responService {
     project_responRepository.save(project_respon);
   }
   
+  public TeacherUser getResponUser(Long projectId, String level) {
+    return project_responRepository.getResponUser(projectId, level);
+  }
+  
+  public int getResponUserSize(Long projectId) {
+    return getResponUsers(projectId).size();
+  }
+  
 }

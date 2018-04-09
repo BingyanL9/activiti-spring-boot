@@ -323,8 +323,7 @@ define(["jquery", "bootstrap", "jqGrid","bootstrap_datetimepicker"], function($,
 	                    editoptions: {
                           value: "1:一级领导;2:二级领导;" +
                   		         "3:三级领导;4:四级领导;" +
-                		          "5:五级领导;6:六级领导;" +
-                		          "7:七级领导"
+                		          "5:五级领导"
 	                    }
 	                }
 	            ],

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<link th:include="fragments/header :: header"></link>
+<link rel="stylesheet"
+	th:href="@{/css/lib/bootstrap-datetimepicker.css}" />
+
+</head>
+<body>
+	<div id="wrapper">
+
+		<div class="content-wrapper full-content-wrapper">
+			<!-- navigation start-->
+			<div th:replace="fragments/header :: nav"></div>
+			<!-- navigation end-->
+			<div id="page-wrapper">
+				<div id="page-inner">
+					<div class="row">
+						<div class="col-md-12">
+							<h1 class="page-head-line">-- 活动预算审批 --</h1>
+						</div>
+					</div>
+					<!-- /. ROW  -->
+					<div class="col-md-12">
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<div class="table-responsive">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th>活动名称</th>
+												<th>开始时间</th>
+												<th>结束时间</th>
+												<th>预算</th>
+												<th>操作</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr
+												th:each="activityBudgetApply,activityBudgetApplyStat : ${activityBudgetApplys}">
+												<td th:text="${activityBudgetApply.activityName}"></td>
+												<td th:text="${activityBudgetApply.starting_date}"></td>
+												<td th:text="${activityBudgetApply.end_time}"></td>
+												<td th:text="${activityBudgetApply.budget}"></td>
+												<td><a class="btn btn-primary btn-xs"
+													data-toggle="modal" data-target="#activityInfoModal"
+													data-placement="bottom" title="查看清单"
+													th:href="@{'/activitybudget/'+${activityBudgetApply.id} + '/info'}">
+														<span class="glyphicon glyphicon-zoom-in"></span>
+												</a> 
+												
+												<a class="btn btn-primary btn-xs" th:onclick="|$('#approvalActivityBudgetForm${activityBudgetApply.id}').submit();return false;|"> <span>批准</span></a> 
+												<a
+													class="btn btn-primary btn-xs" data-toggle="modal"
+													data-target="#rejectModal" data-placement="bottom"
+													th:href="@{'/activitybudget/'+${activityBudgetApply.id} + '/reject'}">
+														<span>拒绝</span>
+												</a>
+												<form th:id="|approvalActivityBudgetForm${activityBudgetApply.id}|" th:action="@{'/activitybudget/'+${activityBudgetApply.id}}" th:method="DELETE"></form>	
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="modal fade" id="activityInfoModal" tabindex="-1"
+							role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div th:replace="fragments/activityInfo :: activityInfo"></div>
+								<!-- /.modal-content -->
+							</div>
+							<!-- /.modal -->
+						</div>
+
+						<div class="modal fade" id="rejectModal" tabindex="-1"
+							role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div th:replace="fragments/activityInfo :: rejectForm"></div>
+								<!-- /.modal-content -->
+							</div>
+							<!-- /.modal -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<div th:replace="fragments/footer :: footer"></div>
+		</div>
+	</div>
+
+</body>
+</html>

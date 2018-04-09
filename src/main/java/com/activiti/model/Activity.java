@@ -46,14 +46,6 @@ public class Activity {
     this.id = id;
   }
 
-  public String getActivity_name() {
-    return activityName;
-  }
-
-  public void setActivity_name(String activity_name) {
-    this.activityName = activity_name;
-  }
-
   public double getBudget() {
     return budget;
   }
@@ -76,14 +68,6 @@ public class Activity {
 
   public void setEnd_time(String end_time) {
     this.end_time = end_time;
-  }
-
-  public ClubUser getCharge_club() {
-    return chargeClub;
-  }
-
-  public void setCharge_club(ClubUser charge_club) {
-    this.chargeClub = charge_club;
   }
 
   public String getActivityName() {
