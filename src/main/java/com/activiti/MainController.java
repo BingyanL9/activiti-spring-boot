@@ -86,16 +86,15 @@ public class MainController {
   
   @RequestMapping(value = {"/", "/home"})
   public String home(Map<String, Object> model) {
-    model.put("user", userService.getCurrentUser());
+    User user = userService.getCurrentUser();
+    model.put("user", user);
     List<Message> messages =  messageService.getMessages(0, messageService.PAZESIZE);
     model.put("messages", messages);
     model.put("pagefirst", "true");
     if(messageService.getPageSize() == 1 || messageService.getPageSize() == 0) {
       model.put("pagelast", "true");
     }
-    if(clubUserService.findByName(userService.getCurrentUser().getUserName()) != null) {
-      model.put("isClub", "true");
-    }
+    setRole(model, user);
     
     logger.debug("Welcome to home page.");
 //    logger.debug("strat to send emial.");
@@ -109,6 +108,16 @@ public class MainController {
 //        initialTime ++;
 //      }
     return "home";
+  }
+
+  private void setRole(Map<String, Object> model, User user) {
+    if(studentUserService.findByName(user.getUserName()) != null) {
+      model.put("role", "student");
+    }else if(clubUserService.findByName(user.getUserName()) != null) {
+      model.put("role", "club");
+    }else if (teacherUserService.findByName(user.getUserName()) != null){
+      model.put("role", "teacher");
+    }
   }
 
 private void InitialGroup(User user) {
@@ -152,10 +161,9 @@ private void InitialGroup(User user) {
 
   @RequestMapping(value = {"/apply"})
   public String apply(Map<String, Object> model) {
-    model.put("user", userService.getCurrentUser());
-    if(clubUserService.findByName(userService.getCurrentUser().getUserName()) != null) {
-      model.put("isClub", "true");
-    }
+    User user = userService.getCurrentUser();
+    model.put("user", user);
+    setRole(model, user);
     logger.debug("Start to apply an expense");
     model.put("DocumentExpenseViewObject", new DocumentExpenseViewObject());
     model.put("CityTrafficExpenseViewObject", new CityTrafficExpenseViewObject());
@@ -169,9 +177,7 @@ private void InitialGroup(User user) {
   public String applyList(Map<String, Object> model) {
     User user = userService.getCurrentUser();
     model.put("user", user);
-    if(clubUserService.findByName(userService.getCurrentUser().getUserName()) != null) {
-      model.put("isClub", "true");
-    }
+    setRole(model, user);
     logger.debug("Start to show apply list.");
     List<Application> applications = applicationService.getApplicationsByUser(user.getUserName());
     model.put("applications", applications);
@@ -183,9 +189,7 @@ private void InitialGroup(User user) {
   public String approval(Map<String, Object> model) {
     User user = userService.getCurrentUser();
     model.put("user", user);
-    if(clubUserService.findByName(userService.getCurrentUser().getUserName()) != null) {
-      model.put("isClub", "true");
-    }
+    setRole(model, user);
     logger.debug("Start to show approval.");
     List<Group> groups = identityService.createGroupQuery().groupMember(user.getUserName()).list();
     List<Approval> candidateApprovals = new ArrayList<Approval>();
@@ -204,9 +208,6 @@ private void InitialGroup(User user) {
   public String admin(Map<String, Object> model) {
     User user = userService.getCurrentUser();
     model.put("user", user);
-    if(clubUserService.findByName(userService.getCurrentUser().getUserName()) != null) {
-      model.put("isClub", "true");
-    }
     logger.debug("Start to show admin page.");
     model.put("menu", "admin");
     return "admin";
@@ -216,9 +217,6 @@ private void InitialGroup(User user) {
   public String project(Map<String, Object> model) {
     User user = userService.getCurrentUser();
     model.put("user", user);
-    if(clubUserService.findByName(userService.getCurrentUser().getUserName()) != null) {
-      model.put("isClub", "true");
-    }
     logger.debug("Start to show project page.");
     model.put("menu", "project");
     return "projectDashboard";
@@ -229,9 +227,6 @@ private void InitialGroup(User user) {
     User user = userService.getCurrentUser();
     model.put("user", user);
     logger.debug("Start to show admin page.");
-    if(clubUserService.findByName(userService.getCurrentUser().getUserName()) != null) {
-      model.put("isClub", "true");
-    }
     model.put("menu", "issue");
     model.put("message", new Message());
     List<Message> messages =  messageService.getMessages(0, messageService.PAZESIZE);
@@ -248,9 +243,6 @@ private void InitialGroup(User user) {
     User user = userService.getCurrentUser();
     model.put("user", user);
     logger.debug("Start to show budget page.");
-    if(clubUserService.findByName(userService.getCurrentUser().getUserName()) != null) {
-      model.put("isClub", "true");
-    }
     model.put("menu", "budget");
     List<StudentUser> studentUsers =  studentUserService.getStudentUsers(0, studentUserService.PAZESIZE);
     List<TeacherUser> teacherUsers =  teacherUserService.getTeacherUsers(0, teacherUserService.PAZESIZE);
@@ -283,7 +275,7 @@ private void InitialGroup(User user) {
     logger.debug("Start to show activityapplication page.");
     model.put("menu", "activityapplication");
     String clubUserName = user.getUserName();
-    model.put("isClub", "true");
+    model.put("role", "club");
     List<ActivityBudgetApply> activityBudgetApplys =
         activityBudgetApplyService.getActivityBudgetByClubName(clubUserName);
     model.put("activityBudgetApplys", activityBudgetApplys);
@@ -306,7 +298,7 @@ private void InitialGroup(User user) {
     logger.debug("Start to show activityapproval page.");
     model.put("menu", "activityapproval");
     String clubUserName = user.getUserName();
-    model.put("isClub", "true");
+    model.put("role", "club");
     List<ActivityBudgetApply> activityBudgetApplys = activityBudgetApplyService.getActivityBudgetByApprovalUserName(clubUserName);
     model.put("activityBudgetApplys", activityBudgetApplys);
     model.put("activityBudgetApply", new ActivityBudgetApply());

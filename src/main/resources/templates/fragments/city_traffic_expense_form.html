@@ -71,7 +71,7 @@
 				</select>
 			</div>
 	    </div>
-	    <div style="display:none" class="paymentInfo col-md-12">
+	    <div style="display:none" class="paymentInfo ">
 		     <div class="form-group required col-md-4">
 			  <label class="control-label col-md-5" for="payee-name">收款单位名称:</label>
 			  <div class="col-md-7">
@@ -126,19 +126,6 @@
 	  </div>
 	</div>
 	  
- 	 <div class="form-group required col-md-4">
-		  <label class="control-label col-md-5" for="date">日期:</label>
-		    <div class="col-md-7">
-			  <div class='input-group date form_date' data-date-format="yyyy-mm-dd">  
-                <input type='text' class="form-control" readonly="readonly"
-		        th:name="|cityTrafficItems[${itemIndex}].date|" required="required"/>  
-                <span class="input-group-addon">  
-                    <i class="glyphicon glyphicon-calendar"></i>  
-                </span> 
-             </div> 
-           </div>  
-    </div>
-	
 	<div class="form-group required col-md-4">
 	  <label class="control-label col-md-5" for="travelReason">出差事由:</label>
 	  <div class="col-md-7">
@@ -170,6 +157,19 @@
 	    placeholder="请输入其他费用"/>
 	  </div>
 	</div>
+	
+	 <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="date">日期:</label>
+		    <div class="col-md-7">
+			  <div class='input-group date form_date' data-date-format="yyyy-mm-dd">  
+                <input type='text' class="form-control" readonly="readonly"
+		        th:name="|cityTrafficItems[${itemIndex}].date|" required="required"/>  
+                <span class="input-group-addon">  
+                    <i class="glyphicon glyphicon-calendar"></i>  
+                </span> 
+             </div> 
+           </div>  
+    </div>
 	
 	<div class="form-group required col-md-4">
 	  <label class="control-label col-md-5" for="total">合计:</label>

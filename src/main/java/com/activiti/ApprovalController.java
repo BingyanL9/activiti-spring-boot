@@ -123,7 +123,6 @@ public class ApprovalController {
     String taskName = task.getName();
     Map<String, Object> variableMap = new HashMap<String, Object>();
     variableMap.put("operation", "approval");
-   System.out.println(taskName);
     if (taskName.equals("medical_group_approval") || taskName.equals("clubCharge approval")) {
       Group group = identityService.createGroupQuery().groupType(Role.finance_group.toString())
           .singleResult();

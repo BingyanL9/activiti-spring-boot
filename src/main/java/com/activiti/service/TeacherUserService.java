@@ -75,6 +75,19 @@ public class TeacherUserService implements Serializable {
     activitiUser.setEmail(teacherUser.getEmail());
     activitiUser.setLastName(teacherUser.getDisplayName());
     activitiUser.setPassword(teacherUser.getPassword());
+    Group g =
+        identityService.createGroupQuery().groupType(teacherUser.getRole().toString()).singleResult();
+   
+    List<Group> groups = identityService.createGroupQuery().groupMember(activitiUser.getId()).list();
+    if (!groups.contains(g)) {
+      for (Group group : groups) {
+        identityService.deleteMembership(activitiUser.getId(), group.getId());
+      }
+      Group users = identityService.createGroupQuery().groupType("users").singleResult();
+      identityService.createMembership(activitiUser.getId(), users.getId());
+      identityService.createMembership(activitiUser.getId(), g.getId());
+    }
+
     identityService.saveUser(activitiUser);
   }
 

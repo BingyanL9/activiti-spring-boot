@@ -40,6 +40,31 @@
 		  </div>
 	    </div>
 	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">出差事由:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" th:field="*{travelReason}"
+		   placeholder="请输入出差事由" required="required"/>
+		  </div>
+	    </div>
+	    
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">出差人员姓名:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" th:field="*{travelPersonName}"
+		   placeholder="请输入出差人员姓名" required="required"/>
+		  </div>
+	    </div>
+	    
+	      
+	    <div class="form-group required col-md-4">
+		  <label class="control-label col-md-5" for="cardnum">出差人员职务:</label>
+		  <div class="col-md-7">
+		  <input type="text" class="form-control" th:field="*{travelPersonPosition}" 
+		  placeholder="请输入出差人员职务" required="required"/>
+		  </div>
+	    </div>
+	    
 	     <div class="form-group required col-md-4">
 		  <label class="control-label col-md-5" for="college">出差开始时间:</label>
 		    <div class="col-md-7">
@@ -65,30 +90,6 @@
               </div> 
             </div>  
 		 </div>
-	  
-	    <div class="form-group required col-md-4">
-		  <label class="control-label col-md-5" for="cardnum">出差事由:</label>
-		  <div class="col-md-7">
-		  <input type="text" class="form-control" th:field="*{travelReason}"
-		   placeholder="请输入出差事由" required="required"/>
-		  </div>
-	    </div>
-	    
-	    <div class="form-group required col-md-4">
-		  <label class="control-label col-md-5" for="cardnum">出差人员姓名:</label>
-		  <div class="col-md-7">
-		  <input type="text" class="form-control" th:field="*{travelPersonName}"
-		   placeholder="请输入出差人员姓名" required="required"/>
-		  </div>
-	    </div>
-	    
-	    <div class="form-group required col-md-4">
-		  <label class="control-label col-md-5" for="cardnum">出差人员职务:</label>
-		  <div class="col-md-7">
-		  <input type="text" class="form-control" th:field="*{travelPersonPosition}" 
-		  placeholder="请输入出差人员职务" required="required"/>
-		  </div>
-	    </div>
 
 		<div class="col-md-12">
 			<div th:replace="fragments/travel_expense_form :: travel_item_input(0)"></div>
@@ -269,19 +270,6 @@
 	  <script>
 	dateConfiguration();
 	  </script>
-		<div class="form-group required col-md-4">
-			<label class="control-label col-md-5" for="cardnum">车船费产生日期:</label>
-			<div class="col-md-7">
-				<div class='input-group date form_date'
-					data-date-format="yyyy-mm-dd">
-					<input type='text' class="form-control" readonly="readonly"
-						th:name="|travelItems[${travelItemIndex}].date|" required="required"/> 
-						<span class="input-group-addon"> <i
-						class="glyphicon glyphicon-calendar"></i>
-					</span>
-				</div>
-			</div>
-		</div>
 
 		<div class="form-group required col-md-4">
 			<label class="control-label col-md-5" for="cardnum">起止地点:</label>
@@ -304,6 +292,20 @@
 			<div class="col-md-7">
 				<input type="text" class="form-control" th:name="|travelItems[${travelItemIndex}].trafficFare|"
 				 placeholder="请输入途中车船费" required="required" />
+			</div>
+		</div>
+		
+		<div class="form-group required col-md-4">
+			<label class="control-label col-md-5" for="cardnum">车船费产生日期:</label>
+			<div class="col-md-7">
+				<div class='input-group date form_date'
+					data-date-format="yyyy-mm-dd">
+					<input type='text' class="form-control" readonly="readonly"
+						th:name="|travelItems[${travelItemIndex}].date|" required="required"/> 
+						<span class="input-group-addon"> <i
+						class="glyphicon glyphicon-calendar"></i>
+					</span>
+				</div>
 			</div>
 		</div>
 
