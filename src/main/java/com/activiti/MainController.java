@@ -1,7 +1,6 @@
 package com.activiti;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -21,15 +20,14 @@ import com.activiti.model.Application;
 import com.activiti.model.Approval;
 import com.activiti.model.CityTrafficExpenseViewObject;
 import com.activiti.model.DocumentExpenseViewObject;
+import com.activiti.model.Feedback;
 import com.activiti.model.Message;
 import com.activiti.model.OnboardTravelExpenseViewObject;
-import com.activiti.model.Project;
 import com.activiti.model.Role;
 import com.activiti.model.StudentUser;
 import com.activiti.model.TeacherUser;
 import com.activiti.model.TravelExpenseViewObject;
 import com.activiti.model.User;
-import com.activiti.model.Voucher;
 import com.activiti.service.ActivityBudgetApplyService;
 import com.activiti.service.ActivityService;
 import com.activiti.service.ApplicationService;
@@ -37,7 +35,6 @@ import com.activiti.service.ApprovalService;
 import com.activiti.service.ClubUserService;
 import com.activiti.service.MailService;
 import com.activiti.service.MessageService;
-import com.activiti.service.ProjectService;
 import com.activiti.service.StudentUserService;
 import com.activiti.service.TeacherUserService;
 import com.activiti.service.UserService;
@@ -179,8 +176,14 @@ private void InitialGroup(User user) {
     model.put("user", user);
     setRole(model, user);
     logger.debug("Start to show apply list.");
-    List<Application> applications = applicationService.getApplicationsByUser(user.getUserName());
+    List<Application> applications = applicationService.getApplicationsByUser(user.getUserName(), 0, applicationService.PAZESIZE);
+    model.put("applyPageFirst", "true");
+    int pageSize = applicationService.getPageSize(user.getUserName());
+    if( pageSize == 1 || pageSize == 0) {
+      model.put("applyPageLast", "true");
+    }
     model.put("applications", applications);
+    model.put("feedback", new Feedback());
     model.put("menu", "applyList");
     return "applyDashboard";
   }

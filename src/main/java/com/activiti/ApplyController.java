@@ -11,7 +11,6 @@ import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.identity.Group;
 import org.activiti.engine.identity.User;
-import org.activiti.engine.identity.UserQuery;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
@@ -40,6 +39,7 @@ import com.activiti.model.CityTrafficItem;
 import com.activiti.model.ClubUser;
 import com.activiti.model.DocumentExpenseViewObject;
 import com.activiti.model.DocumentItem;
+import com.activiti.model.Feedback;
 import com.activiti.model.OnboardTravelExpenseViewObject;
 import com.activiti.model.OtherItem;
 import com.activiti.model.Payee;
@@ -57,7 +57,6 @@ import com.activiti.service.ApprovalService;
 import com.activiti.service.MailService;
 import com.activiti.service.ProjectService;
 import com.activiti.service.Project_responService;
-import com.activiti.service.StudentUserService;
 import com.activiti.service.TeacherUserService;
 import com.activiti.service.UserService;
 
@@ -626,5 +625,23 @@ public class ApplyController {
       jsonObj.put("result", "Delete Failed!");
     }
     return jsonObj.toString();
+  }
+  
+  @RequestMapping(value = "/applications/page/{page}", method = RequestMethod.GET)
+  public String getStudentUsers(Map<String, Object> model, @PathVariable("page") int page) {
+    logger.debug("Start get apply list by page no : " + page);
+
+    com.activiti.model.User user = userService.getCurrentUser();
+    List<Application> applications = applicationService.getApplicationsByUser(user.getUserName(), page, applicationService.PAZESIZE);
+
+    if (page == 0) {
+      model.put("applyPageFirst", "true");
+    }
+    if (applicationService.getPageSize(user.getUserName()) - 1 == page) {
+      model.put("applyPageLast", "true");
+    }
+    model.put("applications", applications);
+    model.put("feedback", new Feedback());
+    return "fragments/applylist :: applylist";
   }
 }

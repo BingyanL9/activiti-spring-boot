@@ -4,7 +4,6 @@ public class FeedbackViewObject {
 
   private long id;
   private String feedback_time;
-  private boolean isCorrect;
   private String suggest;
   private long applicationId;
   public long getId() {
@@ -18,12 +17,6 @@ public class FeedbackViewObject {
   }
   public void setFeedback_time(String feedback_time) {
     this.feedback_time = feedback_time;
-  }
-  public boolean isCorrect() {
-    return isCorrect;
-  }
-  public void setCorrect(boolean isCorrect) {
-    this.isCorrect = isCorrect;
   }
   public String getSuggest() {
     return suggest;

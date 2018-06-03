@@ -1,15 +1,11 @@
 package com.activiti;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.activiti.engine.IdentityService;
-import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.identity.Group;
-import org.activiti.engine.identity.User;
 import org.activiti.engine.task.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,16 +17,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.activiti.model.Application;
 import com.activiti.model.Approval;
 import com.activiti.model.Approval_status;
-import com.activiti.model.Project;
 import com.activiti.model.Role;
-import com.activiti.model.TeacherUser;
-import com.activiti.service.ApplicationService;
 import com.activiti.service.ApprovalService;
 import com.activiti.service.MailService;
-import com.activiti.service.Project_responService;
 import com.activiti.service.UserService;
 
 @Controller
@@ -41,18 +32,12 @@ public class ApprovalController {
 
   @Autowired
   private ApprovalService approvalService;
-
-  @Autowired
-  private RuntimeService runtimeService;
   
   @Autowired
   private IdentityService identityService;
 
   @Autowired
   private UserService userService;
-  
-  @Autowired
-  private ApplicationService applicationService;
   
   @Autowired
   private MailService mailService;

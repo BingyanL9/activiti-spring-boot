@@ -5,7 +5,7 @@
     port: 25
     username: bingyanl@126.com
     host: smtp.126.com
-    password: LBY951104
+    password: bysj951104
     protocol: smtp
     defaultEncoding: UTF-8
   application:
@@ -35,7 +35,7 @@
     mailServerPost: 25
     mailServerDefaultFrom: bingyanl@126.com
     mailServerUsername: bingyanl@126.com
-    mailServerPassword: LBY951104
+    mailServerPassword: bysj951104
   jpa:
     show-sql: true
     hibernate.ddl-auto: update

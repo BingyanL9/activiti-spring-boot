@@ -1285,7 +1285,7 @@ define(["jquery", "bootstrap", "jqGrid"], function($, bootstrap, jqGrid){
 	    var loadFeedbackTable = function() {
 			$('#feedbackTable').jqGrid({
 	            datatype: "local",
-	            colNames: [ '编号','反馈日期','是否正确','意见','申请单编号'],
+	            colNames: [ '编号','反馈日期','意见','申请单编号'],
 	            colModel: [
 	                {
 	                    name: 'id',
@@ -1297,12 +1297,6 @@ define(["jquery", "bootstrap", "jqGrid"], function($, bootstrap, jqGrid){
 	                {
 	                    name: 'feedback_time',
 	                    index: 'feedback_time',
-	                    width: 150,
-	                    align: 'center'
-	                },
-	                {
-	                    name: 'isCorrect',
-	                    index: 'isCorrect',
 	                    width: 150,
 	                    align: 'center'
 	                },

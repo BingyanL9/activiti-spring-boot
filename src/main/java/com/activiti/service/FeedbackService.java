@@ -25,4 +25,8 @@ public class FeedbackService {
   public Feedback findById(Long id) {
     return feedbackRepository.findOne(id);
   }
+  
+  public void saveFeedback(Feedback fd) {
+    feedbackRepository.save(fd);
+  }
 }

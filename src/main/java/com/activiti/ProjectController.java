@@ -18,7 +18,6 @@ import com.activiti.model.Project;
 import com.activiti.model.ProjectViewObject;
 import com.activiti.model.Project_respon;
 import com.activiti.model.Project_responViewObject;
-import com.activiti.model.StudentUser;
 import com.activiti.model.TeacherUser;
 import com.activiti.service.ProjectService;
 import com.activiti.service.Project_responService;

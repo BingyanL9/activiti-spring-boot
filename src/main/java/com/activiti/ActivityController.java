@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.activiti.model.Activity;
 import com.activiti.model.ActivityViewObject;
-import com.activiti.model.TeacherUser;
 import com.activiti.service.ActivityService;
 
 import net.sf.json.JSONObject;

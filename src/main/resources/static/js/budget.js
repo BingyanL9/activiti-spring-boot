@@ -135,4 +135,39 @@ function nextActivityBudgetFinance(){
 }
 
 
+var page3 = 0;
+function preApplylist(){
+	page3 = page3 - 1;
+	$.ajax({
+		type: "GET",
+		url: "/applications/page/" + page3,
+		success: function(responseHTML) {
+			var container = $("#applyList");
+        	container.empty();
+        	$("#applyList").prepend(responseHTML);
+        },
+        error: function(response, status) {
+            console.log("failed to get apply list page" + page3);
+        }
+	}); 
+}
+
+function nextApplylist(){
+	page3 = page3 + 1;
+	$.ajax({
+		type: "GET",
+		url: "/applications/page/" + page3,
+		success: function(responseHTML) {
+			var container = $("#applyList");
+        	container.empty();
+        	$("#applyList").prepend(responseHTML);
+        },
+        error: function(response, status) {
+            console.log("failed to get apply list page" + page3);
+        }
+	}); 
+}
+
+
+
 	 

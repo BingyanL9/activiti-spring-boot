@@ -17,18 +17,14 @@ public class Feedback {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private long id;
-  
+
   @Column(name = "feedback_time", nullable = false)
   private String feedback_time;
-  
-  @Column(name = "iscorrect", nullable = false, length = 1)
-  private boolean isCorrect;
-  
   @Lob
   @Column(name = "suggest", length = 1024)
   private String suggest;
-  
-  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+
+  @ManyToOne(fetch = FetchType.LAZY)
   private Application application;
 
   public long getId() {
@@ -47,14 +43,6 @@ public class Feedback {
     this.feedback_time = feedback_time;
   }
 
-  public boolean isCorrect() {
-    return isCorrect;
-  }
-
-  public void setCorrect(boolean isCorrect) {
-    this.isCorrect = isCorrect;
-  }
-
   public String getSuggest() {
     return suggest;
   }
@@ -69,6 +57,10 @@ public class Feedback {
 
   public void setApplication(Application application) {
     this.application = application;
+  }
+
+  public Feedback() {
+    super();
   }
 
 }

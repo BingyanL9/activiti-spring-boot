@@ -21,9 +21,6 @@ import com.activiti.service.UserService;
 public class MessageController {
 
 private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
-  
-  @Autowired
-  private UserService userService;
 
   @Autowired
   private MessageService messageService;

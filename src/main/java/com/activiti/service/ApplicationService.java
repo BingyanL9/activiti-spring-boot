@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.activiti.model.Application;
@@ -18,12 +19,18 @@ public class ApplicationService implements Serializable {
   @Autowired
   private ApplicationRepository applicationRepository;
   
+  public static final int PAZESIZE = 10;
+  
   public void save(Application application) {
     applicationRepository.save(application);
   }
   
-  public List<Application> getApplicationsByUser(String userName){
-    return applicationRepository.getApplicationsByUser(userName);
+  public List<Application> getApplicationsByUser(String userName, int offset, int limit){
+    return applicationRepository.getApplicationsByUser(userName, new PageRequest(offset, limit));
+  }
+  
+  public int getPageSize(String userName) {
+    return (applicationRepository.getApplicationsByUser(userName).size()  +  PAZESIZE  - 1) / PAZESIZE; 
   }
   
   public Application findById(Long applicationId) {

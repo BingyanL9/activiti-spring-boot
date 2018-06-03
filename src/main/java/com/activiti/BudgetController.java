@@ -27,7 +27,6 @@ import com.activiti.service.ActivityBudgetApplyService;
 import com.activiti.service.ActivityService;
 import com.activiti.service.ClubUserService;
 import com.activiti.service.MailService;
-import com.activiti.service.ProjectService;
 import com.activiti.service.StudentUserService;
 import com.activiti.service.TeacherUserService;
 import com.activiti.service.UserService;

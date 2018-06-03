@@ -14,12 +14,14 @@
 								<th>申请类型</th>
 								<th>申请时间</th>
 								<th>状态</th>
+								<th>反馈</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr th:each="application,applicationStat : ${applications}">
 								<td th:text="${applicationStat.index}"></td>
-								<td><a data-toggle="modal" data-target="#myModal" th:onclick="'javascript:getApplication(\''+${application.id}+'\');'"
+								<td><a data-toggle="modal" data-target="#myModal"
+									th:onclick="'javascript:getApplication(\''+${application.id}+'\');'"
 									th:text="查看"></a></td>
 								<td
 									th:if="${application.application_type.name() == 'ActivityExpense'}"
@@ -61,12 +63,58 @@
 								<td
 									th:if="${application.approval.approval_statu.name() == 'level_6'}"
 									th:text="六级领导正在审批"></td>
+								<td class="glyphicon glyphicon-share" data-toggle="modal"
+									data-target="#feedbackForm"></td>
+
+								<div class="modal fade" id="feedbackForm" tabindex="-1"
+									role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<form class="form-horizontal" id="feedbackForm"
+												th:method="POST" th:object="${feedback}"
+												th:action="@{'/feedbacks/' + ${application.id}}">
+												<div class="modal-header">
+													<h4 class="modal-title" id="myModalLabel">反馈</h4>
+												</div>
+												<div class="modal-body row">
+													<div class="form-group required row">
+														<div class="col-md-12">
+															<textarea class="form-control" rows="10"
+																th:field="*{suggest}" required="required"></textarea>
+														</div>
+													</div>
+												</div>
+												<div class="modal-footer">
+													<button type="submit" class="btn btn-default">确定</button>
+													<button type="button" class="btn btn-default"
+														data-dismiss="modal" onclick="window.location.reload();">关闭</button>
+												</div>
+											</form>
+										</div>
+										<!-- /.modal-content -->
+									</div>
+									<!-- /.modal -->
+								</div>
 							</tr>
 						</tbody>
 					</table>
+					
+					<nav aria-label="...">
+						<ul class="pager">
+							<li class="previous"
+								th:classappend="${applyPageFirst == 'true' ? 'disabled' : ''}">
+								<a onclick="preApplylist();"><span aria-hidden="true">&larr;</span>
+									Newer</a></li>
+							<li class="next"
+								th:classappend="${applyPageLast == 'true' ? 'disabled' : ''}">
+								<a onclick="nextApplylist();">Older <span aria-hidden="true">&rarr;</span></a></li>
+						</ul>
+					</nav>
 				</div>
 			</div>
+
 		</div>
 	</div>
+
 </body>
 </html>
